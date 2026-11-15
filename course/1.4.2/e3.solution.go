@@ -2,7 +2,7 @@ package main
 
 import "sort"
 
-// Graph maps each service to the services it depends on.
+// Graph maps each word to the words used in its definition.
 type Graph map[string][]string
 
 const (

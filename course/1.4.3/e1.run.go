@@ -4,27 +4,28 @@ import "fmt"
 
 func show(name string, deps map[string][]string) {
 	fmt.Println(name + ":")
-	waves, err := Plan(deps)
+	semesters, err := Plan(deps)
 	if err != nil {
 		fmt.Println("  error:", err)
 		return
 	}
-	for i, w := range waves {
-		fmt.Printf("  wave %d: %v\n", i, w)
+	for i, s := range semesters {
+		fmt.Printf("  semester %d: %v\n", i, s)
 	}
 }
 
 func main() {
-	show("a release", map[string][]string{
-		"web":    {"api"},
-		"api":    {"db", "cache", "queue"},
-		"worker": {"db", "queue"},
+	show("a mathematics curriculum", map[string][]string{
+		"calculus":    {"functions", "algebra"},
+		"functions":   {"algebra"},
+		"probability": {"algebra", "combinatorics"},
+		"statistics":  {"probability", "calculus"},
 	})
 	show("with a cycle", map[string][]string{
-		"web":   {"api"},
-		"api":   {"auth"},
-		"auth":  {"users"},
-		"users": {"api"},
-		"cron":  {"db"},
+		"physics":  {"calculus"},
+		"calculus": {"limits"},
+		"limits":   {"series"},
+		"series":   {"calculus"},
+		"geometry": {"logic"},
 	})
 }

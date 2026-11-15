@@ -1,14 +1,14 @@
 package main
 
-// Graph maps each service to the services it depends on.
+// Graph maps each species to the species it eats.
 type Graph map[string][]string
 
-// DeployFirst returns the services that depend on nothing, sorted.
-func DeployFirst(g Graph) []string {
+// Producers returns the species that eat nothing, sorted.
+func Producers(g Graph) []string {
 	return nil
 }
 
-// SafeToRemove returns the services that no other service depends on, sorted.
-func SafeToRemove(g Graph) []string {
+// ApexPredators returns the species that no other species eats, sorted.
+func ApexPredators(g Graph) []string {
 	return nil
 }

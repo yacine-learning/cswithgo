@@ -6,12 +6,12 @@ import (
 )
 
 func main() {
-	config := map[string]any{
-		"service": "api",
-		"db":      map[string]any{"host": "db.internal", "port": 5432, "tls": map[string]any{"enabled": true}},
-		"ports":   []any{80, 443},
+	jupiter := map[string]any{
+		"name":  "Jupiter",
+		"orbit": map[string]any{"period_days": 4333, "eccentricity": 0.0489, "around": map[string]any{"star": "Sun"}},
+		"moons": []any{"Io", "Europa", "Ganymede", "Callisto"},
 	}
-	flat := Flatten(config)
+	flat := Flatten(jupiter)
 	keys := make([]string, 0, len(flat))
 	for k := range flat {
 		keys = append(keys, k)

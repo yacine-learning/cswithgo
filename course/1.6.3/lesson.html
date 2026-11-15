@@ -5,7 +5,7 @@
 </ul></div>
 
 <h2>The situation</h2>
-<p>You need to sort a 50 GB access log on a machine with 8 GB of RAM: <code>sort</code> does it, and so do databases building an index, and MapReduce between its map and reduce steps. They all use the method of the tape era: sort pieces that fit in memory, write them out as <i>runs</i>, then merge runs. Merging needs only the head of each run in memory, so the runs can be of any size.</p>
+<p>In the 1950s a census or a library catalogue held millions of records on magnetic tape, and the computer's memory held a few thousand. Sorting them used a method that is still how anything larger than memory is sorted: sort pieces that fit in memory, write them out as <i>runs</i>, then merge runs. Merging needs only the head of each run in memory, so the runs can be of any size.</p>
 <pre class="sample">memory: 3 lines        input: g c a h e b f d
 
 runs (sorted pieces):  [a c g] [b e h] [d f]

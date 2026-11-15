@@ -3,11 +3,11 @@ package main
 import "fmt"
 
 func main() {
-	app := &Dir{Name: "app", Files: []File{{"README.md", 2}}, Subdirs: []*Dir{
-		{Name: "src", Files: []File{{"main.go", 12}, {"util.go", 5}}, Subdirs: []*Dir{
-			{Name: "api", Files: []File{{"api.go", 20}}},
+	thesis := &Dir{Name: "thesis", Files: []File{{"abstract.txt", 2}}, Subdirs: []*Dir{
+		{Name: "chapters", Files: []File{{"intro.tex", 12}, {"methods.tex", 5}}, Subdirs: []*Dir{
+			{Name: "figures", Files: []File{{"plot.svg", 20}}},
 		}},
-		{Name: "config", Files: []File{{"app.yml", 1}}},
+		{Name: "data", Files: []File{{"results.csv", 1}}},
 	}}
-	fmt.Println("\ntotal:", DirSize(app, 0))
+	fmt.Println("\ntotal:", DirSize(thesis, 0))
 }

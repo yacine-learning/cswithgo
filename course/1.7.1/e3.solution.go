@@ -6,7 +6,7 @@ import (
 )
 
 type item struct {
-	msg   string
+	word  string
 	count int
 }
 
@@ -19,7 +19,7 @@ func (h minH) Less(i, j int) bool {
 	if h[i].count != h[j].count {
 		return h[i].count < h[j].count
 	}
-	return h[i].msg > h[j].msg
+	return h[i].word > h[j].word
 }
 func (h minH) Swap(i, j int) { h[i], h[j] = h[j], h[i] }
 func (h *minH) Push(x any)   { *h = append(*h, x.(item)) }
@@ -30,22 +30,22 @@ func (h *minH) Pop() any {
 	return x
 }
 
-// TopK returns the k messages with the highest counts, most frequent first;
+// TopK returns the k words with the highest counts, most frequent first;
 // equal counts in alphabetical order. Use container/heap with at most k entries.
 func TopK(counts map[string]int, k int) []string {
 	if k <= 0 {
 		return nil
 	}
 	h := &minH{}
-	for msg, c := range counts {
-		heap.Push(h, item{msg, c})
+	for w, c := range counts {
+		heap.Push(h, item{w, c})
 		if h.Len() > k {
 			heap.Pop(h) // drop the smallest: it cannot be in the top k
 		}
 	}
 	var out []string
 	for h.Len() > 0 {
-		out = append(out, heap.Pop(h).(item).msg)
+		out = append(out, heap.Pop(h).(item).word)
 	}
 	slices.Reverse(out)
 	return out

@@ -5,7 +5,7 @@
 </ul></div>
 
 <h2>The problem</h2>
-<p>"Are there two requests whose sizes add up to the limit?", "Merge these two sorted logs", "Drop the repeated values". The obvious answer compares every pair: n² comparisons, fine for 100 items, not for a million. The data is sorted, and that is information to use.</p>
+<p>"Are there two numbers in this list that add up to 100?", "Merge these two sorted lists of observations", "Drop the repeated values". The obvious answer compares every pair: n² comparisons, fine for 100 items, not for a million. The data is sorted, and that is information to use.</p>
 
 <h2>Where it comes from</h2>
 <p>Two pointers is a technique, not one invention, and it has no single author. Its oldest and most famous use is the <b>merge</b> at the heart of merge sort, which <b>John von Neumann</b> wrote in 1945 for the EDVAC (1.6.1): two sorted runs, one index in each, always take the smaller. Every database join of sorted inputs ("merge join") and every <code>sort -m</code> does the same.</p>

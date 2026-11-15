@@ -5,7 +5,7 @@
 </ul></div>
 
 <h2>The problem</h2>
-<p>You need to keep a sequence: lines of a log, IDs of a batch. Two wishes conflict: reach any element instantly, and add elements without knowing in advance how many there will be. A fixed block of memory gives the first; growing it means finding a bigger block and moving everything.</p>
+<p>You need to keep a sequence: the digits of a number, the moves of a game, the samples of a measurement. Two wishes conflict: reach any element instantly, and add elements without knowing in advance how many there will be. A fixed block of memory gives the first; growing it means finding a bigger block and moving everything.</p>
 
 <h2>Where it comes from</h2>
 <p>Memory has been a row of numbered cells since the first stored-program computers of the late 1940s; an array is simply a run of consecutive cells, and the index is arithmetic on the address. The growing array came later with dynamic languages and libraries. Why "grow by doubling" is cheap was put on firm ground by <b>Robert Tarjan</b> in 1985, who named and formalised <i>amortized analysis</i>: the rare expensive copy is paid for by the many cheap appends around it.</p>

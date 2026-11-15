@@ -43,10 +43,10 @@ func expect(r *Node, t int, want string) func() string {
 
 func main() {
 	base := func() *Node { return build(120, 40, 300, 10, 90, 200, 365, 60) }
-	try("remove the expired ones", expect(base(), 100, "[120 200 300 365]"))
-	try("the root itself expires", expect(base(), 150, "[200 300 365]"))
-	try("nothing expired", expect(base(), 5, "[10 40 60 90 120 200 300 365]"))
-	try("everything expired", expect(base(), 1000, "[]"))
+	try("remove the old ones", expect(base(), 100, "[120 200 300 365]"))
+	try("the root itself is too old", expect(base(), 150, "[200 300 365]"))
+	try("nothing too old", expect(base(), 5, "[10 40 60 90 120 200 300 365]"))
+	try("everything too old", expect(base(), 1000, "[]"))
 	try("t equal to a key keeps that key", expect(base(), 90, "[90 120 200 300 365]"))
 	try("an empty tree", expect(nil, 10, "[]"))
 }

@@ -5,15 +5,15 @@
 </ul></div>
 
 <h2>The problem</h2>
-<p>A hash map finds an exact key in O(1), but knows nothing about order: "which certificate expires next?", "which config was active at 14:32?", "all keys between a and f". A sorted array answers those with binary search, but inserting into the middle of an array moves everything after it. You want sorted order and cheap insertion together.</p>
+<p>A hash map finds an exact key in O(1), but knows nothing about order: "which is the next eclipse after today?", "which geological period was the Earth in 300 million years ago?", "all words between <i>a</i> and <i>f</i>". A sorted array answers those with binary search, but inserting into the middle of an array moves everything after it. You want sorted order and cheap insertion together.</p>
 
 <h2>Where it comes from</h2>
 <p>The binary search tree was discovered independently around 1960 by several people: <b>P. F. Windley</b>, <b>A. D. Booth</b> and <b>A. J. T. Colin</b>, and <b>T. N. Hibbard</b>. Two years later, in 1962, the Soviet mathematicians <b>Georgy Adelson-Velsky</b> and <b>Evgenii Landis</b> published the AVL tree, the first one that rebalances itself after each insertion to keep its height near log₂ n.</p>
 
 <h2>The idea</h2>
 <p>Compare with the root: smaller goes left, larger goes right, and the same question repeats in the subtree, which is a smaller tree: recursion (1.3.1). It is binary search (1.5.1) laid out as pointers, so inserting is just hanging a new leaf where the search ended.</p>
-<details class="fold"><summary>Where you meet trees that stay balanced</summary>
-<p>Self-balancing trees rotate nodes after inserts and deletes so the height stays O(log n) whatever the order of the keys. Linux's process scheduler keeps tasks in a red-black tree ordered by run time; databases keep indexes in B-trees, which are wide balanced trees where each node fills a disk page (8 KB in PostgreSQL) so a lookup reads only 3 or 4 pages.</p>
+<details class="fold"><summary>Trees that stay balanced</summary>
+<p>Self-balancing trees rotate nodes after inserts and deletes so the height stays O(log n) whatever the order of the keys. A B-tree goes further: each node holds hundreds of keys, so the tree is very wide and very shallow, which suits storage read in large blocks: a lookup among millions of keys reads only 3 or 4 nodes.</p>
 </details>
 
 <h2 class="run">Exercises</h2>
@@ -24,4 +24,5 @@
 <details class="fold"><summary>Sources</summary><ul>
 <li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Binary_search_tree" target="_blank" rel="noopener">Binary search tree</a>: invented 1960 by Windley, Booth, Colin and Hibbard; the AVL tree, 1962.</li>
 <li>University of Rochester, <a href="https://cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf" target="_blank" rel="noopener">History of data structures</a> (lecture slides).</li>
+<li>International Commission on Stratigraphy, <a href="https://stratigraphy.org/chart" target="_blank" rel="noopener">International Chronostratigraphic Chart</a>: the dates used in e3, rounded.</li>
 </ul></details>

@@ -2,21 +2,33 @@
   "n": "1.2.1",
   "title": "Arrays and slices",
   "exercises": [
-    { "id": "e1", "kind": "Read", "title": "A growable array",
-      "task": "<code>Vec</code> is a growable array built the way Go's <code>append</code> works underneath: a fixed array, and a bigger copy when it is full. Press <b>Run</b>: it shows each time the array grows, the total number of copies for a million pushes, and how Go's own slices grow." },
-    { "id": "e2", "kind": "Complete", "title": "Write Push",
+    {
+      "id": "e1",
+      "kind": "Read",
+      "title": "A growable array",
+      "task": "<code>Vec</code> is a growable array built the way Go's <code>append</code> works underneath: a fixed array, and a bigger copy when it is full. Press <b>Run</b>: it shows each time the array grows, the total number of copies for a million pushes, and how Go's own slices grow."
+    },
+    {
+      "id": "e2",
+      "kind": "Complete",
+      "title": "Write Push",
       "task": "Fill the two holes in <code>Push</code>: choose the new capacity (double it), then allocate the bigger array and copy the elements. <b>Check</b> also counts the copies: doubling keeps them under 2 per element.",
       "hints": [
         "Growing by one each time works, but copies everything on every push: n²/2 copies in total. Doubling makes growing rare.",
         "When <code>len(v.data)</code> is 0, doubling gives 0: start at 1.",
         "Hole 2: <code>bigger := make([]int, newCap)</code>, a loop that copies <code>v.data[i]</code> into <code>bigger[i]</code> for i below <code>v.n</code> (count each one), then <code>v.data = bigger</code>."
-      ] },
-    { "id": "e3", "kind": "Use", "title": "Two commands, one array",
-      "task": "<code>WithFlag</code> builds a command line from a base list of arguments and one extra flag. Run it: the two commands it builds end up with the same flag. Fix <code>WithFlag</code> so each result has its own array.",
+      ]
+    },
+    {
+      "id": "e3",
+      "kind": "Use",
+      "title": "Two paths, one array",
+      "task": "A search that explores paths (in a maze, a game tree, a family tree) builds each new path as the old path plus one step. <code>Extend</code> does that. Run it: two paths grown from the same prefix end up with the same last step. Fix <code>Extend</code> so each path has its own array.",
       "hints": [
-        "<code>base</code> has spare capacity. <code>append</code> writes into it in place, so both calls write to the same slot of the same array.",
-        "Give the result its own array: <code>make</code> a slice with room for one more element, then <code>copy</code> base into it.",
-        "<code>out := make([]string, len(base), len(base)+1)</code>, <code>copy(out, base)</code>, <code>return append(out, flag)</code>."
-      ] }
+        "<code>prefix</code> has spare capacity. <code>append</code> writes into it in place, so both calls write to the same slot of the same array.",
+        "Give the result its own array: <code>make</code> a slice with room for one more element, then <code>copy</code> the prefix into it.",
+        "<code>out := make([]int, len(prefix), len(prefix)+1)</code>, <code>copy(out, prefix)</code>, <code>return append(out, step)</code>."
+      ]
+    }
   ]
 }

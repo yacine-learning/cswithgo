@@ -2,21 +2,33 @@
   "n": "1.2.2",
   "title": "Hash maps",
   "exercises": [
-    { "id": "e1", "kind": "Read", "title": "A hash map, small enough to read",
-      "task": "Read <code>HashMap</code>: a hash function picks a bucket, each bucket is a short list of entries, and the map doubles its buckets when they get too full. <b>Run</b> prints the buckets for a few host names, then shows the map growing." },
-    { "id": "e2", "kind": "Complete", "title": "Write Get and Put",
+    {
+      "id": "e1",
+      "kind": "Read",
+      "title": "A hash map, small enough to read",
+      "task": "Read <code>HashMap</code>: a hash function picks a bucket, each bucket is a short list of entries, and the map doubles its buckets when they get too full. <b>Run</b> prints the buckets for a few chemical elements, then shows the map growing."
+    },
+    {
+      "id": "e2",
+      "kind": "Complete",
+      "title": "Write Get and Put",
       "task": "The hash function and the growing are given. Fill <code>Get</code> (look in the key's bucket) and <code>Put</code> (replace the value if the key is there, add an entry otherwise).",
       "hints": [
         "Both start the same way: <code>b := m.buckets[m.bucketOf(key)]</code>, then a loop over the entries of that one bucket.",
         "Several keys can land in the same bucket: compare the <i>key</i> of each entry, not just take the first one.",
         "In <code>Put</code>, change the value through the index (<code>m.buckets[i][j].value = value</code>): a <code>range</code> variable is a copy."
-      ] },
-    { "id": "e3", "kind": "Use", "title": "Count status codes",
-      "task": "<code>StatusCounts</code> receives access-log lines like <code>GET /api/users 200 12ms</code>. Return how many times each status code appears, most frequent first (ties: smaller code first). Use a Go map to count, then sort.",
+      ]
+    },
+    {
+      "id": "e3",
+      "kind": "Use",
+      "title": "Word frequencies",
+      "task": "Count the words of a text and return them most frequent first (ties: alphabetical). Words are runs of letters, compared in lower case. Use a Go map to count, then sort. The Run text is the last sentence of Darwin's <i>On the Origin of Species</i> (1859).",
       "hints": [
-        "<code>strings.Fields(line)</code> splits on spaces; the status is the third field.",
-        "Count in a <code>map[string]int</code>, then copy the map into a slice of <code>Count</code>: a map has no order.",
-        "<code>sort.Slice(out, func(i, j int) bool { … })</code>: compare <code>N</code> first, then <code>Code</code>."
-      ] }
+        "<code>strings.FieldsFunc(text, func(r rune) bool { return !unicode.IsLetter(r) })</code> splits on everything that is not a letter.",
+        "Count <code>strings.ToLower(w)</code> in a <code>map[string]int</code>, then copy the map into a slice of <code>Count</code>: a map has no order.",
+        "<code>sort.Slice(out, func(i, j int) bool { … })</code>: compare <code>N</code> first, then <code>Word</code>."
+      ]
+    }
   ]
 }

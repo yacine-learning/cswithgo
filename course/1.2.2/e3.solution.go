@@ -3,33 +3,31 @@ package main
 import (
 	"sort"
 	"strings"
+	"unicode"
 )
 
-// Count is how many log lines had one status code.
+// Count is how many times a word appears.
 type Count struct {
-	Code string
+	Word string
 	N    int
 }
 
-// StatusCounts counts the status codes of access-log lines such as
-// "GET /api/users 200 12ms", most frequent first, then by code.
-func StatusCounts(lines []string) []Count {
+// WordCounts counts the words of text (runs of letters, in lower case),
+// most frequent first, then in alphabetical order.
+func WordCounts(text string) []Count {
 	counts := map[string]int{}
-	for _, l := range lines {
-		f := strings.Fields(l)
-		if len(f) >= 3 {
-			counts[f[2]]++
-		}
+	for _, w := range strings.FieldsFunc(text, func(r rune) bool { return !unicode.IsLetter(r) }) {
+		counts[strings.ToLower(w)]++
 	}
 	out := make([]Count, 0, len(counts))
-	for code, n := range counts {
-		out = append(out, Count{code, n})
+	for w, n := range counts {
+		out = append(out, Count{w, n})
 	}
 	sort.Slice(out, func(i, j int) bool {
 		if out[i].N != out[j].N {
 			return out[i].N > out[j].N
 		}
-		return out[i].Code < out[j].Code
+		return out[i].Word < out[j].Word
 	})
 	return out
 }

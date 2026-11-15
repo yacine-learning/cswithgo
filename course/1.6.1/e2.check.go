@@ -24,8 +24,8 @@ func main() {
 		return ""
 	})
 	try("stable: equal keys keep their order", func() string {
-		got := MergeSort([]Rec{{3, "api-1"}, {1, "web-1"}, {3, "api-2"}, {2, "db-1"}, {1, "web-2"}, {3, "api-3"}})
-		want := "[{1 web-1} {1 web-2} {2 db-1} {3 api-1} {3 api-2} {3 api-3}]"
+		got := MergeSort([]Rec{{3, "Na"}, {1, "H"}, {3, "Mg"}, {2, "Li"}, {1, "He"}, {3, "Al"}})
+		want := "[{1 H} {1 He} {2 Li} {3 Na} {3 Mg} {3 Al}]"
 		if fmt.Sprint(got) != want {
 			return fmt.Sprintf("got %v\n      expected %s", got, want)
 		}

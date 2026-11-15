@@ -3,11 +3,12 @@ package main
 import "fmt"
 
 func main() {
-	base := make([]string, 0, 10) // room for more: as when a slice was built with append
-	base = append(base, "deploy", "--env=prod")
-	canary := WithFlag(base, "--canary")
-	full := WithFlag(base, "--all-regions")
-	fmt.Println("canary:", canary)
-	fmt.Println("full:  ", full)
-	fmt.Println("base:  ", base)
+	// a path through a maze, as a list of room numbers, built with append: it has spare room
+	prefix := make([]int, 0, 10)
+	prefix = append(prefix, 1, 4, 7)
+	left := Extend(prefix, 8)  // explore the left door...
+	right := Extend(prefix, 9) // ...then the right door
+	fmt.Println("left: ", left)
+	fmt.Println("right:", right)
+	fmt.Println("prefix:", prefix)
 }

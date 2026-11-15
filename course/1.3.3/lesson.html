@@ -1,11 +1,11 @@
 <div class="keep"><span class="k">Keep this</span><ul>
 <li>The three depth-first orders differ only in <b>when the node is visited</b>: <b>pre</b>-order before its children, <b>in</b>-order between left and right, <b>post</b>-order after its children.</li>
-<li>In-order on a BST gives the keys <b>sorted</b>. Pre-order: parents first (copy a tree, <code>mkdir -p</code>, serialize). Post-order: children first (<code>rm -rf</code>, <code>du</code>, evaluating an expression).</li>
+<li>In-order on a BST gives the keys <b>sorted</b>. Pre-order: parents first (copy a tree, write it out, build it). Post-order: children first (evaluate an expression, add up sizes, take a tree apart).</li>
 <li>Level by level is a different traversal: it needs a queue, it is breadth-first search (1.4.2).</li>
 </ul></div>
 
 <h2>The problem</h2>
-<p>A tree is not a line: "visit every node" leaves a choice of order, and the order is the whole point. You cannot delete a directory before its files, and you cannot create a file before its directory. To compute <code>3 × (4 + 1)</code> you need <code>4 + 1</code> first.</p>
+<p>A tree is not a line: "visit every node" leaves a choice of order, and the order is the whole point. To compute <code>3 × (4 + 1)</code> you need <code>4 + 1</code> first. A directory can only be created before what it contains, and only removed after.</p>
 
 <h2>Where it comes from</h2>
 <p>The orders were in use before computers, in how formulas are written. In the 1920s the Polish logician <b>Jan Łukasiewicz</b> wrote formulas with the operator first, <code>× 3 + 4 1</code>, which needs no brackets: that is a pre-order of the formula's tree, still called <i>Polish notation</i>. Its mirror image, <code>3 4 1 + ×</code>, is <i>reverse Polish notation</i>, a post-order. In 1957 the Australian <b>Charles Hamblin</b> showed that a machine can evaluate it with a stack (1.2.3), which made compilers much easier to write. The way we write maths, <code>3 × (4 + 1)</code>, is the in-order, and it needs brackets.</p>

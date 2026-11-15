@@ -19,7 +19,7 @@ func show(r *Ring, what string) {
 func main() {
 	r := NewRing(4)
 	show(r, "empty")
-	for _, j := range []string{"job1", "job2", "job3"} {
+	for _, j := range []string{"a", "b", "c"} {
 		r.Enqueue(j)
 		show(r, "enqueue "+j)
 	}
@@ -27,11 +27,11 @@ func main() {
 	show(r, "dequeue "+x)
 	x, _ = r.Dequeue()
 	show(r, "dequeue "+x)
-	for _, j := range []string{"job4", "job5", "job6"} {
+	for _, j := range []string{"d", "e", "f"} {
 		r.Enqueue(j)
 		show(r, "enqueue "+j)
 	}
-	fmt.Println("enqueue job7 when full:", r.Enqueue("job7"))
+	fmt.Println("enqueue g when full:", r.Enqueue("g"))
 	for r.Len() > 0 {
 		x, _ = r.Dequeue()
 		show(r, "dequeue "+x)

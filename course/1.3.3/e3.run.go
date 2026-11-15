@@ -3,16 +3,16 @@ package main
 import "fmt"
 
 func main() {
-	app := &Dir{"app", []*Dir{
-		{"src", []*Dir{{"main.go", nil}, {"api", []*Dir{{"api.go", nil}}}}},
-		{"config", []*Dir{{"app.yml", nil}}},
+	thesis := &Dir{"thesis", []*Dir{
+		{"chapters", []*Dir{{"intro.tex", nil}, {"figures", []*Dir{{"plot.svg", nil}}}}},
+		{"data", []*Dir{{"results.csv", nil}}},
 	}}
-	fmt.Println("create (mkdir, then the files inside):")
-	for _, p := range CreateOrder(app) {
+	fmt.Println("create (a directory before what it contains):")
+	for _, p := range CreateOrder(thesis) {
 		fmt.Println("  ", p)
 	}
-	fmt.Println("delete (like rm -rf does it):")
-	for _, p := range DeleteOrder(app) {
+	fmt.Println("remove (what a directory contains before the directory):")
+	for _, p := range DeleteOrder(thesis) {
 		fmt.Println("  ", p)
 	}
 }

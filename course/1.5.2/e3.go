@@ -1,6 +1,6 @@
 package main
 
-// Entry is one log line at time T (seconds).
+// Entry is one observation at time T (seconds after dusk).
 type Entry struct {
 	T   int
 	Msg string

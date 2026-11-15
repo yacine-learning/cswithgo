@@ -1,7 +1,7 @@
 package main
 
 type Node struct {
-	Key         int // the time a config version took effect
+	Key         int // when a geological period began, in millions of years (negative: ago)
 	Left, Right *Node
 }
 

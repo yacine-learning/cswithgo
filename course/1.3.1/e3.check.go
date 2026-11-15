@@ -10,25 +10,25 @@ func same(got, want map[string]string) string {
 }
 
 func main() {
-	try("a flat config stays flat", func() string {
-		return same(Flatten(map[string]any{"a": 1, "b": "x"}), map[string]string{"a": "1", "b": "x"})
+	try("a flat document stays flat", func() string {
+		return same(Flatten(map[string]any{"name": "Earth", "moons": 1}), map[string]string{"name": "Earth", "moons": "1"})
 	})
 	try("one level of nesting", func() string {
-		return same(Flatten(map[string]any{"db": map[string]any{"host": "x", "port": 5432}}),
-			map[string]string{"db.host": "x", "db.port": "5432"})
+		return same(Flatten(map[string]any{"orbit": map[string]any{"period": 365, "tilt": 23}}),
+			map[string]string{"orbit.period": "365", "orbit.tilt": "23"})
 	})
 	try("deep nesting", func() string {
 		return same(Flatten(map[string]any{"a": map[string]any{"b": map[string]any{"c": map[string]any{"d": true}}}}),
 			map[string]string{"a.b.c.d": "true"})
 	})
 	try("lists use indexes", func() string {
-		return same(Flatten(map[string]any{"ports": []any{80, 443}}), map[string]string{"ports.0": "80", "ports.1": "443"})
+		return same(Flatten(map[string]any{"moons": []any{"Io", "Europa"}}), map[string]string{"moons.0": "Io", "moons.1": "Europa"})
 	})
 	try("maps inside lists", func() string {
-		return same(Flatten(map[string]any{"users": []any{map[string]any{"name": "ana"}, map[string]any{"name": "bo"}}}),
-			map[string]string{"users.0.name": "ana", "users.1.name": "bo"})
+		return same(Flatten(map[string]any{"planets": []any{map[string]any{"name": "Mercury"}, map[string]any{"name": "Venus"}}}),
+			map[string]string{"planets.0.name": "Mercury", "planets.1.name": "Venus"})
 	})
-	try("an empty config", func() string { return same(Flatten(map[string]any{}), map[string]string{}) })
+	try("an empty document", func() string { return same(Flatten(map[string]any{}), map[string]string{}) })
 }
 
 func try(name string, f func() string) {

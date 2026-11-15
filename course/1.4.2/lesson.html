@@ -1,19 +1,19 @@
 <div class="keep"><span class="k">Keep this</span><ul>
 <li><b>BFS</b> (breadth-first) explores level by level with a <b>queue</b> (1.2.4): it finds the shortest path counted in edges (hops).</li>
-<li><b>DFS</b> (depth-first) goes deep first with a <b>stack</b> or recursion (1.2.3, 1.3.1): reachability, cycles, ordering dependencies.</li>
+<li><b>DFS</b> (depth-first) goes deep first with a <b>stack</b> or recursion (1.2.3, 1.3.1): reachability, cycles, ordering things that depend on each other.</li>
 <li>Both need a <b>visited set</b>, or a cycle makes them loop forever. Both are <b>O(nodes + edges)</b>.</li>
 </ul></div>
 
 <h2>The problem</h2>
-<p>Which services break if the database goes down? What is the fewest number of hops from this router to that one? Does this set of dependencies contain a loop that makes deployment impossible? All three are walks through a graph, and a graph, unlike a tree, can lead you back where you have already been.</p>
+<p>Can you turn COLD into WARM by changing one letter at a time, each step a real word, and in how few steps? (Lewis Carroll's word ladders.) Which animals does a poison in the algae of a pond eventually reach? Does a dictionary define a word with words that are themselves defined with that word? All three are walks through a graph, and a graph, unlike a tree, can lead you back where you have already been.</p>
 
 <h2>Where it comes from</h2>
 <p>Depth-first search is older than computers: in the 19th century the French engineer <b>Charles Pierre Trémaux</b> described a way out of any maze by marking the passages you have walked, published by Édouard Lucas in 1882. Breadth-first search was first written by <b>Konrad Zuse</b> in 1945 in his thesis on the Plankalkül language, which was rejected and stayed unpublished until 1972. It was reinvented in 1959 by <b>Edward F. Moore</b> to find the shortest path out of a maze, and in 1961 <b>C. Y. Lee</b> used it to route the wires on circuit boards.</p>
 
 <h2>The idea</h2>
 <p>Same loop, different container. Take a node from the container, visit it, put its unvisited neighbours in. With a queue, the nodes come out in order of distance: everything 1 hop away, then 2 hops. With a stack, the most recent node comes out first, so you dive down one branch before trying the next.</p>
-<details class="fold"><summary>Where you run into them</summary>
-<p>Kubernetes garbage collection follows owner references to delete dependents; <code>go mod graph</code> and package managers walk dependency graphs; a network routing protocol computes shortest paths (with weights, which needs Dijkstra's algorithm, a BFS with a priority queue: 1.7.1). A crawler is a BFS over links.</p>
+<details class="fold"><summary>Where they appear in computing</summary>
+<p>A garbage collector is a graph search: objects are nodes, pointers are edges, and everything not reachable from the program's variables is garbage (module 2). A puzzle solver explores the graph of positions: BFS finds the shortest solution of a sliding puzzle or a Rubik's cube from a given state. With distances on the edges (a road map), the shortest path needs Dijkstra's algorithm, a BFS with a priority queue (1.7.1).</p>
 </details>
 
 <h2 class="run">Exercises</h2>

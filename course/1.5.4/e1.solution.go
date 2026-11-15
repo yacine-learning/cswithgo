@@ -2,7 +2,7 @@ package main
 
 import "sort"
 
-// All three functions receive ts: error timestamps in seconds, sorted, possibly repeated.
+// All three functions receive ts: detection times in seconds, sorted, possibly repeated.
 
 // Count returns how many timestamps t satisfy from <= t < to.
 // It is called many times on the same ts: make it O(log n).

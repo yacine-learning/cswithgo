@@ -2,21 +2,33 @@
   "n": "1.5.2",
   "title": "Two pointers",
   "exercises": [
-    { "id": "e1", "kind": "Read", "title": "Pair sum from both ends",
-      "task": "Read <code>PairSum</code>: on sorted data, a pointer at each end; too small moves the left one, too big moves the right one. <b>Run</b> traces it and counts the steps against the nested-loop version." },
-    { "id": "e2", "kind": "Complete", "title": "Remove duplicates in place",
+    {
+      "id": "e1",
+      "kind": "Read",
+      "title": "Pair sum from both ends",
+      "task": "Read <code>PairSum</code>: on sorted data, a pointer at each end; too small moves the left one, too big moves the right one. <b>Run</b> traces it and counts the steps against the nested-loop version."
+    },
+    {
+      "id": "e2",
+      "kind": "Complete",
+      "title": "Remove duplicates in place",
       "task": "Same direction this time: a slow pointer marks where the next kept value goes, a fast one reads ahead. Fill the loop of <code>Dedup</code>: it compacts a sorted slice in place and returns how many values it kept.",
       "hints": [
         "The first value is always kept: start with <code>k := 1</code> (when the slice is not empty).",
         "For each <code>i</code> from 1: if <code>a[i]</code> differs from the last kept value <code>a[k-1]</code>, copy it to <code>a[k]</code> and move k.",
         "No new slice: the point is O(1) extra memory. The caller uses <code>a[:k]</code>."
-      ] },
-    { "id": "e3", "kind": "Use", "title": "Merge the logs of two pods",
-      "task": "Two pods each wrote a log sorted by time. <code>Merge</code> returns all the entries in time order, in O(n + m), without sorting. On equal times, pod A's entry comes first.",
+      ]
+    },
+    {
+      "id": "e3",
+      "kind": "Use",
+      "title": "Merge two observation logs",
+      "task": "Two observatories each recorded their observations of the same night, sorted by time. <code>Merge</code> returns all the entries in time order, in O(n + m), without sorting. On equal times, observatory A's entry comes first.",
       "hints": [
         "One index into each slice. Take the smaller of <code>a[i]</code> and <code>b[j]</code>, append it, move that index.",
-        "When one log is used up, append the rest of the other one.",
+        "When one list is used up, append the rest of the other one.",
         "\"On equal times A first\": take from a when <code>a[i].T &lt;= b[j].T</code>. That makes the merge <i>stable</i>, which matters for merge sort (1.6.1)."
-      ] }
+      ]
+    }
   ]
 }

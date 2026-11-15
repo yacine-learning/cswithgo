@@ -1,7 +1,7 @@
 package main
 
 type Node struct {
-	Key         int // expiry time of a certificate
+	Key         int // the day an observation was made
 	Left, Right *Node
 }
 
@@ -11,7 +11,7 @@ func DeleteBelow(n *Node, t int) *Node {
 		return nil
 	}
 	if n.Key < t {
-		return DeleteBelow(n.Right, t) // n and its whole left side are expired
+		return DeleteBelow(n.Right, t) // n and its whole left side are too old
 	}
 	n.Left = DeleteBelow(n.Left, t)
 	return n

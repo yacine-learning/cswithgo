@@ -4,10 +4,10 @@ import "fmt"
 
 func main() {
 	for _, s := range []string{
-		`{"ports": [80, 443], "env": {"tier": "prod"}}`,
-		`{"ports": [80, 443}, "env": {}}`,
-		`resource "x" { tags = { a = "b" }`,
-		`list = [1, 2])`,
+		`f(x) = [3 * (x + 1)] / {2 - x}`,
+		`f(x) = [3 * (x + 1)} / 2`,
+		`(define (square x) (* x x)`,
+		`v = [1, 2])`,
 	} {
 		ok, pos := Balanced(s)
 		fmt.Printf("%v %3d  %s\n", ok, pos, s)

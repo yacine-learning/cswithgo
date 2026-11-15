@@ -15,12 +15,22 @@ func insert(n *Node, k int) *Node {
 }
 
 func main() {
-	var versions *Node
-	for _, t := range []int{1400, 900, 1700, 1100, 1530, 2000} { // HHMM when each config went live
-		versions = insert(versions, t)
+	// start of each period, millions of years ago (International Chronostratigraphic Chart, rounded)
+	periods := map[int]string{
+		-539: "Cambrian", -485: "Ordovician", -444: "Silurian", -419: "Devonian", -359: "Carboniferous",
+		-299: "Permian", -252: "Triassic", -201: "Jurassic", -145: "Cretaceous", -66: "Paleogene",
+		-23: "Neogene", -3: "Quaternary",
 	}
-	for _, t := range []int{800, 900, 1432, 1600, 2359} {
-		k, ok := Floor(versions, t)
-		fmt.Printf("at %04d the config active since %04d (found=%v)\n", t, k, ok)
+	var tree *Node
+	for _, start := range []int{-252, -419, -66, -539, -359, -201, -23, -485, -444, -299, -145, -3} {
+		tree = insert(tree, start)
+	}
+	for _, t := range []int{-500, -300, -150, -65, -1, -600} {
+		k, ok := Floor(tree, t)
+		if ok {
+			fmt.Printf("%4d million years: %s (began %d)\n", t, periods[k], k)
+		} else {
+			fmt.Printf("%4d million years: before the Cambrian\n", t)
+		}
 	}
 }

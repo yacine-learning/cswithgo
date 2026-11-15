@@ -41,7 +41,7 @@ func main() {
 		}
 		return ""
 	})
-	try("Busiest on 300 000 errors (O(n))", func() string {
+	try("Busiest on 300 000 detections (O(n))", func() string {
 		big := make([]int, 300000)
 		for i := range big {
 			big[i] = i / 3
@@ -51,7 +51,7 @@ func main() {
 		}
 		return ""
 	})
-	try("50 000 Count queries on 500 000 errors", func() string {
+	try("50 000 Count queries on 500 000 detections", func() string {
 		big := make([]int, 500000)
 		for i := range big {
 			big[i] = i * 2

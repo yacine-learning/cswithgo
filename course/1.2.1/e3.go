@@ -1,7 +1,7 @@
 package main
 
-// WithFlag returns the arguments of base followed by flag.
-// base must not change, and each result must be independent of the others.
-func WithFlag(base []string, flag string) []string {
-	return append(base, flag)
+// Extend returns the path prefix followed by step.
+// prefix must not change, and each result must be independent of the others.
+func Extend(prefix []int, step int) []int {
+	return append(prefix, step)
 }

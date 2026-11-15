@@ -2,14 +2,14 @@ package main
 
 import "sort"
 
-// Graph maps each service to the services it depends on.
+// Graph maps each species to the species it eats.
 type Graph map[string][]string
 
-// DeployFirst returns the services that depend on nothing, sorted.
-func DeployFirst(g Graph) []string {
+// Producers returns the species that eat nothing, sorted.
+func Producers(g Graph) []string {
 	var out []string
-	for s, deps := range g {
-		if len(deps) == 0 {
+	for s, prey := range g {
+		if len(prey) == 0 {
 			out = append(out, s)
 		}
 	}
@@ -17,17 +17,17 @@ func DeployFirst(g Graph) []string {
 	return out
 }
 
-// SafeToRemove returns the services that no other service depends on, sorted.
-func SafeToRemove(g Graph) []string {
-	needed := map[string]int{} // in-degree: how many services depend on it
-	for _, deps := range g {
-		for _, d := range deps {
-			needed[d]++
+// ApexPredators returns the species that no other species eats, sorted.
+func ApexPredators(g Graph) []string {
+	eaten := map[string]int{} // in-degree: how many species eat it
+	for _, prey := range g {
+		for _, p := range prey {
+			eaten[p]++
 		}
 	}
 	var out []string
 	for s := range g {
-		if needed[s] == 0 {
+		if eaten[s] == 0 {
 			out = append(out, s)
 		}
 	}

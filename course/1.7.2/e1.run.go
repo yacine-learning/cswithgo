@@ -3,12 +3,12 @@ package main
 import "fmt"
 
 func main() {
-	pods := [][]Entry{
-		{{100, "pod-0 GET /cart"}, {103, "pod-0 200"}, {110, "pod-0 GET /pay"}},
-		{{101, "pod-1 GET /cart"}, {103, "pod-1 500"}},
-		{{99, "pod-2 started"}, {120, "pod-2 GET /health"}},
+	stations := [][]Entry{
+		{{100, "Basel 4.1°C"}, {103, "Basel 3.9°C"}, {110, "Basel 3.2°C, rain"}},
+		{{101, "Geneva 6.0°C"}, {103, "Geneva 5.4°C, wind 40 km/h"}},
+		{{99, "Säntis -8.5°C"}, {120, "Säntis -9.1°C, snow"}},
 	}
-	for _, e := range MergeAll(pods) {
+	for _, e := range MergeAll(stations) {
 		fmt.Println(e.T, e.Msg)
 	}
 }

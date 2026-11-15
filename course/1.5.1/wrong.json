@@ -1,7 +1,52 @@
 [
-  {"ex": "e2", "name": "your first loop condition", "replace": [["\tfor left <= right {", "\tfor right-left > 1 {"]], "expect": "first element|last element"},
-  {"ex": "e2", "name": "left < right", "replace": [["\tfor left <= right {", "\tfor left < right {"]], "expect": "element"},
-  {"ex": "e2", "name": "left = mid (never shrinks)", "replace": [["\t\t\tleft = mid + 1", "\t\t\tleft = mid"]], "expect": "TIMEOUT"},
-  {"ex": "e3", "name": "linear scan", "file": "package main\n\nfunc FirstBad(n int, isBad func(build int) bool) int {\n\tfor b := 0; b < n; b++ {\n\t\tif isBad(b) {\n\t\t\treturn b\n\t\t}\n\t}\n\treturn n\n}\n", "expect": "calls to isBad"},
-  {"ex": "e3", "name": "hi = n - 1 (cannot answer n)", "replace": [["\tlo, hi := 0, n // the answer is in [lo, hi]", "\tlo, hi := 0, n-1"]], "expect": "no build is bad|no builds|panic"}
+ {
+  "ex": "e2",
+  "name": "your first loop condition",
+  "replace": [
+   [
+    "\tfor left <= right {",
+    "\tfor right-left > 1 {"
+   ]
+  ],
+  "expect": "first element|last element"
+ },
+ {
+  "ex": "e2",
+  "name": "left < right",
+  "replace": [
+   [
+    "\tfor left <= right {",
+    "\tfor left < right {"
+   ]
+  ],
+  "expect": "element"
+ },
+ {
+  "ex": "e2",
+  "name": "left = mid (never shrinks)",
+  "replace": [
+   [
+    "\t\t\tleft = mid + 1",
+    "\t\t\tleft = mid"
+   ]
+  ],
+  "expect": "TIMEOUT"
+ },
+ {
+  "ex": "e3",
+  "name": "linear scan",
+  "file": "package main\n\nfunc FirstTrue(n int, holds func(k int) bool) int {\n\tfor k := 0; k < n; k++ {\n\t\tif holds(k) {\n\t\t\treturn k\n\t\t}\n\t}\n\treturn n\n}\n",
+  "expect": "calls to holds"
+ },
+ {
+  "ex": "e3",
+  "name": "hi = n - 1 (cannot answer n)",
+  "replace": [
+   [
+    "\tlo, hi := 0, n // the answer is in [lo, hi]",
+    "\tlo, hi := 0, n-1"
+   ]
+  ],
+  "expect": "never true|no candidates|panic"
+ }
 ]

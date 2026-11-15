@@ -13,7 +13,7 @@ func expect(s string, wantOK bool, wantPos int) func() string {
 }
 
 func main() {
-	try("balanced config", expect(`{"a": [1, (2)], "b": {}}`, true, -1))
+	try("a balanced formula", expect(`{a + [1 * (2 - b)]} / {c}`, true, -1))
 	try("no brackets at all", expect("plain text", true, -1))
 	try("empty string", expect("", true, -1))
 	try("wrong kind of closer", expect("{[}]", false, 2))

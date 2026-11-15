@@ -1,20 +1,17 @@
 package main
 
-// Limiter allows at most Limit requests in any window of Window seconds.
-type Limiter struct {
-	Limit, Window int
-	times         []int // times of the allowed requests still in the window, oldest first
+// Counter reports how many clicks happened in the last Window seconds.
+type Counter struct {
+	Window int
+	times  []int // times of the clicks still in the window, oldest first
 }
 
-// Allow is called for each request, with non-decreasing times (seconds).
-// It returns true if the request is allowed, false if it must be refused.
-func (l *Limiter) Allow(now int) bool {
-	for len(l.times) > 0 && l.times[0] <= now-l.Window {
-		l.times = l.times[1:]
+// Click records a click at time now (times never decrease) and returns the number
+// of clicks in the window (now-Window, now], this one included.
+func (c *Counter) Click(now int) int {
+	for len(c.times) > 0 && c.times[0] <= now-c.Window {
+		c.times = c.times[1:]
 	}
-	if len(l.times) < l.Limit {
-		l.times = append(l.times, now)
-		return true
-	}
-	return false
+	c.times = append(c.times, now)
+	return len(c.times)
 }

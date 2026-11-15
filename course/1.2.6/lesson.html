@@ -5,16 +5,22 @@
 </ul></div>
 
 <h2>The situation</h2>
-<p>A tracing tool (OpenTelemetry, Jaeger, a CI system's timing log) records when each step of a job starts and ends. Steps nest: the <code>test</code> step runs inside <code>build</code>, which runs inside <code>pipeline</code>. You want to know where the time goes, and you want a broken trace to be rejected with a precise message rather than a wrong report.</p>
-<pre class="sample">10 start pipeline
-12 start build
-15 start test
-41 end test
-44 end build
-45 start deploy
-60 end deploy
-61 end pipeline</pre>
-<p>Here <code>pipeline</code> took 51, <code>test</code> 26, <code>deploy</code> 15, <code>build</code> 32 (it includes the test), and the deepest nesting is 3.</p>
+<p>A <i>profiler</i> records, while a program runs, when each function is entered and when it returns. Calls nest, because the call stack (1.3.1) is a stack: <code>lex</code> is called inside <code>parse</code>, which is called inside <code>main</code>, and the last function entered is the first to return. From such a trace you can tell where the time goes, and you can tell when a trace is corrupt: a return that does not match the innermost open call.</p>
+<p>Profiling is old: <code>gprof</code>, from Berkeley in 1982, already drew the call graph of a program with the time spent in each function. Go ships its own, <code>pprof</code>.</p>
+<pre class="sample">10 start main
+12 start parse
+15 start lex
+41 end lex
+44 end parse
+45 start eval
+60 end eval
+61 end main</pre>
+<p>Here <code>main</code> took 51, <code>lex</code> 26, <code>eval</code> 15, <code>parse</code> 32 (it includes the call to lex), and the deepest nesting is 3.</p>
 
 <h2 class="run">Exercise</h2>
 <div data-ex="e1"></div>
+
+<details class="fold"><summary>Sources</summary><ul>
+<li>S. L. Graham, P. B. Kessler and M. K. McKusick, <i>gprof: a Call Graph Execution Profiler</i>, SIGPLAN Symposium on Compiler Construction, 1982.</li>
+<li><a href="https://pkg.go.dev/runtime/pprof" target="_blank" rel="noopener">runtime/pprof</a>, Go standard library.</li>
+</ul></details>

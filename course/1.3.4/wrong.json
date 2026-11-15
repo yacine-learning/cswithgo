@@ -1,7 +1,57 @@
 [
-  {"ex": "e2", "name": "two children: uses the left minimum", "replace": [["\tn.Key = Min(n.Right)\n\tn.Right = Delete(n.Right, n.Key)", "\tn.Key = Min(n.Left)\n\tn.Left = Delete(n.Left, n.Key)"]], "expect": "two children|wrong side"},
-  {"ex": "e2", "name": "two children: forgets to delete the successor", "replace": [["\tn.Right = Delete(n.Right, n.Key)\n", ""]], "expect": "two children|wrong side"},
-  {"ex": "e2", "name": "one child: drops the subtree", "replace": [["\t\treturn n.Right // no child (nil), or only a right child: it takes n's place", "\t\treturn nil"]], "expect": "only a right child"},
-  {"ex": "e3", "name": "drops the right side too", "replace": [["\t\treturn DeleteBelow(n.Right, t) // n and its whole left side are expired", "\t\treturn nil"]], "expect": "root itself expires|remove the expired"},
-  {"ex": "e3", "name": "uses <=", "replace": [["\tif n.Key < t {", "\tif n.Key <= t {"]], "expect": "equal to a key"}
+ {
+  "ex": "e2",
+  "name": "two children: uses the left minimum",
+  "replace": [
+   [
+    "\tn.Key = Min(n.Right)\n\tn.Right = Delete(n.Right, n.Key)",
+    "\tn.Key = Min(n.Left)\n\tn.Left = Delete(n.Left, n.Key)"
+   ]
+  ],
+  "expect": "two children|wrong side"
+ },
+ {
+  "ex": "e2",
+  "name": "two children: forgets to delete the successor",
+  "replace": [
+   [
+    "\tn.Right = Delete(n.Right, n.Key)\n",
+    ""
+   ]
+  ],
+  "expect": "two children|wrong side"
+ },
+ {
+  "ex": "e2",
+  "name": "one child: drops the subtree",
+  "replace": [
+   [
+    "\t\treturn n.Right // no child (nil), or only a right child: it takes n's place",
+    "\t\treturn nil"
+   ]
+  ],
+  "expect": "only a right child"
+ },
+ {
+  "ex": "e3",
+  "name": "drops the right side too",
+  "replace": [
+   [
+    "\t\treturn DeleteBelow(n.Right, t) // n and its whole left side are too old",
+    "\t\treturn nil"
+   ]
+  ],
+  "expect": "root itself is too old|remove the old"
+ },
+ {
+  "ex": "e3",
+  "name": "uses <=",
+  "replace": [
+   [
+    "\tif n.Key < t {",
+    "\tif n.Key <= t {"
+   ]
+  ],
+  "expect": "equal to a key"
+ }
 ]

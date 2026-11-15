@@ -21,21 +21,21 @@ func isCycle(g Graph, p []string) string {
 
 func main() {
 	try("no cycle in a DAG", func() string {
-		g := Graph{"web": {"api"}, "api": {"db", "cache"}, "worker": {"db", "cache"}, "db": nil, "cache": nil}
+		g := Graph{"puppy": {"young", "dog"}, "kitten": {"young", "cat"}, "dog": {"animal"}, "cat": {"animal"}, "young": nil, "animal": nil}
 		if c := FindCycle(g); c != nil {
-			return fmt.Sprintf("FindCycle = %v on a graph without a cycle (two services sharing a dependency is not a cycle)", c)
+			return fmt.Sprintf("FindCycle = %v on a graph without a cycle (two words sharing a word in their definitions is not a cycle)", c)
 		}
 		return ""
 	})
 	try("a three-node cycle", func() string {
-		g := Graph{"web": {"api"}, "api": {"auth", "db"}, "auth": {"users"}, "users": {"api"}, "db": nil}
+		g := Graph{"huge": {"big"}, "big": {"large", "size"}, "large": {"great"}, "great": {"big"}, "size": nil}
 		c := FindCycle(g)
 		if c == nil {
-			return "no cycle found in api -> auth -> users -> api"
+			return "no cycle found in big -> large -> great -> big"
 		}
 		return isCycle(g, c)
 	})
-	try("a node that depends on itself", func() string {
+	try("a word defined by itself", func() string {
 		g := Graph{"a": {"a"}}
 		c := FindCycle(g)
 		if c == nil {

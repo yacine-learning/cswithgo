@@ -1,16 +1,27 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
+
+// digits of n! = floor(log10(1) + log10(2) + … + log10(n)) + 1
+func factorialDigits(n int) int {
+	s := 0.0
+	for k := 2; k <= n; k++ {
+		s += math.Log10(float64(k))
+	}
+	return int(s) + 1
+}
 
 func main() {
-	calls := 0
-	firstBroken := 6123
-	isBad := func(b int) bool {
-		calls++
-		bad := b >= firstBroken
-		fmt.Printf("  test build %5d: %v\n", b, map[bool]string{true: "bad", false: "good"}[bad])
-		return bad
+	tests := 0
+	holds := func(n int) bool {
+		tests++
+		d := factorialDigits(n)
+		fmt.Printf("  %5d! has %5d digits\n", n, d)
+		return d >= 1000
 	}
-	got := FirstBad(10000, isBad)
-	fmt.Printf("first bad build: %d, found with %d test runs out of 10 000 builds\n", got, calls)
+	n := FirstTrue(10000, holds)
+	fmt.Printf("the first n with n! of at least 1 000 digits: %d, found with %d tests out of 10 000 candidates\n", n, tests)
 }

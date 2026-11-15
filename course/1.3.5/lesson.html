@@ -1,20 +1,20 @@
 <div class="keep"><span class="k">What this project practises</span><ul>
 <li><b>Building a tree</b> from flat data, with a map of children per node (1.2.2).</li>
-<li><b>Recursion</b> that returns a value up the tree (1.3.1), in <b>post-order</b> (1.3.3): a directory's size needs its children's first.</li>
+<li><b>Recursion</b> that returns a value up the tree (1.3.1), in <b>post-order</b> (1.3.3): a folder's size needs its children's first.</li>
 <li>Output in a <b>stable order</b>: sort the children's names, never trust map order.</li>
 </ul></div>
 
 <h2>The situation</h2>
-<p>A disk is full and you want to know which directory is to blame: that is <code>du -d 1</code>. The input is what <code>find . -type f -printf '%p %s\n'</code> gives: every file with its size. <code>du</code> prints a directory after everything inside it, because it only knows a directory's size once it has added up its contents.</p>
-<pre class="sample">app/README.md 2
-app/src/main.go 12
-app/src/api/api.go 20
-app/config/app.yml 1
+<p>A file system is a tree, but it is often described as a flat list: every file with its full path. Rebuilding the tree from the paths, then adding up sizes from the leaves to the root, is a small model of what a file system does each time it reports how much space a folder takes. A folder's size is only known once everything inside it has been added up: the children come first.</p>
+<pre class="sample">thesis/abstract.txt 2
+thesis/chapters/intro.tex 12
+thesis/chapters/figures/plot.svg 20
+thesis/data/results.csv 1
 
-$ du -d 1          (this project's version)
-1	app/config
-32	app/src
-35	app</pre>
+depth 1:
+32	thesis/chapters
+1	thesis/data
+35	thesis</pre>
 
 <h2 class="run">Exercise</h2>
 <div data-ex="e1"></div>

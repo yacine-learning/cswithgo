@@ -5,7 +5,7 @@
     {
       "id": "e1",
       "kind": "Read",
-      "title": "The size of a directory, like du",
+      "title": "The size of a directory",
       "task": "Read <code>DirSize</code>: the size of a directory is its files plus the size of each subdirectory, and a subdirectory is a smaller directory. <b>Run</b> traces each call: watch a call <i>pause</i> while the call inside it runs, then <i>resume</i> on the next line. The indentation is the depth of the call stack."
     },
     {
@@ -23,8 +23,8 @@
     {
       "id": "e3",
       "kind": "Use",
-      "title": "Flatten a nested config",
-      "task": "Turn a nested config (as decoded from YAML or JSON) into flat keys, the way environment variables or Helm <code>--set</code> flags name them: <code>{\"db\": {\"host\": \"x\"}}</code> becomes <code>db.host=x</code>. Lists use their index: <code>ports.0</code>. A nested map is a smaller config: recursion.",
+      "title": "Flatten a nested document",
+      "task": "A nested document (as read from JSON) is a tree. Turn it into flat paths to its leaves: <code>{\"orbit\": {\"period\": 365}}</code> becomes <code>orbit.period=365</code>. Lists use their index: <code>moons.0</code>. A nested map is a smaller document: recursion.",
       "hints": [
         "Write a helper <code>walk(prefix string, v any, out map[string]string)</code> and call it on each top-level key.",
         "A type switch on <code>v</code>: <code>map[string]any</code> and <code>[]any</code> recurse with a longer prefix; anything else is a leaf: <code>out[prefix] = fmt.Sprint(v)</code>.",

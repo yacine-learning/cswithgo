@@ -14,20 +14,20 @@ func show(g Graph) {
 	for _, n := range names {
 		outs := append([]string(nil), g[n]...)
 		sort.Strings(outs)
-		fmt.Printf("  %-8s -> %v\n", n, outs)
+		fmt.Printf("  %-12s -> %v\n", n, outs)
 	}
 }
 
 func main() {
 	g := Graph{}
-	g.AddEdge("web", "api")
-	g.AddEdge("api", "db")
-	g.AddEdge("api", "cache")
-	g.AddEdge("worker", "db")
-	g.AddEdge("worker", "queue")
-	g.AddEdge("api", "queue")
-	fmt.Println("depends on:")
+	g.AddEdge("fox", "rabbit")
+	g.AddEdge("fox", "mouse")
+	g.AddEdge("owl", "mouse")
+	g.AddEdge("rabbit", "grass")
+	g.AddEdge("mouse", "seeds")
+	g.AddEdge("mouse", "grass")
+	fmt.Println("eats:")
 	show(g)
-	fmt.Println("\nneeded by (the reverse graph):")
+	fmt.Println("\neaten by (the reverse graph):")
 	show(g.Reverse())
 }

@@ -48,8 +48,8 @@
   "name": "ties the wrong way",
   "replace": [
    [
-    "\treturn h[i].msg > h[j].msg",
-    "\treturn h[i].msg < h[j].msg"
+    "\treturn h[i].word > h[j].word",
+    "\treturn h[i].word < h[j].word"
    ]
   ],
   "expect": "tie"

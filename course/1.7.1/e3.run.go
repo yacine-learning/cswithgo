@@ -1,11 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+	"unicode"
+)
 
 func main() {
-	counts := map[string]int{
-		"connection refused": 412, "timeout": 977, "401 unauthorized": 58,
-		"disk full": 3, "502 bad gateway": 412, "DNS lookup failed": 120,
+	text := `In the beginning God created the heaven and the earth. And the earth was without form,
+and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face
+of the waters. And God said, Let there be light: and there was light.`
+	counts := map[string]int{}
+	for _, w := range strings.FieldsFunc(strings.ToLower(text), func(r rune) bool { return !unicode.IsLetter(r) }) {
+		counts[w]++
 	}
-	fmt.Println("top 3:", TopK(counts, 3))
+	fmt.Println("top 5:", TopK(counts, 5))
 }

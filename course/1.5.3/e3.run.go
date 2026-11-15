@@ -1,10 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
-	ids := []string{"u1", "u2", "u1", "u3", "u4", "u5", "u3", "u6"}
-	s, n := LongestUnique(ids)
-	fmt.Println("ids:", ids)
-	fmt.Printf("longest run without a repeat: %v (start %d, length %d)\n", ids[s:s+n], s, n)
+	words := strings.Fields("it was the best of times it was the worst of times")
+	s, n := LongestUnique(words)
+	fmt.Println(words)
+	fmt.Printf("longest run without a repeated word: %v (start %d, length %d)\n", words[s:s+n], s, n)
 }

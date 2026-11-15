@@ -1,7 +1,7 @@
 package main
 
 type Node struct {
-	Key         int // expiry time of a certificate
+	Key         int // the day an observation was made
 	Left, Right *Node
 }
 

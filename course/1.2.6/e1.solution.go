@@ -7,10 +7,10 @@ import (
 	"strings"
 )
 
-// Report summarises a trace.
+// Report summarises a call trace.
 type Report struct {
-	Durations map[string]int // total time of each span name (a name can appear several times)
-	MaxDepth  int            // deepest nesting: 1 when spans never nest
+	Durations map[string]int // total time of each function (a function can be called several times)
+	MaxDepth  int            // deepest nesting: 1 when calls never nest
 	Slowest   []string       // up to 3 names, longest total first; ties in name order
 }
 
@@ -20,14 +20,14 @@ type open struct {
 }
 
 // Analyze reads a trace: lines "TIME start NAME" and "TIME end NAME", where TIME is an
-// integer and never decreases. Spans nest: an "end" must close the innermost open span.
+// integer and never decreases. Calls nest: an "end" must close the innermost open call.
 //
 // It returns the first problem as an error that names the line (counting from 1):
 //
 //	"line 3: cannot read \"oops\""         a line that is not TIME start|end NAME
-//	"line 5: end test but nothing is open"
-//	"line 5: end test but build is open"   (build is the innermost open span)
-//	"end of log: build is still open"      (the innermost span left open)
+//	"line 5: end lex but nothing is open"
+//	"line 5: end lex but parse is open"   (parse is the innermost open call)
+//	"end of trace: parse is still open"      (the innermost call left open)
 func Analyze(lines []string) (Report, error) {
 	r := Report{Durations: map[string]int{}}
 	var stack []open
@@ -57,7 +57,7 @@ func Analyze(lines []string) (Report, error) {
 		r.Durations[name] += t - top.start
 	}
 	if len(stack) > 0 {
-		return Report{}, fmt.Errorf("end of log: %s is still open", stack[len(stack)-1].name)
+		return Report{}, fmt.Errorf("end of trace: %s is still open", stack[len(stack)-1].name)
 	}
 	for name := range r.Durations {
 		r.Slowest = append(r.Slowest, name)

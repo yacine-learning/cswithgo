@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	// routers; links go both ways
+	// towns and the roads between them; roads go both ways
 	g := Graph{}
 	link := func(a, b string) { g[a] = append(g[a], b); g[b] = append(g[b], a) }
 	link("A", "B")

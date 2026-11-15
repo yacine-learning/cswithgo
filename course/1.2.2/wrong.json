@@ -37,7 +37,7 @@
   "name": "no sort",
   "replace": [
    [
-    "\tsort.Slice(out, func(i, j int) bool {\n\t\tif out[i].N != out[j].N {\n\t\t\treturn out[i].N > out[j].N\n\t\t}\n\t\treturn out[i].Code < out[j].Code\n\t})\n",
+    "\tsort.Slice(out, func(i, j int) bool {\n\t\tif out[i].N != out[j].N {\n\t\t\treturn out[i].N > out[j].N\n\t\t}\n\t\treturn out[i].Word < out[j].Word\n\t})\n",
     "\t_ = sort.Slice\n"
    ]
   ],
@@ -48,10 +48,21 @@
   "name": "ties not ordered",
   "replace": [
    [
-    "\t\treturn out[i].Code < out[j].Code\n",
+    "\t\treturn out[i].Word < out[j].Word\n",
     "\t\treturn false\n"
    ]
   ],
   "expect": "ties|different orders"
+ },
+ {
+  "ex": "e3",
+  "name": "case-sensitive",
+  "replace": [
+   [
+    "\t\tcounts[strings.ToLower(w)]++",
+    "\t\tcounts[w]++"
+   ]
+  ],
+  "expect": "upper and lower case"
  }
 ]

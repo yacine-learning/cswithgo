@@ -3,14 +3,17 @@
 > Project memory. Keep **State** current and commit it with the rest.
 
 ## What this is
-A web course: computer science with Go, for one student. The user is the **student**, a DevOps engineer without a CS degree; I (Claude) am the **teacher**. Lessons, exercises and the real Go compiler run in one static page (GitHub Pages, no backend). Read `README.md` for the layout and how to run it.
+A web course: computer science with Go, for one student. The user is the **student**, who never studied computer science at university; I (Claude) am the **teacher**. Lessons, exercises and the real Go compiler run in one static page (GitHub Pages, no backend). Read `README.md` for the layout and how to run it.
 
-**The goal (the student's words):** not four years of a bachelor's degree, but its nectar: what a working engineer will actually remember and use. If an idea will not be remembered or used in five years, cut it. Do not fold it away: cut it.
+**The goal (the student's words):** not four years of a bachelor's degree, but its nectar: the ideas worth remembering in five years. If an idea will not be remembered, cut it. Do not fold it away: cut it.
+
+**Science, not jobs (the student's rule, said more than once; I broke it once and was corrected on 2026-11-15).** The course is about computer science for its own sake, not about DevOps or any job. No workplace framing: no services, deployments, pods, CI, configs, logs, incidents, dashboards, rate limiters, tools of the trade (kubectl, Helm, Terraform, git bisect, du…). Examples and exercises come from mathematics, the natural sciences, language, games, history, and computer science itself (compilers, the call stack, number theory, graphs of the natural world). The student's job is never the motivation.
 
 ## State (update me)
 - **2026-11-15:** playground (compiler, editor, runner) copied from gosock-web, standard library rebuilt without its simulated kernel. Lesson app and **1.1.1 Big O** written as the sample of the format.
 - **2026-11-15, module 1 written** at the student's request ("write the entire module 1"): 24 lessons (1.1.1 to 1.7.2, 6 of them chapter projects), 60 exercises. Every history fact was searched and is cited in the lesson's Sources fold. Lessons that cover what we did in chat reuse the student's real mistakes as hints (binary search `right-left > 1` and `left = mid`, the parent-tracking BST delete that broke on the root, the slice-queue memory issue, the counted visited nodes).
 - **Verified (2026-11-15):** `python3 tools/verify.py` (native Go 1.24.7): all 60 exercises, starting code fails, solution passes, 2-5 wrong variants each caught. `node test/all.mjs` in headless Chromium: all 60 pass in the page (starting code fails Check, solution passes Check and Run, Read exercises exit 0). `test/course.mjs` (17) and `test/playground.mjs` (8) pass. **Not verified:** wrong variants in the browser (only natively), Firefox, Safari, small screens, the live GitHub Pages site. The student has not used module 1 yet.
+- **2026-11-15, science not jobs:** the student corrected me: the course had drifted into DevOps framing (services, pods, CI, configs, rate limiters, git bisect, du). Every exercise and lesson was rewritten around science and mathematics (food webs, geological periods, word ladders, circular definitions, a Geiger counter, meteor showers, weather stations, the periodic table, Darwin's last sentence, CTSS time-sharing, gprof); algorithms and checks unchanged in substance. Re-verified: verify.py 60/60, test/all.mjs 60/60, course.mjs passes.
 - **Next:** the student works through module 1 and reports; then the Send button (commits to the `submissions` branch, fine-grained token kept in the browser); then module 2 (how a program runs).
 
 ## Every lesson, in this order
@@ -21,7 +24,7 @@ A web course: computer science with Go, for one student. The user is the **stude
 5. **Exercises** (Go, in the page), easy to harder, following *fading* (worked example, then completion, then an independent problem: Sweller, Renkl):
    - **Read**: a reference implementation to run and trace. Use the real Go standard library source when it has one (`container/heap`, `container/list`, `sort.Search`).
    - **Complete**: the same code with holes. The reference stays folded in the lesson, not next to the holes.
-   - **Use**: a problem that needs the idea, preferably one a DevOps engineer meets.
+   - **Use**: a problem that needs the idea, taken from science, mathematics or computing itself (never from a job).
 6. **Chapter project** at the end of each chapter: a bigger exercise mixing the chapter's ideas, its own lesson number (1.2.6, 1.3.5…), kind `Project`. A project page has "What this project practises" (instead of Keep this), "The situation", optionally a `<pre class="sample">`, and one exercise whose spec is in the comments of its file. No history section unless the method has a named origin (Kahn 1962 in 1.4.3).
 
 Not allowed: long prose, scoring, timers, emoji, praise. Performance claims only from something the student runs (step counts, `testing.Benchmark`), never invented numbers.

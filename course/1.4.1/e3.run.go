@@ -3,15 +3,16 @@ package main
 import "fmt"
 
 func main() {
-	g := Graph{
-		"web":    {"api"},
-		"api":    {"db", "cache", "queue"},
-		"worker": {"db", "queue"},
-		"admin":  {"db"},
-		"db":     nil,
-		"cache":  nil,
-		"queue":  nil,
+	pond := Graph{
+		"heron":     {"frog", "fish"},
+		"frog":      {"dragonfly", "snail"},
+		"fish":      {"dragonfly", "algae"},
+		"dragonfly": {"mosquito"},
+		"mosquito":  {"algae"},
+		"snail":     {"algae", "pondweed"},
+		"algae":     nil,
+		"pondweed":  nil,
 	}
-	fmt.Println("deploy first:  ", DeployFirst(g))
-	fmt.Println("safe to remove:", SafeToRemove(g))
+	fmt.Println("producers:      ", Producers(pond))
+	fmt.Println("apex predators: ", ApexPredators(pond))
 }

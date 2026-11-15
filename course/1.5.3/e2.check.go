@@ -2,32 +2,32 @@ package main
 
 import "fmt"
 
-func expect(limit, window int, times []int, want string) func() string {
+func expect(window int, times []int, want string) func() string {
 	return func() string {
-		l := &Limiter{Limit: limit, Window: window}
-		var got []bool
+		c := &Counter{Window: window}
+		var got []int
 		for _, t := range times {
-			got = append(got, l.Allow(t))
+			got = append(got, c.Click(t))
 		}
 		if fmt.Sprint(got) != want {
-			return fmt.Sprintf("limit %d per %d s, requests at %v:\n      allowed %v\n      expected %s", limit, window, times, got, want)
+			return fmt.Sprintf("window %d s, clicks at %v:\n      counts %v\n      expected %s", window, times, got, want)
 		}
 		return ""
 	}
 }
 
 func main() {
-	try("a burst is cut at the limit", expect(3, 10, []int{0, 1, 2, 3, 4}, "[true true true false false]"))
-	try("a request leaves the window after Window seconds", expect(3, 10, []int{0, 1, 2, 9, 10, 11, 12}, "[true true true false true true true]"))
-	try("refused requests do not count", expect(2, 10, []int{0, 0, 0, 0, 10, 10, 10}, "[true true false false true true false]"))
-	try("a long quiet gap empties the window", expect(2, 5, []int{0, 1, 100, 100, 100}, "[true true true true false]"))
+	try("a burst", expect(10, []int{0, 1, 2, 3, 4}, "[1 2 3 4 5]"))
+	try("a click leaves the window after Window seconds", expect(10, []int{0, 1, 2, 9, 10, 11, 12}, "[1 2 3 4 4 4 4]"))
+	try("clicks at the same instant", expect(10, []int{5, 5, 5, 15, 15}, "[1 2 3 1 2]"))
+	try("a long quiet gap empties the window", expect(5, []int{0, 1, 100, 100, 101}, "[1 2 1 2 3]"))
 	try("the queue does not grow without bound", func() string {
-		l := &Limiter{Limit: 5, Window: 10}
+		c := &Counter{Window: 10}
 		for t := 0; t < 100000; t++ {
-			l.Allow(t)
+			c.Click(t)
 		}
-		if len(l.times) > 5 {
-			return fmt.Sprintf("after 100 000 requests the limiter holds %d times; it never needs more than Limit", len(l.times))
+		if len(c.times) > 10 {
+			return fmt.Sprintf("after 100 000 clicks, one per second, the counter holds %d times; only 10 are in a 10 s window", len(c.times))
 		}
 		return ""
 	})

@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	deploys := []Rec{{3, "api-1"}, {1, "web-1"}, {3, "api-2"}, {2, "db-1"}, {1, "web-2"}, {3, "api-3"}}
-	fmt.Println("by priority:", MergeSort(deploys))
+	// elements in order of atomic number, keyed by their period (row of the periodic table)
+	elements := []Rec{{1, "H"}, {1, "He"}, {2, "Li"}, {2, "Be"}, {3, "Na"}, {3, "Mg"}, {2, "B"}, {3, "Al"}}
+	fmt.Println("by period:", MergeSort(elements))
 }

@@ -5,11 +5,11 @@
 </ul></div>
 
 <h2>The problem</h2>
-<p>You have 100 000 hosts and want the IP of <code>db-17</code>. A list means comparing names until you find it: O(n). A sorted list allows binary search: O(log n), but every insertion has to keep it sorted. You want to go to the right place directly, from the name alone.</p>
+<p>You have a dictionary of 100 000 words and want the definition of <i>quokka</i>. A list means comparing words until you find it: O(n). A sorted list allows binary search: O(log n), but every insertion has to keep it sorted. You want to go to the right place directly, from the name alone.</p>
 
 <h2>Where it comes from</h2>
 <p>In January 1953 <b>Hans Peter Luhn</b>, an IBM engineer, wrote an internal memo proposing to put records into "buckets" chosen by computing on the key, with the records of a bucket chained together: hashing with chaining, the design of this lesson. Around the same time another IBM group (Amdahl, Boehme, Rochester, Samuel) had the same idea for the IBM 701 assembler. Arnold Dumey published it in 1956, suggesting the remainder of a division by a prime as the hash. Luhn is also the author of the checksum still used on credit card numbers.</p>
-<p>Go made map iteration order unpredictable in Go 1 (2012), so programs that silently relied on an order would break early, in tests, instead of in production.</p>
+<p>Go made map iteration order unpredictable in Go 1 (2012), so that a program silently relying on an order breaks at once, instead of years later on another machine.</p>
 
 <h2>The idea</h2>
 <p><code>bucket = hash(key) % numberOfBuckets</code>. A good hash spreads keys evenly, so each bucket holds a few entries whatever the size of the map. Keep the average per bucket bounded by growing: doubling the buckets costs a full move of every entry, but it is rare, like doubling a slice (1.2.1), so it is O(1) amortized.</p>

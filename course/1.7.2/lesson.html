@@ -5,7 +5,7 @@
 </ul></div>
 
 <h2>The situation</h2>
-<p><code>kubectl logs</code> on a deployment with 300 pods gives 300 logs, each in time order. To follow one request across pods you need a single timeline. Concatenating and sorting works, but costs O(N log N) and needs everything in memory at once; a k-way merge reads each log front to back, keeps only one entry per pod in the heap, and works just as well on files or streams. It is also the merge step that external sort (1.6.3) and log tools like <code>stern</code> or Loki's query engine perform.</p>
+<p>Three hundred weather stations each record readings in time order. To study a storm crossing the country you need a single timeline. Concatenating and sorting works, but costs O(N log N) and needs everything in memory at once; a k-way merge reads each record front to back, keeps only one reading per station in the heap, and works just as well on files or streams. It is also the step that merges many runs at once in external sorting (1.6.3), instead of two at a time.</p>
 
 <h2 class="run">Exercise</h2>
 <div data-ex="e1"></div>

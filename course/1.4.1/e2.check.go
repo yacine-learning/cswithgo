@@ -4,20 +4,20 @@ import "fmt"
 
 func main() {
 	try("edges in input order", func() string {
-		g := Build([]string{"api -> db", "api -> cache", "api -> queue"})
-		if fmt.Sprint(g["api"]) != "[db cache queue]" {
-			return fmt.Sprintf("g[\"api\"] = %v, expected [db cache queue]", g["api"])
+		g := Build([]string{"fox -> rabbit", "fox -> mouse", "fox -> bird"})
+		if fmt.Sprint(g["fox"]) != "[rabbit mouse bird]" {
+			return fmt.Sprintf("g[\"fox\"] = %v, expected [rabbit mouse bird]", g["fox"])
 		}
 		return ""
 	})
 	try("a node only on the right is still a key", func() string {
-		g := Build([]string{"api -> db"})
-		outs, ok := g["db"]
+		g := Build([]string{"rabbit -> grass"})
+		outs, ok := g["grass"]
 		if !ok {
-			return "\"db\" is not a key of the graph"
+			return "\"grass\" is not a key of the graph"
 		}
 		if len(outs) != 0 {
-			return fmt.Sprintf("g[\"db\"] = %v, expected no edges", outs)
+			return fmt.Sprintf("g[\"grass\"] = %v, expected no edges", outs)
 		}
 		return ""
 	})
@@ -32,9 +32,9 @@ func main() {
 		return ""
 	})
 	try("the number of nodes", func() string {
-		g := Build([]string{"web -> api", "api -> db", "worker -> db", "api -> cache"})
+		g := Build([]string{"fox -> rabbit", "rabbit -> grass", "owl -> mouse", "fox -> mouse"})
 		if len(g) != 5 {
-			return fmt.Sprintf("%d nodes, expected 5 (web api db worker cache)", len(g))
+			return fmt.Sprintf("%d nodes, expected 5 (fox rabbit grass owl mouse)", len(g))
 		}
 		return ""
 	})

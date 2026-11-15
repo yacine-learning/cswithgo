@@ -3,16 +3,14 @@ package main
 import "fmt"
 
 func main() {
-	log := []string{
-		"GET /api/users 200 12ms",
-		"GET /api/users 200 9ms",
-		"POST /api/login 401 3ms",
-		"GET /healthz 200 1ms",
-		"GET /api/orders 500 230ms",
-		"POST /api/login 200 15ms",
-		"GET /api/orders 500 210ms",
-	}
-	for _, c := range StatusCounts(log) {
-		fmt.Printf("%s  %d\n", c.Code, c.N)
+	darwin := `There is grandeur in this view of life, with its several powers, having been
+originally breathed into a few forms or into one; and that, whilst this planet has gone
+cycling on according to the fixed law of gravity, from so simple a beginning endless forms
+most beautiful and most wonderful have been, and are being, evolved.`
+	for i, c := range WordCounts(darwin) {
+		if i == 8 {
+			break
+		}
+		fmt.Printf("%-10s %d\n", c.Word, c.N)
 	}
 }

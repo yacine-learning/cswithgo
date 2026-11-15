@@ -1,13 +1,17 @@
 {
   "n": "1.3.5",
-  "title": "Project: disk usage",
+  "title": "Project: sizes in a tree of folders",
   "exercises": [
-    { "id": "e1", "kind": "Project", "title": "Write du -d",
-      "task": "Write <code>Du</code>: from a list of files and their sizes, print every directory with its total size, like <code>du -d N</code>. The spec is in the comments of the file. <b>Run</b> prints the output for a small project at depths 0, 1 and 2.",
+    {
+      "id": "e1",
+      "kind": "Project",
+      "title": "Size of every folder",
+      "task": "Write <code>Sizes</code>: from a list of files and their sizes, list every folder with the total size of everything below it, down to a given depth, children before their parent. The spec is in the comments of the file. <b>Run</b> prints the output for a small thesis at depths 0, 1 and 2.",
       "hints": [
-        "Build a tree first: a directory node holds the sizes of its own files and a map from name to child directory. Split each path on <code>/</code>; every part but the last is a directory.",
-        "The total of a directory is its files plus the totals of its children: a post-order recursion (1.3.3) that returns the total.",
-        "Print in post-order too, like du: the children (sorted by name) before the directory, and only directories whose depth is ≤ maxDepth. Compute the totals of deeper ones anyway."
-      ] }
+        "Build a tree first: a folder node holds the sizes of its own files and a map from name to child folder. Split each path on <code>/</code>; every part but the last is a folder.",
+        "The total of a folder is its files plus the totals of its children: a post-order recursion (1.3.3) that returns the total.",
+        "Print in post-order too: the children (sorted by name) before the folder, and only folders whose depth is ≤ maxDepth. Compute the totals of deeper ones anyway."
+      ]
+    }
   ]
 }

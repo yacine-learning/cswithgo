@@ -5,7 +5,7 @@
 </ul></div>
 
 <h2>The problem</h2>
-<p>A job queue where urgent jobs jump ahead; timers where the next one to fire must be found instantly; the 10 most frequent errors among a million. A sorted slice gives the minimum in O(1) but costs O(n) per insertion; an unsorted one inserts in O(1) but must scan for the minimum. You want both cheap.</p>
+<p>An emergency room where the most urgent patient goes first, whatever the arrival order; a simulation of colliding particles where the next collision must be found instantly; the 10 most frequent words of a book. A sorted slice gives the minimum in O(1) but costs O(n) per insertion; an unsorted one inserts in O(1) but must scan for the minimum. You want both cheap.</p>
 
 <h2>Where it comes from</h2>
 <p><b>J. W. J. Williams</b>, at Elliott Brothers in London (the company where Hoare had just written quicksort, 1.6.2), invented the binary heap in 1963 to build a sorting method, heapsort, published in 1964 as "Algorithm 232: Heapsort". The same year <b>Robert Floyd</b> showed how to build a heap from n values in O(n) instead of O(n log n). The heap outlived heapsort: today it is mostly used as a priority queue, and heapsort survives as the safety net inside Go's pdqsort (1.6.2).</p>

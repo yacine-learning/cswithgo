@@ -5,26 +5,26 @@ import "fmt"
 func main() {
 	try("put then get", func() string {
 		m := NewHashMap()
-		m.Put("web-1", 80)
-		if v, ok := m.Get("web-1"); !ok || v != 80 {
-			return fmt.Sprintf("Get(\"web-1\") = %d, %v after Put(\"web-1\", 80)", v, ok)
+		m.Put("hydrogen", 1)
+		if v, ok := m.Get("hydrogen"); !ok || v != 1 {
+			return fmt.Sprintf("Get(\"hydrogen\") = %d, %v after Put(\"hydrogen\", 1)", v, ok)
 		}
 		return ""
 	})
 	try("a missing key", func() string {
 		m := NewHashMap()
-		m.Put("web-1", 80)
-		if v, ok := m.Get("db-1"); ok {
-			return fmt.Sprintf("Get(\"db-1\") = %d, true; it was never put", v)
+		m.Put("hydrogen", 1)
+		if v, ok := m.Get("helium"); ok {
+			return fmt.Sprintf("Get(\"helium\") = %d, true; it was never put", v)
 		}
 		return ""
 	})
 	try("putting a key again replaces its value", func() string {
 		m := NewHashMap()
-		m.Put("web-1", 80)
-		m.Put("web-1", 8080)
-		if v, _ := m.Get("web-1"); v != 8080 {
-			return fmt.Sprintf("Get(\"web-1\") = %d after Put 80 then 8080", v)
+		m.Put("hydrogen", 1)
+		m.Put("hydrogen", 100)
+		if v, _ := m.Get("hydrogen"); v != 100 {
+			return fmt.Sprintf("Get(\"hydrogen\") = %d after Put 1 then 100", v)
 		}
 		if m.Len() != 1 {
 			return fmt.Sprintf("Len() = %d after putting the same key twice, expected 1", m.Len())
@@ -36,7 +36,7 @@ func main() {
 		// with 4 buckets these keys collide: find two that do
 		var a, b string
 		for i := 0; a == "" || b == ""; i++ {
-			k := fmt.Sprintf("host-%d", i)
+			k := fmt.Sprintf("key-%d", i)
 			if m.bucketOf(k) == 0 {
 				if a == "" {
 					a = k

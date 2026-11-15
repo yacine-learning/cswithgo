@@ -3,21 +3,21 @@ package main
 import "fmt"
 
 func main() {
-	app := &Dir{"app", []*Dir{
-		{"src", []*Dir{{"main.go", nil}, {"api", []*Dir{{"api.go", nil}}}}},
-		{"config", []*Dir{{"app.yml", nil}}},
+	thesis := &Dir{"thesis", []*Dir{
+		{"chapters", []*Dir{{"intro.tex", nil}, {"figures", []*Dir{{"plot.svg", nil}}}}},
+		{"data", []*Dir{{"results.csv", nil}}},
 	}}
 	try("create order", func() string {
-		got := fmt.Sprint(CreateOrder(app))
-		want := "[app app/src app/src/main.go app/src/api app/src/api/api.go app/config app/config/app.yml]"
+		got := fmt.Sprint(CreateOrder(thesis))
+		want := "[thesis thesis/chapters thesis/chapters/intro.tex thesis/chapters/figures thesis/chapters/figures/plot.svg thesis/data thesis/data/results.csv]"
 		if got != want {
 			return "got " + got + "\n      expected " + want
 		}
 		return ""
 	})
 	try("delete order", func() string {
-		got := fmt.Sprint(DeleteOrder(app))
-		want := "[app/src/main.go app/src/api/api.go app/src/api app/src app/config/app.yml app/config app]"
+		got := fmt.Sprint(DeleteOrder(thesis))
+		want := "[thesis/chapters/intro.tex thesis/chapters/figures/plot.svg thesis/chapters/figures thesis/chapters thesis/data/results.csv thesis/data thesis]"
 		if got != want {
 			return "got " + got + "\n      expected " + want
 		}

@@ -4,36 +4,37 @@ import "fmt"
 
 func main() {
 	g := Graph{
-		"web": {"api"}, "api": {"db", "cache", "queue"}, "worker": {"db", "queue"},
-		"admin": {"db"}, "db": nil, "cache": nil, "queue": nil,
+		"heron": {"frog", "fish"}, "frog": {"dragonfly", "snail"}, "fish": {"dragonfly", "algae"},
+		"otter": {"fish"}, "dragonfly": {"mosquito"}, "mosquito": {"algae"}, "snail": {"algae", "pondweed"},
+		"algae": nil, "pondweed": nil,
 	}
-	try("deploy first (20 calls, always sorted)", func() string {
+	try("producers (20 calls, always sorted)", func() string {
 		for i := 0; i < 20; i++ {
-			if got := fmt.Sprint(DeployFirst(g)); got != "[cache db queue]" {
-				return "DeployFirst = " + got + ", expected [cache db queue]"
+			if got := fmt.Sprint(Producers(g)); got != "[algae pondweed]" {
+				return "Producers = " + got + ", expected [algae pondweed]"
 			}
 		}
 		return ""
 	})
-	try("safe to remove (20 calls, always sorted)", func() string {
+	try("apex predators (20 calls, always sorted)", func() string {
 		for i := 0; i < 20; i++ {
-			if got := fmt.Sprint(SafeToRemove(g)); got != "[admin web worker]" {
-				return "SafeToRemove = " + got + ", expected [admin web worker]"
+			if got := fmt.Sprint(ApexPredators(g)); got != "[heron otter]" {
+				return "ApexPredators = " + got + ", expected [heron otter]"
 			}
 		}
 		return ""
 	})
-	try("a lone service is both", func() string {
-		g := Graph{"solo": nil}
-		if fmt.Sprint(DeployFirst(g)) != "[solo]" || fmt.Sprint(SafeToRemove(g)) != "[solo]" {
-			return fmt.Sprintf("DeployFirst = %v, SafeToRemove = %v, expected [solo] for both", DeployFirst(g), SafeToRemove(g))
+	try("a lone species is both", func() string {
+		g := Graph{"lichen": nil}
+		if fmt.Sprint(Producers(g)) != "[lichen]" || fmt.Sprint(ApexPredators(g)) != "[lichen]" {
+			return fmt.Sprintf("Producers = %v, ApexPredators = %v, expected [lichen] for both", Producers(g), ApexPredators(g))
 		}
 		return ""
 	})
-	try("a chain a -> b -> c", func() string {
-		g := Graph{"a": {"b"}, "b": {"c"}, "c": nil}
-		if fmt.Sprint(DeployFirst(g)) != "[c]" || fmt.Sprint(SafeToRemove(g)) != "[a]" {
-			return fmt.Sprintf("DeployFirst = %v, SafeToRemove = %v; expected [c] and [a]", DeployFirst(g), SafeToRemove(g))
+	try("a chain hawk -> snake -> mouse -> grass", func() string {
+		g := Graph{"hawk": {"snake"}, "snake": {"mouse"}, "mouse": {"grass"}, "grass": nil}
+		if fmt.Sprint(Producers(g)) != "[grass]" || fmt.Sprint(ApexPredators(g)) != "[hawk]" {
+			return fmt.Sprintf("Producers = %v, ApexPredators = %v; expected [grass] and [hawk]", Producers(g), ApexPredators(g))
 		}
 		return ""
 	})

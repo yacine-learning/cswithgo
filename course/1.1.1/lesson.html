@@ -5,7 +5,7 @@
 </ul></div>
 
 <h2>The problem</h2>
-<p>You wrote a script that checks a list of request IDs for duplicates. On your laptop, with 1 000 IDs, it takes a blink. In production there are 100 000, and it takes minutes. Nothing is broken: the method itself does not scale.</p>
+<p>Does a list of numbers contain the same number twice? Compare every pair: with 1 000 numbers it takes a blink; with 100 000 it takes minutes, and with 10 million, days. Nothing is broken: the method itself does not scale.</p>
 <p>Timing it does not tell you why, or how bad it will get. The same program runs at different speeds on different machines, under different load. You need a way to talk about the <i>method</i>, independent of the machine.</p>
 
 <h2>Where it comes from</h2>

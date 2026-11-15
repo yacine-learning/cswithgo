@@ -8,8 +8,8 @@ import (
 
 func main() {
 	counts := map[string]int{
-		"connection refused": 412, "timeout": 977, "401 unauthorized": 58,
-		"disk full": 3, "502 bad gateway": 412, "DNS lookup failed": 120,
+		"of": 412, "the": 977, "light": 58,
+		"void": 3, "and": 412, "earth": 120,
 	}
 	expect := func(k int, want string) func() string {
 		return func() string {
@@ -21,9 +21,9 @@ func main() {
 			return ""
 		}
 	}
-	try("top 1", expect(1, "[timeout]"))
-	try("top 3, with a tie", expect(3, "[timeout 502 bad gateway connection refused]"))
-	try("k larger than the number of messages", expect(10, "[timeout 502 bad gateway connection refused DNS lookup failed 401 unauthorized disk full]"))
+	try("top 1", expect(1, "[the]"))
+	try("top 3, with a tie", expect(3, "[the and of]"))
+	try("k larger than the number of messages", expect(10, "[the and of earth light void]"))
 	try("k = 0", expect(0, "[]"))
 	try("a tie at the cut", func() string {
 		c := map[string]int{"b": 5, "a": 5, "c": 5, "d": 1}
@@ -34,11 +34,11 @@ func main() {
 		}
 		return ""
 	})
-	try("10 000 messages", func() string {
+	try("10 000 words", func() string {
 		rng := rand.New(rand.NewSource(8))
 		c := map[string]int{}
 		for i := 0; i < 10000; i++ {
-			c[fmt.Sprintf("err-%05d", i)] = rng.Intn(500)
+			c[fmt.Sprintf("w%05d", i)] = rng.Intn(500)
 		}
 		all := make([]string, 0, len(c))
 		for m := range c {

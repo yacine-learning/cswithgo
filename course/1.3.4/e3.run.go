@@ -22,11 +22,11 @@ func keys(n *Node) []int {
 }
 
 func main() {
-	var certs *Node
+	var obs *Node
 	for _, day := range []int{120, 40, 300, 10, 90, 200, 365, 60} {
-		certs = insert(certs, day)
+		obs = insert(obs, day)
 	}
-	fmt.Println("expiry days:", keys(certs))
-	certs = DeleteBelow(certs, 100)
-	fmt.Println("today is day 100, after cleanup:", keys(certs))
+	fmt.Println("observation days:", keys(obs))
+	obs = DeleteBelow(obs, 100)
+	fmt.Println("keep day 100 onwards:", keys(obs))
 }

@@ -8,24 +8,24 @@ import (
 )
 
 type dir struct {
-	files    int // sizes of the files directly in this directory
+	files    int // sizes of the files directly in this folder
 	children map[string]*dir
 }
 
 func newDir() *dir { return &dir{children: map[string]*dir{}} }
 
-// Du reads lines "PATH SIZE" (one per file; PATH has no spaces, SIZE is an integer)
-// and returns one line "SIZE\tPATH" per directory, like `du -d maxDepth`:
+// Sizes reads lines "PATH SIZE" (one per file; PATH has no spaces, SIZE is an integer)
+// and returns one line "SIZE\tPATH" per folder:
 //
-//   - a directory's SIZE is the total of all files below it, at any depth;
-//   - a top-level directory (the first part of a path) has depth 0, its subdirectories 1, …;
-//     only directories with depth <= maxDepth are listed;
-//   - order: post-order, like du: inside a directory, its subdirectories first, sorted by
-//     name, then the directory itself; top-level directories sorted by name;
-//   - a file at the top level (a PATH without "/") is in no directory and is not listed;
+//   - a folder's SIZE is the total of all files below it, at any depth;
+//   - a top-level folder (the first part of a path) has depth 0, its subfolders 1, …;
+//     only folders with depth <= maxDepth are listed;
+//   - order: post-order: inside a folder, its subfolders first, sorted by
+//     name, then the folder itself; top-level folders sorted by name;
+//   - a file at the top level (a PATH without "/") is in no folder and is not listed;
 //   - a line that cannot be read gives the error "line N: cannot read \"...\"" (N from 1).
-func Du(lines []string, maxDepth int) ([]string, error) {
-	root := newDir() // holds the top-level directories; never printed
+func Sizes(lines []string, maxDepth int) ([]string, error) {
+	root := newDir() // holds the top-level folders; never printed
 	for i, line := range lines {
 		f := strings.Fields(line)
 		if len(f) != 2 {

@@ -11,25 +11,25 @@
         { "n": "1.2.3", "title": "Stacks" },
         { "n": "1.2.4", "title": "Queues" },
         { "n": "1.2.5", "title": "Linked lists" },
-        { "n": "1.2.6", "title": "Project: trace spans" }
+        { "n": "1.2.6", "title": "Project: profiling function calls" }
       ] },
       { "n": "1.3", "title": "Recursion and trees", "lessons": [
         { "n": "1.3.1", "title": "Recursion and the call stack" },
         { "n": "1.3.2", "title": "Binary search trees" },
         { "n": "1.3.3", "title": "Tree traversals" },
         { "n": "1.3.4", "title": "Min, max and delete" },
-        { "n": "1.3.5", "title": "Project: disk usage" }
+        { "n": "1.3.5", "title": "Project: sizes in a tree of folders" }
       ] },
       { "n": "1.4", "title": "Graphs", "lessons": [
         { "n": "1.4.1", "title": "Graphs" },
         { "n": "1.4.2", "title": "BFS and DFS" },
-        { "n": "1.4.3", "title": "Project: deployment order" }
+        { "n": "1.4.3", "title": "Project: the order of study" }
       ] },
       { "n": "1.5", "title": "Searching sorted data", "lessons": [
         { "n": "1.5.1", "title": "Binary search" },
         { "n": "1.5.2", "title": "Two pointers" },
         { "n": "1.5.3", "title": "Sliding window" },
-        { "n": "1.5.4", "title": "Project: incident timeline" }
+        { "n": "1.5.4", "title": "Project: a meteor shower" }
       ] },
       { "n": "1.6", "title": "Sorting", "lessons": [
         { "n": "1.6.1", "title": "Merge sort" },
@@ -38,7 +38,7 @@
       ] },
       { "n": "1.7", "title": "Priority queues", "lessons": [
         { "n": "1.7.1", "title": "Heaps" },
-        { "n": "1.7.2", "title": "Project: merging logs from many pods" }
+        { "n": "1.7.2", "title": "Project: merging many sorted streams" }
       ] }
     ] }
   ]
