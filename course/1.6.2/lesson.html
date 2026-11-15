@@ -1,28 +1,77 @@
-<div class="keep"><span class="k">Keep this</span><ul>
-<li>Pick a <b>pivot</b>, <b>partition</b> the slice into smaller | pivot | larger, then sort both sides the same way. It works <b>in place</b>: no extra array.</li>
-<li><b>O(n log n) on average, O(n²) when the pivots are bad</b> (already-sorted input with the last element as pivot). A random or median-of-three pivot makes the bad case very unlikely.</li>
-<li>Go's <code>sort.Sort</code> and <code>slices.Sort</code> use <b>pdqsort</b> (since Go 1.19): quicksort that detects patterns and falls back to heapsort, so it is never O(n²). Partition alone gives <b>quickselect</b>: the k-th smallest (a percentile) in O(n) on average.</li>
-</ul></div>
+<p class="dateline">Moscow, 1959</p>
+<p class="lead">Tony Hoare is 25, a British exchange student at Moscow State University, and his project is to get a computer to translate Russian into English. The Russian dictionary lives on <b>magnetic tape</b>, in alphabetical order. A tape is not a page you can flip open anywhere: it winds from one end to the other, and going back costs real time.</p>
+<p>So before looking up the words of a sentence, he has to <b>sort them</b>. Then a single trip along the tape finds them all, in order. His first idea is the obvious one, moving values step by step past their neighbours, and it is far too slow. So he invents something else.</p>
+<p>You are going to reinvent it with him. It takes one idea.</p>
 
-<h2>The problem</h2>
-<p>Merge sort is always O(n log n), but it needs a second array as big as the input. Memory was precious in 1960, and it still matters for big in-memory sorts. Can you sort as fast, moving elements around inside the one array?</p>
+<h2>Put one number in its place</h2>
+<div class="predict"><span class="k">Before reading on</span>
+<p>Here are seven numbers: <code>38 27 43 3 9 82 10</code>. Forget about sorting all of them. Take only the last one, <code>10</code>. Where does it end up once everything is sorted? And what is the least you have to do to the others to put it there?</p></div>
+<details class="think"><summary>Think about it, then open</summary>
+<p><code>10</code> ends up at index 2, because exactly two numbers are smaller than it (3 and 9). To put it there, you do not need the others sorted at all. You only need <b>the smaller ones on its left and the bigger ones on its right</b>, in any order. That is a <b>partition</b>, and <code>10</code> is the <b>pivot</b>.</p>
+</details>
 
-<h2>Where it comes from</h2>
-<p>In 1959 <b>Tony Hoare</b>, a 25-year-old British student at Moscow State University, was working on machine translation from Russian to English. To look words up in a dictionary stored in order on magnetic tape, he first had to sort the words of each sentence, and invented quicksort to do it. Back in England, at Elliott Brothers, he was asked to implement a slower sort (Shellsort) and bet his boss sixpence that he knew a faster one; he won the bet. He published Quicksort, Partition and Find (quickselect) in 1961, and received the Turing Award in 1980. He died in March 2026.</p>
+<p>Here is the partition the way you will write it in exercise 2 (the version from Nico Lomuto, later popularised by Jon Bentley). <code>i</code> marks the end of the "smaller than the pivot" zone; <code>j</code> walks over everything else:</p>
+<table class="tbl trace">
+<tr><th>j</th><th>a[j]</th><th>&lt; 10?</th><th>after the step</th><th>i</th></tr>
+<tr><td>0</td><td>38</td><td>no</td><td><code>38 27 43 3 9 82 10</code></td><td>0</td></tr>
+<tr><td>1</td><td>27</td><td>no</td><td><code>38 27 43 3 9 82 10</code></td><td>0</td></tr>
+<tr><td>2</td><td>43</td><td>no</td><td><code>38 27 43 3 9 82 10</code></td><td>0</td></tr>
+<tr><td>3</td><td>3</td><td>yes: swap with a[0]</td><td><code><b>3</b> 27 43 38 9 82 10</code></td><td>1</td></tr>
+<tr><td>4</td><td>9</td><td>yes: swap with a[1]</td><td><code><b>3 9</b> 43 38 27 82 10</code></td><td>2</td></tr>
+<tr><td>5</td><td>82</td><td>no</td><td><code><b>3 9</b> 43 38 27 82 10</code></td><td>2</td></tr>
+<tr><td colspan="3">pivot: swap with a[i]</td><td><code><b>3 9</b> <span class="pv">10</span> 38 27 82 43</code></td><td></td></tr>
+</table>
+<p>Look at what is true at every line: <b>everything before <code>i</code> is smaller than the pivot</b>. It is the same kind of promise that fixed your binary search in 1.5.1 ("if the target is there, it is between <code>left</code> and <code>right</code>"). Keep the promise true at every step and the code is right; break it once and you get the off-by-one bugs you met there.</p>
+<p>Now <code>10</code> is in its final place and will never move again. Left of it, <code>3 9</code>: a smaller problem. Right of it, <code>38 27 82 43</code>: another smaller problem. Do the same thing to each. That is all of quicksort.</p>
 
-<h2>The idea</h2>
-<p>After one partition, the pivot is exactly where it will be in the sorted result, and no element ever crosses it again. A good pivot splits the range in two halves: log₂ n levels of n work. A bad pivot (the smallest or largest value) peels off one element per level: n levels, n²/2 comparisons.</p>
+<h2>The part Hoare could not write</h2>
+<p>"Do the same thing to each side" is <b>recursion</b>, and in 1959 Hoare had no way to say it. The language he had learned, Mercury Autocode, gave him no clean way to say it. He could do the sort, but he could not write it down clearly.</p>
+<p>Back in England in 1960 he joined Elliott Brothers, a small computer maker. His boss asked him to write a library routine for Shellsort. Hoare said, rather timidly, that he knew a faster method. His boss bet him <b>sixpence</b> he didn't. Hoare won, but in his own words the method was "very difficult to explain".</p>
+<p>The explanation came at Easter 1961, on a one-week course in Brighton about a new language, ALGOL 60, taught by Peter Naur, Edsger Dijkstra and Peter Landin. ALGOL 60 had recursion. Hoare saw that it was exactly what quicksort needed, and wrote the procedure that, he said, his whole career was founded on. It is the call stack from 1.3.1 doing the bookkeeping he used to do by hand.</p>
+<p>In Go, the whole sort fits on your screen:</p>
+<pre class="sample">func QuickSort(a []int, lo, hi int) {
+	if lo >= hi {
+		return
+	}
+	p := partition(a, lo, hi)
+	QuickSort(a, lo, p-1)
+	QuickSort(a, p+1, hi)
+}</pre>
+<p>And unlike merge sort (1.6.1), it needs <b>no second array</b>: everything happens by swapping inside the slice you already have. In 1960, when memory was counted in a few thousand words, that mattered a lot.</p>
+
+<h2>The trap</h2>
+<div class="predict"><span class="k">Predict, then run exercise 1</span>
+<p>The pivot is always the last element. Exercise 1 sorts 4 000 numbers twice: once in random order, once <b>already sorted</b>. Which one do you expect to be faster? Write your guess down, then press <b>Run</b>.</p></div>
+<details class="think"><summary>After running: what happened</summary>
+<p>The sorted input is the disaster. Its last element is the largest, so the partition puts everything on the left and nothing on the right: each level peels off one element. That makes 4 000 levels of up to 4 000 comparisons, close to n²/2, against roughly n·log₂ n for random input. The run prints both reference numbers so you can compare.</p>
+<p>The cruel part: "already sorted, or nearly" is one of the most common inputs there is.</p>
+</details>
+<details class="think"><summary>Why not just take the middle element as pivot?</summary>
+<p>It fixes sorted input. But any fixed rule has <i>some</i> input that hits the bad case every time, and someone can build that input on purpose. A <b>random</b> pivot has no bad input, only bad luck, and bad luck repeated over thousands of levels is vanishingly rare. Run exercise 1 again and look at the third line.</p>
+<p>Go goes one step further. Since Go 1.19, <code>slices.Sort</code> and <code>sort.Sort</code> use <b>pdqsort</b> ("pattern-defeating quicksort"): it notices when its pivots keep going badly and switches to heapsort (1.7.1), which is never O(n²).</p>
+</details>
+
+<h2>Half the work, for a different question</h2>
+<p>Often you do not want everything sorted. You want <b>one</b> value: the median, the 90th percentile, the 10th smallest. Hoare saw it in the same 1961 paper: partition once, and look at where the pivot landed. If it is at position k, done. If not, the answer is on <b>one</b> side, and you can forget the other side entirely. He called it FIND; today it is <b>quickselect</b>, and it is exercise 3.</p>
 
 <h2 class="run">Exercises</h2>
 <div data-ex="e1"></div>
 <div data-ex="e2"></div>
 <div data-ex="e3"></div>
 
+<div class="keep"><span class="k">What to keep in five years</span><ul>
+<li>Quicksort: put one pivot in its final place (smaller left, bigger right), then do the same to each side. In place, no extra array.</li>
+<li>Fast on average (n log n), terrible with bad pivots (n², and sorted input is the classic trap). A random pivot makes the bad case a matter of luck.</li>
+<li>Partition alone answers "what is the k-th smallest?" without sorting: quickselect.</li>
+</ul></div>
+
 <details class="fold"><summary>Sources</summary><ul>
-<li>University of Oxford, <a href="https://www.cs.ox.ac.uk/oucl/people/tony.hoare.html" target="_blank" rel="noopener">Tony Hoare, biography</a>: Moscow 1959, machine translation, dictionary look-up.</li>
-<li>EPFL Graph Search, <a href="https://graphsearch.epfl.ch/en/concept/3268249" target="_blank" rel="noopener">Quicksort</a>: developed 1959, published 1961; the sixpence bet over Shellsort.</li>
-<li>Computer History Museum, <a href="https://computerhistory.org/profile/sir-antony-hoare/" target="_blank" rel="noopener">Sir Antony Hoare</a>: Turing Award 1980.</li>
-<li>University of Oxford, <a href="https://www.cs.ox.ac.uk/people/tony.hoare/index1.html" target="_blank" rel="noopener">Sir Tony Hoare: In Memoriam</a>; <a href="https://levelup.gitconnected.com/thank-you-sir-tony-fd2e2666208a" target="_blank" rel="noopener">Thank You, Sir Tony</a> (died 5 March 2026).</li>
-<li>Jyrki Katajainen, <a href="https://hjemmesider.diku.dk/~jyrki/Course/Dat2P-1999/classics_in_algorithmics.html" target="_blank" rel="noopener">Classics in Algorithmics</a>: Hoare's Algorithms 63 PARTITION, 64 QUICKSORT and 65 FIND, CACM 1961.</li>
+<li>C. A. R. Hoare, <a href="https://fermatslibrary.com/s/the-emperors-old-clothes" target="_blank" rel="noopener">The Emperor's Old Clothes</a>, 1980 ACM Turing Award lecture: the sixpence bet over Shellsort, "very difficult to explain", the ALGOL 60 course in Brighton at Easter 1961 with Naur, Dijkstra and Landin, recursion and QUICKSORT.</li>
+<li>ACM, <a href="https://amturing.acm.org/award_recipient/hoare_4622167" target="_blank" rel="noopener">C. Antony R. Hoare, A.M. Turing Award</a>: Mercury Autocode at Oxford; recursion seen as the key to expressing Quicksort during the ALGOL 60 course.</li>
+<li>Plus Magazine, <a href="https://plus.maths.org/content/happy-birthday-quicksort" target="_blank" rel="noopener">Happy birthday Quicksort!</a>, interview with Hoare: the dictionary in alphabetical order on magnetic tape, sorting the words of a sentence first, bubble sort as the first idea, Mercury Autocode.</li>
+<li>R. J. Lipton, <a href="https://rjlipton.com/2022/06/13/sorting-and-proving/" target="_blank" rel="noopener">Sorting and Proving</a>: a simpler sort (insertion sort, in this account) tried first and too slow.</li>
+<li>Jonathan Bowen, <a href="https://www.bcs.org/media/utefo2gx/facs-jonathan-bowen-100726.pdf" target="_blank" rel="noopener">Tony Hoare</a> (BCS FACS talk): Moscow State University 1959–1960 as a British Council exchange student, aged 25.</li>
+<li>Jyrki Katajainen, <a href="https://hjemmesider.diku.dk/~jyrki/Course/Dat2P-1999/classics_in_algorithmics.html" target="_blank" rel="noopener">Classics in Algorithmics</a>: Algorithms 63 PARTITION, 64 QUICKSORT and 65 FIND, CACM 1961.</li>
 <li>Carl M. Johnson, <a href="https://blog.carlana.net/post/2022/golang-119-new-features/" target="_blank" rel="noopener">What's new in Go 1.19</a>: <code>sort.Sort</code> moves to pattern-defeating quicksort.</li>
+<li>University of Oxford, <a href="https://www.cs.ox.ac.uk/people/tony.hoare/index1.html" target="_blank" rel="noopener">Sir Tony Hoare: In Memoriam</a> (died March 2026).</li>
 </ul></details>

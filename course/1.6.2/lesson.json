@@ -6,13 +6,13 @@
       "id": "e1",
       "kind": "Read",
       "title": "Partition, then recurse",
-      "task": "Read <code>QuickSort</code> and <code>partition</code>: the pivot ends at its final place, smaller values before it, larger after. <b>Run</b> counts comparisons on random input and on input that is already sorted, with the last element as pivot and then with a random pivot."
+      "task": "Here is Hoare's idea as Go code. Before pressing <b>Run</b>, answer the question in the lesson: random input or sorted input, which one is faster with the last element as pivot? Then run it and look at the comparison counts, especially the second line. The third line is the same sorted input with a random pivot."
     },
     {
       "id": "e2",
       "kind": "Complete",
       "title": "Write partition",
-      "task": "Fill <code>partition</code> (Lomuto's scheme, the one in e1): the pivot is the last element; walk the range, swapping each smaller value into the front part; finally put the pivot just after that front part and return its index.",
+      "task": "Your turn to write <code>partition</code>, the version from the trace in the lesson. The pivot is the last element. Walk the range with <code>j</code>, and keep the promise: everything before <code>i</code> is smaller than the pivot. At the end, the pivot goes to <code>i</code>, and that is the index you return.",
       "hints": [
         "<code>i</code> marks the end of the \"smaller than the pivot\" part: it starts at <code>lo</code>.",
         "For each <code>j</code> from <code>lo</code> to <code>hi-1</code>: if <code>a[j] &lt; pivot</code>, swap <code>a[i]</code> and <code>a[j]</code>, then <code>i++</code>.",
@@ -23,7 +23,7 @@
       "id": "e3",
       "kind": "Use",
       "title": "A percentile without sorting",
-      "task": "To get a median or a percentile you need the k-th smallest value, not a sorted list. <b>Quickselect</b> (Hoare, 1961): partition, then continue in the <b>one</b> side that holds position k. Write <code>Select</code>; it must compare only through <code>less</code>, which the check counts: about O(n), far fewer than a full sort.",
+      "task": "You want the median of 100 000 values, not a sorted list of them. Hoare's FIND: partition, see where the pivot landed, and continue only in the side that contains position k. Write <code>Select</code>. It must compare only through <code>less</code>, because the check counts the calls: it must stay far below what a full sort needs. And the check also gives it sorted input: remember the trap.",
       "hints": [
         "Partition as in e2, but compare with <code>less(a[j], pivot)</code>. If the pivot lands at k, done; if k is before it, continue left; otherwise right. A loop, not two recursive calls.",
         "Pick a random pivot (swap a random element of the range to the end first, with <code>rand.Intn</code>): with the last element, sorted input costs n²/2 comparisons, and the check tries sorted input.",
