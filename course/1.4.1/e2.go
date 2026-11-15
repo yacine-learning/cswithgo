@@ -9,7 +9,10 @@ func Build(lines []string) Graph {
 	g := Graph{}
 	for _, line := range lines {
 		// hole: split the line into a and b, make sure b is a key, then add the edge a -> b
-		_ = line // delete this line once you use line
+		// Go refuses to compile a variable that is never used. This line "uses" line
+		// by throwing the value away, so the file compiles before you fill the holes.
+		// Delete it once your code uses line.
+		_ = line
 	}
 	return g
 }

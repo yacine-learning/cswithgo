@@ -20,6 +20,9 @@ func partition(a []int, lo, hi int) int {
 	// hole 1: for j from lo to hi-1, swap each value smaller than the pivot into a[i], and move i
 
 	// hole 2: put the pivot (a[hi]) at i, and return i
-	_ = pivot // delete this line once you use pivot
+	// Go refuses to compile a variable that is never used. This line "uses" pivot
+	// by throwing the value away, so the file compiles before you fill the holes.
+	// Delete it once your code uses pivot.
+	_ = pivot
 	return i
 }

@@ -12,7 +12,10 @@ func (v *Vec) Push(x int) {
 	if v.n == len(v.data) {
 		// hole 1: the new capacity is double the old one (1 when the old one is 0)
 		newCap := 0
-		_ = newCap // delete this line once you use newCap
+		// Go refuses to compile a variable that is never used. This line "uses" newCap
+		// by throwing the value away, so the file compiles before you fill the holes.
+		// Delete it once your code uses newCap.
+		_ = newCap
 
 		// hole 2: allocate an array of newCap elements, copy the n elements into it
 		// (add 1 to v.Copies for each), then make it v.data

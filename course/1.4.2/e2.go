@@ -11,7 +11,10 @@ func ShortestPath(g Graph, from, to string) []string {
 	queue := []string{from}
 	// hole 1: BFS: take the front of the queue; for each neighbour not seen yet,
 	// mark it seen, record its parent, and queue it
-	_, _ = parent, queue // delete this line once you use parent and queue
+	// Go refuses to compile a variable that is never used. This line "uses" parent and queue
+	// by throwing the value away, so the file compiles before you fill the holes.
+	// Delete it once your code uses parent and queue.
+	_, _ = parent, queue
 
 	if !seen[to] {
 		return nil

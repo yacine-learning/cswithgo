@@ -35,7 +35,10 @@ func (m *HashMap) Put(key string, value int) {
 	// hole 1: if an entry of bucket i has this key, replace its value and return
 
 	// hole 2: otherwise add entry{key, value} to bucket i and count it
-	_ = i // delete this line once you use i
+	// Go refuses to compile a variable that is never used. This line "uses" i
+	// by throwing the value away, so the file compiles before you fill the holes.
+	// Delete it once your code uses i.
+	_ = i
 
 	if m.count > 2*len(m.buckets) { // more than 2 entries per bucket on average: grow
 		m.grow()

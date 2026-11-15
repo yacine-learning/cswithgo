@@ -51,7 +51,10 @@ func (l *List) Reverse() {
 	var prev *node
 	cur := l.head.next
 	// hole: walk with cur, turning each cur.next to point at prev
-	_, _ = prev, cur // delete this line once you use prev and cur
+	// Go refuses to compile a variable that is never used. This line "uses" prev and cur
+	// by throwing the value away, so the file compiles before you fill the holes.
+	// Delete it once your code uses prev and cur.
+	_, _ = prev, cur
 
 	// hole: the old last node (prev) becomes the first one
 }
