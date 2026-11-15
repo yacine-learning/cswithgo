@@ -1,0 +1,29 @@
+<div class="keep"><span class="k">Keep this</span><ul>
+<li>A recursive function solves a problem by calling itself on a <b>smaller</b> piece, and needs a <b>base case</b> that stops.</li>
+<li>Each call gets its own frame on the <b>call stack</b>. A call <b>pauses</b> while the call inside it runs, then <b>resumes</b> at the next line, like a bookmark. The stack is how the program knows where to come back to (1.2.3).</li>
+<li>Recursion fits trees and divide-and-conquer. For one straight path, a loop is simpler and uses no stack. Two traps: too deep (stack overflow) and the same work done many times (memoize it).</li>
+</ul></div>
+
+<h2>The problem</h2>
+<p>Some problems are made of smaller copies of themselves. A directory contains directories. A JSON object contains objects. An expression contains expressions. Writing a loop for "go down as deep as it goes, then come back up" means keeping track by hand of where you were at each level.</p>
+
+<h2>Where it comes from</h2>
+<p>Early languages such as FORTRAN gave each subroutine one fixed area for its variables, so a subroutine could not call itself: the second call would overwrite the first one's variables. In 1960, <b>John McCarthy</b>'s paper on Lisp defined functions recursively, and <b>Edsger Dijkstra</b> published "Recursive Programming", showing how a stack of frames (borrowed from Bauer and Samelson, 1.2.3) lets every call have its own variables. Dijkstra and Van Wijngaarden had argued for recursive procedures in ALGOL 60, and Dijkstra and Zonneveld's ALGOL 60 compiler, working in June 1960, proved it could be done on a small machine. Every language you use today works this way.</p>
+
+<h2>The idea</h2>
+<p>Trust the recursive call to do its part on the smaller piece; write only how to combine the results and when to stop. When a call returns, Go pops its frame and the caller continues exactly where it paused, with its own variables untouched.</p>
+<details class="fold"><summary>Recursion or a loop?</summary>
+<p>Any recursion can be written as a loop with an explicit stack, and any loop as recursion. Choose by shape: branching (a tree, two halves) reads better recursive; a single path (follow <code>.Left</code> to the minimum, walk a list) reads better as a loop and costs no stack. Go's goroutine stacks grow as needed, so deep recursion is less fatal than in C, but a million frames still cost memory.</p>
+<p>Naive Fibonacci calls <code>Fib(n-1)</code> and <code>Fib(n-2)</code>, and each of those calls the same smaller values again: the calls grow like 1.6ⁿ. Remembering each result once (memoization) makes it O(n). That idea, solving overlapping subproblems once, is the start of dynamic programming.</p>
+</details>
+
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<div data-ex="e3"></div>
+
+<details class="fold"><summary>Sources</summary><ul>
+<li>E. W. Dijkstra, <a href="https://ir.cwi.nl/pub/9253/9253D.pdf" target="_blank" rel="noopener">Recursive Programming</a>, <i>Numerische Mathematik</i> 2 (1960), 312–318.</li>
+<li>Edgar G. Daylight, <a href="https://dijkstrascry.com/node/4?page=0%2C1" target="_blank" rel="noopener">Dijkstra's Rallying Cry for Generalization: the Advent of the Recursive Procedure</a>: Van Wijngaarden and Dijkstra convinced Naur to include recursion in ALGOL 60; the Dijkstra–Zonneveld compiler.</li>
+<li>Adrian Colyer, <a href="https://blog.acolyer.org/2015/01/30/recursive-programming/" target="_blank" rel="noopener">Recursive Programming</a> (2015): McCarthy's Lisp paper the same year.</li>
+</ul></details>

@@ -1,0 +1,5 @@
+[
+  {"ex": "e1", "name": "waves not sorted", "replace": [["\t\tsort.Strings(wave)\n", ""]], "expect": "waves"},
+  {"ex": "e1", "name": "only the cycle members reported", "replace": [["\t\t\tif n > 0 {", "\t\t\tif n > 0 && len(neededBy[s]) > 0 {"]], "expect": "waiting behind a cycle"},
+  {"ex": "e1", "name": "dependency-only services forgotten", "replace": [["\t\t\tif _, ok := waiting[d]; !ok {\n\t\t\t\twaiting[d] = 0\n\t\t\t}\n", ""]], "expect": "three waves|early|twice"}
+]

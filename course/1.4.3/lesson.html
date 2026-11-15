@@ -1,0 +1,24 @@
+<div class="keep"><span class="k">What this project practises</span><ul>
+<li>A <b>graph</b> and its <b>reverse</b> (1.4.1), with an <b>in-degree</b> count per node.</li>
+<li><b>Topological sorting</b>: an order where every edge goes forward. Done level by level, it is a BFS (1.4.2) over the nodes whose dependencies are all done.</li>
+<li>Detecting the impossible case (a <b>cycle</b>) instead of producing a wrong answer.</li>
+</ul></div>
+
+<h2>The situation</h2>
+<p>A release touches a dozen services. Each must be deployed after the services it depends on, and you want it fast: deploy in parallel everything that can go together. Terraform, Helm (with dependencies), Bazel, Make and <code>systemd</code> all solve this same problem before running anything.</p>
+<p>The method is <b>Arthur Kahn</b>'s, published in 1962 to order the tasks of large PERT project-management networks: repeatedly take every task with no unfinished prerequisite. Unix has a small command for it, <code>tsort</code>.</p>
+<pre class="sample">web    -> api
+api    -> db, cache, queue
+worker -> db, queue
+
+wave 0: cache db queue
+wave 1: api worker
+wave 2: web</pre>
+
+<h2 class="run">Exercise</h2>
+<div data-ex="e1"></div>
+
+<details class="fold"><summary>Sources</summary><ul>
+<li>A. B. Kahn, <a href="https://scilit.com/publications/1bc5bd2b4676f7e4e83f2fd8d23f7aaf" target="_blank" rel="noopener">Topological sorting of large networks</a>, <i>Communications of the ACM</i> 5(11), 1962: the method, motivated by PERT networks.</li>
+<li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Topological_sorting" target="_blank" rel="noopener">Topological sorting</a>: scheduling jobs from their dependencies; <code>tsort</code>.</li>
+</ul></details>

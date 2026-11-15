@@ -1,0 +1,5 @@
+[
+  {"ex": "e1", "name": "drops the odd run", "replace": [["\t\t\t} else {\n\t\t\t\tnext = append(next, rs[i])\n\t\t\t}", "\t\t\t}"]], "expect": "example|memory 1|50 000"},
+  {"ex": "e1", "name": "sorts in place", "replace": [["\t\trun := slices.Clone(lines[i:min(i+memory, len(lines))])", "\t\trun := lines[i:min(i+memory, len(lines))]"]], "expect": "not changed"},
+  {"ex": "e1", "name": "merges all runs in one go and counts 1 round", "replace": [["\t\trs = next\n\t\trounds++", "\t\trs = next\n\t\trounds = 1"]], "expect": "rounds"}
+]

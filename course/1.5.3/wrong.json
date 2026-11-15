@@ -1,0 +1,7 @@
+[
+  {"ex": "e2", "name": "records refused requests", "replace": [["\tif len(l.times) < l.Limit {\n\t\tl.times = append(l.times, now)\n\t\treturn true\n\t}\n\treturn false", "\tl.times = append(l.times, now)\n\treturn len(l.times) <= l.Limit"]], "expect": "refused requests do not count|grow"},
+  {"ex": "e2", "name": "off by one at the window edge", "replace": [["l.times[0] <= now-l.Window", "l.times[0] < now-l.Window"]], "expect": "leaves the window"},
+  {"ex": "e2", "name": "never drops old times", "replace": [["\tfor len(l.times) > 0 && l.times[0] <= now-l.Window {\n\t\tl.times = l.times[1:]\n\t}\n", ""]], "expect": "leaves the window|quiet gap"},
+  {"ex": "e3", "name": "left moves back", "replace": [["\t\tif p, seen := last[id]; seen && p >= left {", "\t\tif p, seen := last[id]; seen {"]], "expect": "already outside the window"},
+  {"ex": "e3", "name": "restarts the window at the repeat", "replace": [["\t\t\tleft = p + 1 // the repeat is inside the window: move past its first copy", "\t\t\tleft = right"]], "expect": "middle|outside"}
+]

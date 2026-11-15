@@ -18,7 +18,8 @@ a { color: #61afef; }
 details.fold { margin: 14px 0; border: 1px solid #2c313a; border-radius: 8px; padding: 0 14px; } details.fold summary { cursor: pointer; padding: 9px 0; color: #9da5b4; font-weight: 600; } details.fold[open] { padding-bottom: 6px; }
 .ex { border: 1px solid #2c313a; border-radius: 10px; padding: 14px 16px; margin: 14px 0; background: #21252b; }
 .ex.on { border-color: #4d78cc; }
-.ex .h { display: flex; align-items: center; gap: 10px; } .ex .id { font: 600 13px var(--mono); color: #61afef; } .ex .kind { font: 700 10.5px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #98c379; border: 1px solid #3a4a33; border-radius: 99px; padding: 1px 8px; }
+.ex .h { display: flex; align-items: center; gap: 10px; } .ex .id { font: 600 13px var(--mono); color: #61afef; } .ex .kind[data-k="Project"] { color: #c678dd; border-color: #4b3557; } .ex .kind[data-k="Use"] { color: #e5c07b; border-color: #4f4630; } .ex .kind[data-k="Complete"] { color: #61afef; border-color: #2f4560; }
+.ex .kind { font: 700 10.5px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #98c379; border: 1px solid #3a4a33; border-radius: 99px; padding: 1px 8px; }
 .ex .t { font-weight: 700; color: #e6e6e6; } .ex .st { margin-left: auto; font-size: 13px; color: #7f848e; } .ex .st.ok { color: #98c379; }
 .ex p { margin: 8px 0; }
 .ex .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
@@ -28,3 +29,8 @@ details.fold { margin: 14px 0; border: 1px solid #2c313a; border-radius: 8px; pa
 .sol { margin-top: 10px; } .sol pre { background: #282c34; padding: 10px 12px; border-radius: 6px; overflow-x: auto; font: 13px/1.5 var(--mono); color: #abb2bf; }
 .bench { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
 @media (max-width: 900px) { body { overflow: auto; } .app { display: block; height: auto; } .lesson { border: 0; } .bench { height: 92vh; } }
+.lesson pre.sample { background: #21252b; border: 1px solid #2c313a; border-radius: 8px; padding: 10px 14px; overflow-x: auto; font: 13.5px/1.55 var(--mono); color: #abb2bf; }
+.lesson .crumb { font-size: 13px; color: #7f848e; margin-bottom: 4px; }
+.lnav { display: flex; justify-content: space-between; gap: 12px; margin-top: 40px; padding-top: 16px; border-top: 1px solid #2c313a; }
+.lnav a { display: flex; flex-direction: column; gap: 2px; padding: 10px 14px; border: 1px solid #2c313a; border-radius: 8px; text-decoration: none; color: #d7dae0; max-width: 48%; }
+.lnav a:hover { border-color: #4d78cc; } .lnav a small { color: #7f848e; font-size: 12px; } .lnav a.next { text-align: right; margin-left: auto; }

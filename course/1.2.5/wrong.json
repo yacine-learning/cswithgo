@@ -1,0 +1,7 @@
+[
+  {"ex": "e2", "name": "does not save next", "replace": [["\t\tnext := cur.next // save it before changing cur.next\n\t\tcur.next = prev\n\t\tprev = cur\n\t\tcur = next", "\t\tcur.next = prev\n\t\tprev = cur\n\t\tcur = cur.next"]], "expect": "reverse five values"},
+  {"ex": "e2", "name": "forgets the head", "replace": [["\tl.head.next = prev\n", ""]], "expect": "reverse five values"},
+  {"ex": "e3", "name": "Get does not move to front", "replace": [["\tc.order.MoveToFront(el)\n\treturn el.Value.(entry).value, true", "\treturn el.Value.(entry).value, true"]], "expect": "Get counts as a use"},
+  {"ex": "e3", "name": "evicts the front", "replace": [["\t\tback := c.order.Back()", "\t\tback := c.order.Front()"]], "expect": "evicts the least recently used|Get counts"},
+  {"ex": "e3", "name": "forgets the map on eviction", "replace": [["\t\tdelete(c.items, back.Value.(entry).key)\n", ""]], "expect": "map"}
+]

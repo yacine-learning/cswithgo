@@ -1,0 +1,29 @@
+<div class="keep"><span class="k">Keep this</span><ul>
+<li>A linked list is nodes scattered in memory, each pointing to the next: <b>inserting or removing at a node you hold is O(1)</b>, but reaching the <i>i</i>-th node is O(n).</li>
+<li>In practice a slice usually wins, because memory is read in cache lines and a slice's elements are side by side. A list wins when you keep pointers to nodes and move them around: an LRU cache is the classic case.</li>
+<li>A <b>dummy (sentinel) head</b> node removes the special case for the first element.</li>
+</ul></div>
+
+<h2>The problem</h2>
+<p>In the 1950s, programs had to declare how much memory each structure would use, in advance. A program that builds structures as it thinks, of sizes nobody can predict, needs memory that grows piece by piece, and pieces that can be inserted between others without moving anything.</p>
+
+<h2>Where it comes from</h2>
+<p><b>Allen Newell</b>, <b>Cliff Shaw</b> and <b>Herbert Simon</b>, at RAND and Carnegie Tech, invented linked lists in 1955–56 for their Information Processing Language (IPL), to write the Logic Theorist, often called the first artificial intelligence program, which proved theorems from Russell and Whitehead's <i>Principia Mathematica</i>. The box-and-arrow drawing of a list first appears in Newell and Shaw's 1957 paper. IPL inspired Lisp, and Newell and Simon received the 1975 Turing Award, partly for list processing.</p>
+
+<h2>The idea</h2>
+<p>Each node holds a value and the address of the next node. To insert after a node, make the new node point where it pointed, then point it at the new node: two assignments, whatever the length. To find a value, though, you must walk from the head.</p>
+<details class="fold"><summary>Why slices are usually faster anyway</summary>
+<p>A CPU reads memory in blocks of 64 bytes (cache lines) and guesses what comes next. A slice of ints puts 8 of them in each block, in order. A list's nodes can be anywhere, so each step may wait for a trip to main memory, a hundred times slower than the cache. Inserting into the middle of a slice moves elements, but moving a few thousand contiguous ints is often faster than one walk to the middle of a list. Measure before choosing a list for speed.</p>
+<p>Lists still matter where nodes are held and moved: the Linux kernel keeps processes in doubly linked lists, Go's <code>container/list</code> backs LRU caches, and a free list recycles memory blocks.</p>
+</details>
+
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<div data-ex="e3"></div>
+
+<details class="fold"><summary>Sources</summary><ul>
+<li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Linked_list#History" target="_blank" rel="noopener">Linked list: History</a>: Newell, Shaw and Simon, IPL, 1955–56; the 1957 diagram.</li>
+<li>ACM, <a href="https://amturing.acm.org/award_winners/newell_3167755.cfm" target="_blank" rel="noopener">Allen Newell, Turing Award 1975</a>: the Logic Theorist and list processing.</li>
+<li><a href="https://pkg.go.dev/container/list" target="_blank" rel="noopener">container/list</a>, Go standard library.</li>
+</ul></details>

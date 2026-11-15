@@ -1,0 +1,28 @@
+<div class="keep"><span class="k">Keep this</span><ul>
+<li>A stack is <b>last in, first out</b>: push and pop at the same end, both O(1).</li>
+<li>A stack remembers <b>where to come back to</b>: function calls (the call stack), undo, the back button, nested brackets, depth-first search.</li>
+<li>In Go, a slice is a stack: <code>s = append(s, x)</code> to push; <code>x, s = s[len(s)-1], s[:len(s)-1]</code> to pop. Check that it is not empty first.</li>
+</ul></div>
+
+<h2>The problem</h2>
+<p>A program calls a subroutine, which calls another, which calls another. Each must return to the right place in the one that called it, and the last one called is the first to return. The same shape appears when reading <code>3 × (4 + (5 − 1))</code>: the innermost bracket opened last is closed first.</p>
+
+<h2>Where it comes from</h2>
+<p>In his 1946 design for the ACE computer, <b>Alan Turing</b> described two routines, BURY and UNBURY, to call subroutines and return from them using a stack of return addresses. In Munich, <b>Friedrich Bauer</b> and <b>Klaus Samelson</b> worked out in 1955 how a stack (their <i>Keller</i>, "cellar") lets a machine evaluate and translate formulas, and patented the method. It became the heart of compilers, and Bauer later received the IEEE Computer Pioneer Award for it. Every program you run today uses a stack for its function calls (lesson 1.3.1).</p>
+
+<h2>The idea</h2>
+<p>Only the top is visible. Pushing puts something on top; popping takes the top off. Nothing else is needed, which is why it is so fast and so common.</p>
+<details class="fold"><summary>Why the browser needs two stacks</summary>
+<p>Back takes you to the last page you came from: that is a stack. Forward takes you to the last page you went back from: another stack. Visiting a new page clears the forward stack, because that future no longer exists. Undo and redo in an editor work the same way.</p>
+</details>
+
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<div data-ex="e3"></div>
+
+<details class="fold"><summary>Sources</summary><ul>
+<li>Mark Smotherman, <a href="https://people.computing.clemson.edu/~mark/subroutines.html" target="_blank" rel="noopener">Subroutine and procedure call support</a>: Turing's ACE report (1946), BURY and UNBURY.</li>
+<li>IEEE Computer Society, <a href="https://history.computer.org/pioneers/bauer.html" target="_blank" rel="noopener">Friedrich L. Bauer</a>: the stack method of expression evaluation with Samelson (1955), the patent.</li>
+<li>Communications of the ACM, <a href="https://cacm.acm.org/blogcacm/the-life-of-a-computer-pioneer" target="_blank" rel="noopener">The Life of a Computer Pioneer</a> (2015).</li>
+</ul></details>

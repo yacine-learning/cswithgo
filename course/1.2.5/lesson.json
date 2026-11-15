@@ -1,0 +1,22 @@
+{
+  "n": "1.2.5",
+  "title": "Linked lists",
+  "exercises": [
+    { "id": "e1", "kind": "Read", "title": "A list with a dummy head",
+      "task": "Read <code>List</code>. It starts with a dummy node that holds no value, so removing the first real node is no special case: every removal changes some <code>prev.next</code>. <b>Run</b> removes values from the front, the middle and the end." },
+    { "id": "e2", "kind": "Complete", "title": "Reverse a list",
+      "task": "Reverse the list in place by turning each arrow around as you walk. Three pointers: the node before, the current node, and the one after (save it before you change <code>cur.next</code>).",
+      "hints": [
+        "Start with <code>prev = nil</code> and <code>cur = l.head.next</code> (the first real node).",
+        "In the loop: save <code>next := cur.next</code>, point <code>cur.next</code> at <code>prev</code>, then move both <code>prev</code> and <code>cur</code> one step.",
+        "When the loop ends, <code>prev</code> is the old last node: hang it after the dummy head."
+      ] },
+    { "id": "e3", "kind": "Use", "title": "An LRU cache",
+      "task": "A cache that keeps the <code>capacity</code> most recently used keys and evicts the least recently used one. Use Go's <code>container/list</code> (a doubly linked list) for the order and a map from key to list element for the O(1) lookup. Hover over <code>list.</code> names in the editor for their documentation.",
+      "hints": [
+        "Keep the most recent at the front: <code>MoveToFront</code> on every Get and Put of an existing key.",
+        "The map holds <code>*list.Element</code>; store an <code>entry{key, value}</code> in the element, so that when you evict the back you know which key to delete from the map.",
+        "Evict with <code>back := c.order.Back()</code>, <code>c.order.Remove(back)</code>, <code>delete(c.items, back.Value.(entry).key)</code>."
+      ] }
+  ]
+}

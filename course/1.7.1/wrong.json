@@ -1,0 +1,57 @@
+[
+ {
+  "ex": "e2",
+  "name": "down ignores the right child",
+  "replace": [
+   [
+    "\t\tif right < len(h) && h[right] < h[smallest] {\n\t\t\tsmallest = right\n\t\t}\n",
+    "\t\t_ = right\n"
+   ]
+  ],
+  "expect": "Pop|pop"
+ },
+ {
+  "ex": "e2",
+  "name": "down without bounds check",
+  "replace": [
+   [
+    "\t\tif right < len(h) && h[right] < h[smallest] {",
+    "\t\tif h[right] < h[smallest] {"
+   ]
+  ],
+  "expect": "panicked"
+ },
+ {
+  "ex": "e2",
+  "name": "up compares with the wrong parent",
+  "replace": [
+   [
+    "\t\tparent := (i - 1) / 2",
+    "\t\tparent := i / 2"
+   ]
+  ],
+  "expect": "Push|pop|order"
+ },
+ {
+  "ex": "e3",
+  "name": "max-heap keeps the wrong items",
+  "replace": [
+   [
+    "\t\treturn h[i].count < h[j].count",
+    "\t\treturn h[i].count > h[j].count"
+   ]
+  ],
+  "expect": "top"
+ },
+ {
+  "ex": "e3",
+  "name": "ties the wrong way",
+  "replace": [
+   [
+    "\treturn h[i].msg > h[j].msg",
+    "\treturn h[i].msg < h[j].msg"
+   ]
+  ],
+  "expect": "tie"
+ }
+]

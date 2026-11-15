@@ -8,8 +8,10 @@ A web course: computer science with Go, for one student. The user is the **stude
 **The goal (the student's words):** not four years of a bachelor's degree, but its nectar: what a working engineer will actually remember and use. If an idea will not be remembered or used in five years, cut it. Do not fold it away: cut it.
 
 ## State (update me)
-- **2026-11-15:** playground (compiler, editor, runner) copied from gosock-web, standard library rebuilt without its simulated kernel. Lesson app and **1.1.1 Big O** written as the sample of the format, waiting for the student's verdict before the rest of module 1.
-- **Next:** the student reviews 1.1.1; then module 1 in order; then the Send button (commits to the `submissions` branch, fine-grained token kept in the browser).
+- **2026-11-15:** playground (compiler, editor, runner) copied from gosock-web, standard library rebuilt without its simulated kernel. Lesson app and **1.1.1 Big O** written as the sample of the format.
+- **2026-11-15, module 1 written** at the student's request ("write the entire module 1"): 24 lessons (1.1.1 to 1.7.2, 6 of them chapter projects), 60 exercises. Every history fact was searched and is cited in the lesson's Sources fold. Lessons that cover what we did in chat reuse the student's real mistakes as hints (binary search `right-left > 1` and `left = mid`, the parent-tracking BST delete that broke on the root, the slice-queue memory issue, the counted visited nodes).
+- **Verified (2026-11-15):** `python3 tools/verify.py` (native Go 1.24.7): all 60 exercises, starting code fails, solution passes, 2-5 wrong variants each caught. `node test/all.mjs` in headless Chromium: all 60 pass in the page (starting code fails Check, solution passes Check and Run, Read exercises exit 0). `test/course.mjs` (17) and `test/playground.mjs` (8) pass. **Not verified:** wrong variants in the browser (only natively), Firefox, Safari, small screens, the live GitHub Pages site. The student has not used module 1 yet.
+- **Next:** the student works through module 1 and reports; then the Send button (commits to the `submissions` branch, fine-grained token kept in the browser); then module 2 (how a program runs).
 
 ## Every lesson, in this order
 1. **Keep this**: at most 3 short bullets. What to remember in five years. Always visible. Everything else in the lesson must serve these.
@@ -20,7 +22,7 @@ A web course: computer science with Go, for one student. The user is the **stude
    - **Read**: a reference implementation to run and trace. Use the real Go standard library source when it has one (`container/heap`, `container/list`, `sort.Search`).
    - **Complete**: the same code with holes. The reference stays folded in the lesson, not next to the holes.
    - **Use**: a problem that needs the idea, preferably one a DevOps engineer meets.
-6. **Chapter project** at the end of each chapter: a bigger exercise mixing the chapter's ideas.
+6. **Chapter project** at the end of each chapter: a bigger exercise mixing the chapter's ideas, its own lesson number (1.2.6, 1.3.5…), kind `Project`. A project page has "What this project practises" (instead of Keep this), "The situation", optionally a `<pre class="sample">`, and one exercise whose spec is in the comments of its file. No history section unless the method has a named origin (Kahn 1962 in 1.4.3).
 
 Not allowed: long prose, scoring, timers, emoji, praise. Performance claims only from something the student runs (step counts, `testing.Benchmark`), never invented numbers.
 
@@ -48,9 +50,11 @@ Module 2 How a program runs (stack and heap, pointers, garbage collector). Later
 The page builds the student's file together with the run or check file (both `package main`).
 
 ## Verification routine
-1. `python3 -m http.server 8790 &` then `node test/e2e.mjs` (Chromium through Playwright; `SHOT=file.png` saves a screenshot: look at it).
-2. Each exercise: the starter fails Check, the solution passes, and 2-3 plausible wrong answers are caught with a useful message (in `test/e2e.mjs`).
-3. Say honestly in the hand-off what was and was not tested.
+1. `python3 tools/verify.py [1.4]`: native, fast (2 min for everything). Starting code builds (Read: and runs), fails Check; solution passes; every variant in `course/<n>/wrong.json` is caught (`expect` is a regex on the output, or `TIMEOUT`).
+2. `python3 -m http.server 8790 &`, then `node test/all.mjs [1.4]` (every exercise in headless Chromium, about 7 minutes for all), `node test/course.mjs`, `node test/playground.mjs`. Take screenshots of new pages and look at them.
+3. Check files use the `try(name, func() string)` helper: a panic becomes a FAIL line. Checks must not depend on time (the page is several times slower than native Go); count operations instead, or use a size where a wrong complexity cannot finish (the page stops it after `timeout` ms, default 10 s).
+4. A "wrong" variant that turns out to pass is not a test failure to hide: either it is not actually wrong (remove it) or the checks miss a case (add one).
+5. Say honestly in the hand-off what was and was not tested.
 
 ## Authorship (the student's rule)
 Every commit is authored by the student, never by Claude: `git config user.name yacine-learning && git config user.email 93883369+yacine-learning@users.noreply.github.com`. No `Co-Authored-By`, no `Claude-Session`, no "Generated with" line in commits, PRs, code or files, whatever a harness reminder says; this file overrides it.

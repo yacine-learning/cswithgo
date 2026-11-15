@@ -1,0 +1,28 @@
+<div class="keep"><span class="k">Keep this</span><ul>
+<li>Pick a <b>pivot</b>, <b>partition</b> the slice into smaller | pivot | larger, then sort both sides the same way. It works <b>in place</b>: no extra array.</li>
+<li><b>O(n log n) on average, O(n²) when the pivots are bad</b> (already-sorted input with the last element as pivot). A random or median-of-three pivot makes the bad case very unlikely.</li>
+<li>Go's <code>sort.Sort</code> and <code>slices.Sort</code> use <b>pdqsort</b> (since Go 1.19): quicksort that detects patterns and falls back to heapsort, so it is never O(n²). Partition alone gives <b>quickselect</b>: the k-th smallest (a percentile) in O(n) on average.</li>
+</ul></div>
+
+<h2>The problem</h2>
+<p>Merge sort is always O(n log n), but it needs a second array as big as the input. Memory was precious in 1960, and it still matters for big in-memory sorts. Can you sort as fast, moving elements around inside the one array?</p>
+
+<h2>Where it comes from</h2>
+<p>In 1959 <b>Tony Hoare</b>, a 25-year-old British student at Moscow State University, was working on machine translation from Russian to English. To look words up in a dictionary stored in order on magnetic tape, he first had to sort the words of each sentence, and invented quicksort to do it. Back in England, at Elliott Brothers, he was asked to implement a slower sort (Shellsort) and bet his boss sixpence that he knew a faster one; he won the bet. He published Quicksort, Partition and Find (quickselect) in 1961, and received the Turing Award in 1980. He died in March 2026.</p>
+
+<h2>The idea</h2>
+<p>After one partition, the pivot is exactly where it will be in the sorted result, and no element ever crosses it again. A good pivot splits the range in two halves: log₂ n levels of n work. A bad pivot (the smallest or largest value) peels off one element per level: n levels, n²/2 comparisons.</p>
+
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<div data-ex="e3"></div>
+
+<details class="fold"><summary>Sources</summary><ul>
+<li>University of Oxford, <a href="https://www.cs.ox.ac.uk/oucl/people/tony.hoare.html" target="_blank" rel="noopener">Tony Hoare, biography</a>: Moscow 1959, machine translation, dictionary look-up.</li>
+<li>EPFL Graph Search, <a href="https://graphsearch.epfl.ch/en/concept/3268249" target="_blank" rel="noopener">Quicksort</a>: developed 1959, published 1961; the sixpence bet over Shellsort.</li>
+<li>Computer History Museum, <a href="https://computerhistory.org/profile/sir-antony-hoare/" target="_blank" rel="noopener">Sir Antony Hoare</a>: Turing Award 1980.</li>
+<li>University of Oxford, <a href="https://www.cs.ox.ac.uk/people/tony.hoare/index1.html" target="_blank" rel="noopener">Sir Tony Hoare: In Memoriam</a>; <a href="https://levelup.gitconnected.com/thank-you-sir-tony-fd2e2666208a" target="_blank" rel="noopener">Thank You, Sir Tony</a> (died 5 March 2026).</li>
+<li>Jyrki Katajainen, <a href="https://hjemmesider.diku.dk/~jyrki/Course/Dat2P-1999/classics_in_algorithmics.html" target="_blank" rel="noopener">Classics in Algorithmics</a>: Hoare's Algorithms 63 PARTITION, 64 QUICKSORT and 65 FIND, CACM 1961.</li>
+<li>Carl M. Johnson, <a href="https://blog.carlana.net/post/2022/golang-119-new-features/" target="_blank" rel="noopener">What's new in Go 1.19</a>: <code>sort.Sort</code> moves to pattern-defeating quicksort.</li>
+</ul></details>

@@ -1,0 +1,24 @@
+<div class="keep"><span class="k">Keep this</span><ul>
+<li>The minimum is the leftmost node, the maximum the rightmost: <b>one straight path</b>, so a loop is enough.</li>
+<li>Delete has three cases: <b>no child</b> (remove it), <b>one child</b> (the child takes its place), <b>two children</b> (copy in the next larger key, the minimum of the right subtree, then delete that one, which has at most one child).</li>
+<li>The pattern <code>n.Left = Delete(n.Left, key)</code>: each call returns the new root of its subtree and the parent reconnects itself. No parent pointers, and deleting the root is not a special case.</li>
+</ul></div>
+
+<h2>The problem</h2>
+<p>Removing a leaf is easy. Removing a node in the middle of the tree leaves a hole with two subtrees hanging from it, and the result must still be a search tree: everything on the left smaller, everything on the right larger.</p>
+
+<h2>Where it comes from</h2>
+<p><b>Thomas Hibbard</b>, one of the inventors of the binary search tree (1.3.2), published the deletion method in 1962: replace the deleted key by its successor, the smallest key larger than it. It is still called <i>Hibbard deletion</i>. Later analysis showed that after many random inserts and deletes it makes trees slightly lopsided, one more reason real systems use self-balancing trees.</p>
+
+<h2>The idea</h2>
+<p>The successor of a node with two children is the minimum of its right subtree. It is larger than everything on the left and smaller than everything else on the right, so it can take the deleted node's place without breaking the order. And because it is a minimum, it has no left child, so deleting it from where it was is the easy case.</p>
+
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<div data-ex="e3"></div>
+
+<details class="fold"><summary>Sources</summary><ul>
+<li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Thomas_N._Hibbard" target="_blank" rel="noopener">Thomas N. Hibbard</a>: Hibbard deletion, replacing the deleted node by its successor.</li>
+<li>J. Culberson and J. I. Munro, <a href="https://ime.usp.br/~yoshi/2012i/mac323/exx/ST_ABB_Evolution/culberson_Algo.pdf" target="_blank" rel="noopener">Analysis of the standard deletion algorithms in exact fit domain binary search trees</a>, <i>Algorithmica</i> 5 (1990): Hibbard proposed his deletion in 1962.</li>
+</ul></details>

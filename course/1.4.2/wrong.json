@@ -1,0 +1,52 @@
+[
+ {
+  "ex": "e2",
+  "name": "seen when dequeued",
+  "replace": [
+   [
+    "\t\tcur := queue[0]\n\t\tqueue = queue[1:]\n\t\tfor _, next := range g[cur] {\n\t\t\tif !seen[next] {\n\t\t\t\tseen[next] = true\n\t\t\t\tparent[next] = cur",
+    "\t\tcur := queue[0]\n\t\tqueue = queue[1:]\n\t\tseen[cur] = true\n\t\tfor _, next := range g[cur] {\n\t\t\tif !seen[next] {\n\t\t\t\tparent[next] = cur"
+   ]
+  ],
+  "expect": "shortcut|three hops|two hops"
+ },
+ {
+  "ex": "e2",
+  "name": "stack instead of queue (DFS)",
+  "replace": [
+   [
+    "\t\tcur := queue[0]\n\t\tqueue = queue[1:]",
+    "\t\tcur := queue[len(queue)-1]\n\t\tqueue = queue[:len(queue)-1]"
+   ]
+  ],
+  "expect": "hops|shortcut"
+ },
+ {
+  "ex": "e2",
+  "name": "path not reversed",
+  "replace": [
+   [
+    "\tfor i, j := 0, len(path)-1; i < j; i, j = i+1, j-1 {\n\t\tpath[i], path[j] = path[j], path[i]\n\t}\n",
+    ""
+   ]
+  ],
+  "expect": "one hop"
+ },
+ {
+  "ex": "e3",
+  "name": "one visited set: any visited node is a cycle",
+  "file": "package main\n\nimport \"sort\"\n\ntype Graph map[string][]string\n\nfunc FindCycle(g Graph) []string {\n\tvisited := map[string]bool{}\n\tvar cycle []string\n\tvar visit func(n string) bool\n\tvisit = func(n string) bool {\n\t\tvisited[n] = true\n\t\tfor _, next := range g[n] {\n\t\t\tif visited[next] {\n\t\t\t\tcycle = []string{next, n, next}\n\t\t\t\treturn true\n\t\t\t}\n\t\t\tif visit(next) {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t\treturn false\n\t}\n\tnames := make([]string, 0, len(g))\n\tfor n := range g {\n\t\tnames = append(names, n)\n\t}\n\tsort.Strings(names)\n\tfor _, n := range names {\n\t\tif !visited[n] && visit(n) {\n\t\t\treturn cycle\n\t\t}\n\t}\n\treturn nil\n}\n",
+  "expect": "DAG|diamond"
+ },
+ {
+  "ex": "e3",
+  "name": "only searches from one node",
+  "replace": [
+   [
+    "\t\tif state[n] == notVisited && visit(n) {\n\t\t\treturn cycle\n\t\t}",
+    "\t\tif visit(n) {\n\t\t\treturn cycle\n\t\t}\n\t\tbreak"
+   ]
+  ],
+  "expect": "second part"
+ }
+]

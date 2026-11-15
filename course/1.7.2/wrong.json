@@ -1,0 +1,5 @@
+[
+  {"ex": "e1", "name": "no tie-break on pods", "replace": [["\treturn h.cs[a].pod < h.cs[b].pod", "\treturn false"]], "expect": "tie|300 pods"},
+  {"ex": "e1", "name": "forgets to fix the heap", "replace": [["\t\t\th.cs[0].i++\n\t\t\theap.Fix(h, 0)", "\t\t\th.cs[0].i++"]], "expect": "three pods|300 pods"},
+  {"ex": "e1", "name": "stops after the first pod runs out", "replace": [["\t\t} else {\n\t\t\theap.Pop(h)\n\t\t}", "\t\t} else {\n\t\t\tbreak\n\t\t}"]], "expect": "three pods|entries out"}
+]

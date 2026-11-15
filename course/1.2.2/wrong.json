@@ -1,0 +1,57 @@
+[
+ {
+  "ex": "e2",
+  "name": "Get takes the first entry of the bucket",
+  "replace": [
+   [
+    "\tfor _, e := range m.buckets[m.bucketOf(key)] {\n\t\tif e.key == key {\n\t\t\treturn e.value, true\n\t\t}\n\t}",
+    "\tfor _, e := range m.buckets[m.bucketOf(key)] {\n\t\treturn e.value, true\n\t}"
+   ]
+  ],
+  "expect": "share bucket 0|a missing key"
+ },
+ {
+  "ex": "e2",
+  "name": "Put always appends",
+  "replace": [
+   [
+    "\tfor j := range m.buckets[i] {\n\t\tif m.buckets[i][j].key == key {\n\t\t\tm.buckets[i][j].value = value // already there: replace\n\t\t\treturn\n\t\t}\n\t}\n",
+    ""
+   ]
+  ],
+  "expect": "replaces its value"
+ },
+ {
+  "ex": "e2",
+  "name": "Put changes a copy",
+  "replace": [
+   [
+    "\tfor j := range m.buckets[i] {\n\t\tif m.buckets[i][j].key == key {\n\t\t\tm.buckets[i][j].value = value // already there: replace\n\t\t\treturn\n\t\t}\n\t}",
+    "\tfor _, e := range m.buckets[i] {\n\t\tif e.key == key {\n\t\t\te.value = value\n\t\t\treturn\n\t\t}\n\t}"
+   ]
+  ],
+  "expect": "replaces its value"
+ },
+ {
+  "ex": "e3",
+  "name": "no sort",
+  "replace": [
+   [
+    "\tsort.Slice(out, func(i, j int) bool {\n\t\tif out[i].N != out[j].N {\n\t\t\treturn out[i].N > out[j].N\n\t\t}\n\t\treturn out[i].Code < out[j].Code\n\t})\n",
+    "\t_ = sort.Slice\n"
+   ]
+  ],
+  "expect": "got|different orders"
+ },
+ {
+  "ex": "e3",
+  "name": "ties not ordered",
+  "replace": [
+   [
+    "\t\treturn out[i].Code < out[j].Code\n",
+    "\t\treturn false\n"
+   ]
+  ],
+  "expect": "ties|different orders"
+ }
+]

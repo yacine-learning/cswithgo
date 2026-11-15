@@ -1,0 +1,14 @@
+{
+  "n": "1.5.4",
+  "title": "Project: incident timeline",
+  "timeout": 10000,
+  "exercises": [
+    { "id": "e1", "kind": "Project", "title": "Count, busiest, silent", "timeout": 10000,
+      "task": "Error timestamps from a long incident, sorted. Write three functions: <code>Count</code> (errors in a time range, fast enough for 50 000 queries on 500 000 errors), <code>Busiest</code> (the window of a given width with the most errors), <code>Silences</code> (gaps with no error, which often mean the service was down, not healthy). The spec is in the file.",
+      "hints": [
+        "Count: two binary searches for boundaries (1.5.1): the first index with <code>ts[i] &gt;= from</code> and the first with <code>ts[i] &gt;= to</code>. <code>sort.SearchInts</code> is allowed here.",
+        "Busiest: a window <code>[ts[left], ts[left]+width)</code>; move <code>right</code> forward while <code>ts[right]</code> is inside, then the count is <code>right - left</code>. When <code>left</code> moves, <code>right</code> never goes back: O(n).",
+        "Silences: one pass comparing each timestamp with the next."
+      ] }
+  ]
+}

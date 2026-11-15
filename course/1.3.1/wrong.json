@@ -1,0 +1,50 @@
+[
+ {
+  "ex": "e2",
+  "name": "memo checked but never filled",
+  "replace": [
+   [
+    "\tmemo[n] = v\n",
+    ""
+   ]
+  ],
+  "expect": "TIMEOUT"
+ },
+ {
+  "ex": "e2",
+  "name": "no memo at all",
+  "replace": [
+   [
+    "\tif v, ok := memo[n]; ok {\n\t\treturn v\n\t}\n",
+    ""
+   ],
+   [
+    "\tmemo[n] = v\n",
+    ""
+   ]
+  ],
+  "expect": "TIMEOUT"
+ },
+ {
+  "ex": "e3",
+  "name": "only one level deep",
+  "replace": [
+   [
+    "\t\tfor k, child := range x {\n\t\t\twalk(prefix+\".\"+k, child, out)\n\t\t}",
+    "\t\tfor k, child := range x {\n\t\t\tout[prefix+\".\"+k] = fmt.Sprint(child)\n\t\t}"
+   ]
+  ],
+  "expect": "deep nesting"
+ },
+ {
+  "ex": "e3",
+  "name": "lists not handled",
+  "replace": [
+   [
+    "\tcase []any:\n\t\tfor i, child := range x {\n\t\t\twalk(fmt.Sprintf(\"%s.%d\", prefix, i), child, out)\n\t\t}\n",
+    ""
+   ]
+  ],
+  "expect": "lists use indexes"
+ }
+]

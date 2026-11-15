@@ -1,0 +1,27 @@
+<div class="keep"><span class="k">Keep this</span><ul>
+<li><b>Divide and conquer</b>: split in halves, sort each half, <b>merge</b> the two sorted halves with two pointers.</li>
+<li><b>O(n log n) always</b>: log₂ n levels of splitting, n work to merge each level. It is <b>stable</b> (equal elements keep their order) but needs O(n) extra memory.</li>
+<li>The merge alone is precious: it sorts data <b>bigger than memory</b> (sort chunks, then merge them: <code>sort</code> on a 50 GB file does this) and merges sorted streams.</li>
+</ul></div>
+
+<h2>The problem</h2>
+<p>Sorting by comparing neighbours and swapping (bubble sort, insertion sort) is O(n²): a million log lines means about 10¹² steps. And the earliest computers had tiny memories but tapes: data that did not fit had to be sorted in pieces, then combined.</p>
+
+<h2>Where it comes from</h2>
+<p>Merge sort is credited to <b>John von Neumann</b>, who wrote it by hand in 1945 as one of the first programs for the EDVAC, a stored-program computer then being designed; Knuth's <i>The Art of Computer Programming</i> attributes it to him. Merging sorted tapes was how big files were sorted for decades, and it is still how databases and the Unix <code>sort</code> command handle data that does not fit in memory (project 1.6.3).</p>
+
+<h2>The idea</h2>
+<p>A slice of one element is sorted. Two sorted slices merge into one in a single pass (1.5.2). So: split until the pieces are single elements, then merge back up. Every level of merging touches all n elements once, and there are log₂ n levels: n log n comparisons, whatever the input.</p>
+<details class="fold"><summary>Why stability matters</summary>
+<p>Sort a list of deployments by date, then sort it by service, with a stable sort: within each service, the deployments are still in date order. With an unstable sort, that second order is lost. Go has both: <code>sort.Stable</code> / <code>slices.SortStableFunc</code> (a merge-based algorithm) and the faster, unstable <code>sort.Sort</code> / <code>slices.Sort</code> (1.6.2).</p>
+</details>
+
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<div data-ex="e3"></div>
+
+<details class="fold"><summary>Sources</summary><ul>
+<li>Educative, <a href="https://www.educative.io/courses/data-structures-with-generic-types-in-cpp/discussion-on-sorting-algorithms" target="_blank" rel="noopener">Discussion on sorting algorithms</a>: Knuth (<i>TAOCP</i> vol. 3) attributes merge sort to von Neumann, 1945.</li>
+<li>University of Rochester, <a href="https://cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf" target="_blank" rel="noopener">History of data structures</a>: written by hand on paper to run on the EDVAC.</li>
+</ul></details>

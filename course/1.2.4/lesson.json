@@ -1,0 +1,22 @@
+{
+  "n": "1.2.4",
+  "title": "Queues",
+  "exercises": [
+    { "id": "e1", "kind": "Read", "title": "A ring buffer",
+      "task": "Read <code>Ring</code>: a fixed array, <code>head</code> where the next element leaves, <code>count</code> elements in use. The back wraps around to the start with <code>%</code>. <b>Run</b> traces the array as jobs come and go: the slots are reused, nothing is ever copied or reallocated." },
+    { "id": "e2", "kind": "Complete", "title": "Write Enqueue and Dequeue",
+      "task": "Fill <code>Enqueue</code> (refuse when full) and <code>Dequeue</code> (refuse when empty). The only arithmetic is where the back is, and moving <code>head</code> with wrap-around.",
+      "hints": [
+        "The back slot is <code>head + count</code>, wrapped: <code>(r.head + r.count) % len(r.buf)</code>.",
+        "Dequeue takes <code>r.buf[r.head]</code>, then moves head one step, wrapped the same way.",
+        "Without <code>%</code>, the indices run past the end of the array after the first lap."
+      ] },
+    { "id": "e3", "kind": "Use", "title": "Round-robin scheduling",
+      "task": "A CPU (or a CI runner) shares its time between jobs: each job runs for at most <code>quantum</code> units, then goes to the back of the queue if it is not done. Return the names in the order the jobs finish.",
+      "hints": [
+        "A slice works as a queue here: take <code>q[0]</code>, then <code>q = q[1:]</code>; append unfinished jobs at the back.",
+        "Run each job for <code>min(quantum, remaining)</code>.",
+        "A job that needs exactly <code>quantum</code> finishes in its turn: it does not go back in the queue."
+      ] }
+  ]
+}

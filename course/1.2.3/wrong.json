@@ -1,0 +1,6 @@
+[
+  {"ex": "e2", "name": "Back forgets the forward stack", "replace": [["\tb.forward.Push(b.Current)\n\tb.Current = prev", "\tb.Current = prev"]], "expect": "Forward"},
+  {"ex": "e2", "name": "Back pops without checking", "replace": [["\tprev, ok := b.back.Pop()\n\tif !ok {\n\t\treturn false\n\t}", "\tprev, _ := b.back.Pop()"]], "expect": "nowhere to go back to"},
+  {"ex": "e3", "name": "counts brackets instead of a stack", "file": "package main\n\nfunc Balanced(s string) (bool, int) {\n\tdepth := 0\n\tfor i := 0; i < len(s); i++ {\n\t\tswitch s[i] {\n\t\tcase '(', '[', '{':\n\t\t\tdepth++\n\t\tcase ')', ']', '}':\n\t\t\tdepth--\n\t\t\tif depth < 0 {\n\t\t\t\treturn false, i\n\t\t\t}\n\t\t}\n\t}\n\tif depth != 0 {\n\t\treturn false, len(s) - 1\n\t}\n\treturn true, -1\n}\n", "expect": "wrong kind of closer|wrong order"},
+  {"ex": "e3", "name": "reports the outermost unclosed opener", "replace": [["\t\treturn false, stack[len(stack)-1]", "\t\treturn false, stack[0]"]], "expect": "innermost"}
+]

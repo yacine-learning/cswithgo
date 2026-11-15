@@ -1,0 +1,13 @@
+{
+  "n": "1.6.3",
+  "title": "Project: sorting a file bigger than memory",
+  "exercises": [
+    { "id": "e1", "kind": "Project", "title": "External sort",
+      "task": "Write <code>ExternalSort</code>: pretend only <code>memory</code> lines fit in RAM. Cut the input into sorted runs, then merge them two by two, round after round, until one run is left. Return the result, the number of runs and the number of merge rounds. The spec is in the file.",
+      "hints": [
+        "Runs: <code>for i := 0; i &lt; len(lines); i += memory</code>, take <code>lines[i:min(i+memory, len(lines))]</code>, copy it and sort it (<code>slices.Sort</code> is fine: a run fits in memory).",
+        "A round: merge runs 0 and 1, 2 and 3, …; an odd last run goes to the next round as it is. Write <code>merge</code> yourself (1.6.1).",
+        "Count the rounds while more than one run is left. 8 runs need 3 rounds, 5 runs need 3 too: it is ⌈log₂ runs⌉."
+      ] }
+  ]
+}

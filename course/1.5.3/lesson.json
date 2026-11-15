@@ -1,0 +1,22 @@
+{
+  "n": "1.5.3",
+  "title": "Sliding window",
+  "exercises": [
+    { "id": "e1", "kind": "Read", "title": "A moving average",
+      "task": "Read <code>MovingAverage</code>: keep the sum of the window; when it slides, add the value that enters and subtract the one that leaves. <b>Run</b> compares its number of additions with recomputing each window from scratch." },
+    { "id": "e2", "kind": "Complete", "title": "A rate limiter",
+      "task": "Allow at most <code>limit</code> requests in any window of <code>window</code> seconds. The limiter keeps the times of the requests it allowed in a queue. Fill <code>Allow</code>: first drop the times that have left the window, then decide.",
+      "hints": [
+        "A time t has left the window at <code>now</code> when <code>t &lt;= now - window</code>. The oldest times are at the front of the queue.",
+        "Drop from the front while the front is too old: <code>for len(l.times) &gt; 0 &amp;&amp; …</code>.",
+        "Then: if fewer than <code>limit</code> times remain, append <code>now</code> and return true; otherwise return false (a refused request is not recorded)."
+      ] },
+    { "id": "e3", "kind": "Use", "title": "The longest run without a repeat",
+      "task": "In a stream of request IDs, find the longest run of consecutive requests with no ID repeated (useful to spot retry storms). Return its start and length. A window that grows on the right and shrinks on the left: each ID enters once and leaves once, O(n).",
+      "hints": [
+        "Keep a map from ID to its last position. Move <code>right</code> one step at a time.",
+        "If the ID at <code>right</code> was last seen at a position ≥ <code>left</code>, it is a repeat inside the window: move <code>left</code> just past that position.",
+        "After each step, the window is <code>[left, right]</code>: keep the longest one (the earliest, on a tie)."
+      ] }
+  ]
+}

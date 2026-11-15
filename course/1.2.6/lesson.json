@@ -1,0 +1,13 @@
+{
+  "n": "1.2.6",
+  "title": "Project: trace spans",
+  "exercises": [
+    { "id": "e1", "kind": "Project", "title": "Analyze a trace",
+      "task": "Write <code>Analyze</code>: from the lines of a trace, compute each span's total time, the deepest nesting, and the three slowest spans, or the first error with its line number. The spec is in the comments of the file. <b>Run</b> prints the report for a sample trace and for broken ones.",
+      "hints": [
+        "Read each line with <code>strings.Fields</code> and <code>strconv.Atoi</code>; anything that is not <code>time start|end name</code> is an error.",
+        "A stack of open spans (name and start time) gives both the nesting depth and the check that each <code>end</code> closes the innermost open span.",
+        "Add durations in a <code>map[string]int</code>; for the slowest, copy the names into a slice and sort by duration, then name. Keep at most 3."
+      ] }
+  ]
+}

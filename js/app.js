@@ -24,7 +24,11 @@ async function openLesson(n) {
   lesson = await (await fetch(`course/${meta.n}/lesson.json`)).json();
   const html = await text(`${meta.n}/lesson.html`);
   $('#nav').value = meta.n; S.lesson = meta.n; save();
-  $('#lesson').innerHTML = `<h1><span class="no">${esc(meta.n)}</span>${esc(lesson.title)}</h1>` + html;
+  const i = list.indexOf(meta), prev = list[i - 1], next = list[i + 1];
+  const link = (l, dir) => l ? `<a class="${dir}" href="#${l.n}"><small>${dir === 'prev' ? '← Previous' : 'Next →'}</small>${esc(l.n)} ${esc(l.title)}</a>` : '<span></span>';
+  $('#lesson').innerHTML = `<div class="crumb">${esc(meta.module)} › ${esc(meta.chapter)}</div><h1><span class="no">${esc(meta.n)}</span>${esc(lesson.title)}</h1>` + html
+    + `<nav class="lnav">${link(prev, 'prev')}${link(next, 'next')}</nav>`;
+  document.title = `${meta.n} ${lesson.title} · cswithgo`;
   for (const e of lesson.exercises) { const slot = $(`[data-ex="${e.id}"]`); if (slot) { slot.className = 'ex'; slot.dataset.id = e.id; drawExercise(e); } }
   $('#lesson').scrollTop = 0;
   const last = lesson.exercises.find((e) => exId(e) === S.last) || lesson.exercises[0];
@@ -39,7 +43,7 @@ function drawExercise(e) {
   const hasCheck = e.kind !== 'Read';
   const st = S.passed[id] ? '<span class="st ok">checks pass</span>' : S.checked[id] ? '<span class="st">checked, not all passing</span>' : '';
   card.classList.toggle('on', ex?.id === e.id);
-  card.innerHTML = `<div class="h"><span class="id">${esc(id)}</span><span class="kind">${esc(e.kind)}</span><span class="t">${esc(e.title)}</span>${st}</div>
+  card.innerHTML = `<div class="h"><span class="id">${esc(id)}</span><span class="kind" data-k="${esc(e.kind)}">${esc(e.kind)}</span><span class="t">${esc(e.title)}</span>${st}</div>
     <p>${e.task}</p>
     ${hints.slice(0, shown).map((h, i) => `<div class="hint"><b>Hint ${i + 1}.</b> ${h}</div>`).join('')}
     <div class="btns">

@@ -1,0 +1,13 @@
+{
+  "n": "1.4.3",
+  "title": "Project: deployment order",
+  "exercises": [
+    { "id": "e1", "kind": "Project", "title": "Plan the deployment waves",
+      "task": "Write <code>Plan</code>: group services into waves so every service comes after all its dependencies, each service in the earliest wave possible. Services of one wave can be deployed in parallel. Report a cycle instead of a wrong plan. The spec is in the file.",
+      "hints": [
+        "Count, for each service, how many of its dependencies are not deployed yet (its in-degree). Wave 0 is every service at 0.",
+        "Build the reverse graph (1.4.1) once: when a wave is deployed, decrease the count of every service that depends on it; those that reach 0 form the next wave. This is Kahn's algorithm.",
+        "When no service is at 0 but some are left, they are stuck behind a cycle: return the error with all of them, sorted."
+      ] }
+  ]
+}

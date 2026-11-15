@@ -1,0 +1,25 @@
+<div class="keep"><span class="k">Keep this</span><ul>
+<li>A <b>heap</b> is a tree where every parent is ≤ its children, so the minimum is always at the top. It lives in a <b>slice</b>: the children of i are at 2i+1 and 2i+2.</li>
+<li><b>Push and Pop are O(log n)</b> (a value climbs up or sinks down one path), <b>peek is O(1)</b>. It is the standard <b>priority queue</b>.</li>
+<li>Use it whenever you repeatedly need "the next smallest": schedulers and timers, top-k, merging k sorted streams (1.7.2), shortest paths with weights (Dijkstra). In Go: <code>container/heap</code>.</li>
+</ul></div>
+
+<h2>The problem</h2>
+<p>A job queue where urgent jobs jump ahead; timers where the next one to fire must be found instantly; the 10 most frequent errors among a million. A sorted slice gives the minimum in O(1) but costs O(n) per insertion; an unsorted one inserts in O(1) but must scan for the minimum. You want both cheap.</p>
+
+<h2>Where it comes from</h2>
+<p><b>J. W. J. Williams</b>, at Elliott Brothers in London (the company where Hoare had just written quicksort, 1.6.2), invented the binary heap in 1963 to build a sorting method, heapsort, published in 1964 as "Algorithm 232: Heapsort". The same year <b>Robert Floyd</b> showed how to build a heap from n values in O(n) instead of O(n log n). The heap outlived heapsort: today it is mostly used as a priority queue, and heapsort survives as the safety net inside Go's pdqsort (1.6.2).</p>
+
+<h2>The idea</h2>
+<p>A heap is only partly sorted: each parent is smaller than its children, nothing more. That is enough for the minimum to sit at the root, and cheap to maintain: after a push, the new value climbs until its parent is smaller; after a pop, the last value moves to the root and sinks until its children are larger. Both follow one path from the root to a leaf, and a tree packed in a slice is always balanced: log₂ n levels.</p>
+
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<div data-ex="e3"></div>
+
+<details class="fold"><summary>Sources</summary><ul>
+<li>Wikipedia, <a href="https://en.wikipedia.org/wiki/J._W._J._Williams" target="_blank" rel="noopener">J. W. J. Williams</a>: invented heapsort and the binary heap in 1963 at Elliott Brothers; Algorithm 232, CACM, June 1964.</li>
+<li>Jyrki Katajainen, <a href="https://hjemmesider.diku.dk/~jyrki/Course/Dat2P-1999/classics_in_algorithmics.html" target="_blank" rel="noopener">Classics in Algorithmics</a>: Williams' Algorithm 232 and Floyd's Algorithm 245, Treesort 3 (1964).</li>
+<li>Go source, <a href="https://go.dev/src/container/heap/heap.go" target="_blank" rel="noopener">container/heap/heap.go</a>: <code>up</code> and <code>down</code> (BSD licence).</li>
+</ul></details>

@@ -1,0 +1,25 @@
+<div class="keep"><span class="k">Keep this</span><ul>
+<li>On <b>sorted</b> data, compare with the middle and throw away the half that cannot hold the answer: <b>O(log n)</b>. A million items in about 20 steps.</li>
+<li>The rule that makes it correct: the answer, if it exists, is always inside [left, right]. So <code>for left &lt;= right</code>, and move to <code>mid + 1</code> or <code>mid − 1</code> so the range always shrinks.</li>
+<li>The most useful form finds the <b>first position where a condition becomes true</b>: <code>sort.Search</code>, <code>git bisect</code>, "the first log line after 14:00".</li>
+</ul></div>
+
+<h2>The problem</h2>
+<p>You look for a word in a dictionary, a timestamp in a sorted log, the commit that broke the build. Checking every item is O(n), and when each check takes minutes (a build, a test run) n checks is not an option.</p>
+
+<h2>Where it comes from</h2>
+<p>The first recorded mention of binary search for computers is by <b>John Mauchly</b>, one of the designers of ENIAC, in the Moore School lectures of 1946. It then took until 1962 before a version that works for every length was published, as <b>Jon Bentley</b> recalls in <i>Programming Pearls</i>, where he also reports that most professional programmers he asked could not write it correctly. In 2006 <b>Joshua Bloch</b> found that the binary search in Java's standard library, which he had written from Bentley's book, failed on arrays of more than about a billion elements: <code>(low + high) / 2</code> overflowed. It had been there for years. Hence <code>mid := left + (right-left)/2</code>.</p>
+
+<h2>The idea</h2>
+<p>When you did this in February, you were surprised you could not have invented it yourself. Nobody is expected to: it took the field 16 years to publish a correct version. What you need is the invariant (the answer is in [left, right]) and the habit of testing the edges: the first element, the last, a missing one.</p>
+
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<div data-ex="e3"></div>
+
+<details class="fold"><summary>Sources</summary><ul>
+<li>Joshua Bloch, <a href="https://research.google/blog/extra-extra-read-all-about-it-nearly-all-binary-searches-and-mergesorts-are-broken/" target="_blank" rel="noopener">Extra, Extra – Read All About It: Nearly All Binary Searches and Mergesorts are Broken</a>, Google Research blog, 2006. Quotes Bentley: published in 1946, correct for all n only in 1962.</li>
+<li>University of Rochester, <a href="https://cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf" target="_blank" rel="noopener">History of data structures</a>: Mauchly's first mention, Moore School lectures, 1946.</li>
+<li><a href="https://git-scm.com/docs/git-bisect" target="_blank" rel="noopener">git bisect</a> documentation.</li>
+</ul></details>

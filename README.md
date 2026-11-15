@@ -2,7 +2,7 @@
 
 Computer science with Go, in the browser: lessons, exercises, and the real Go compiler running in the page.
 
-Module 1 is data structures and algorithms. Lesson 1.1.1 (Big O) is written; the others follow. `playground.html` is a free Go playground. Lessons are numbered `module.chapter.lesson` and live in `course/<number>/`; `CLAUDE.md` has the rules every lesson follows.
+Module 1, data structures and algorithms, is written: 24 lessons (Big O, slices, maps, stacks, queues, linked lists, recursion, binary search trees, traversals, graphs, BFS/DFS, binary search, two pointers, sliding window, merge sort, quicksort, heaps) and 6 chapter projects, 60 Go exercises in all. `playground.html` is a free Go playground. Lessons are numbered `module.chapter.lesson` and live in `course/<number>/`; `CLAUDE.md` has the rules every lesson follows.
 
 Everything runs in the page. There is no backend and no build step.
 
@@ -41,7 +41,8 @@ To add one: put it in `PKGS` in `tools/build-toolchain.sh` and in `pkgs` in `too
 | `js/editor.js`, `js/vendor/`, `js/goapi.json`, `js/godoc/` | the editor; `goapi.json` and `godoc/` are the standard library's API and documentation |
 | `toolchain/` | compiler, linker, gofmt and standard library, built by `tools/build-toolchain.sh` |
 | `tools/` | build scripts: toolchain, API index (`genapi`), vendored editor |
-| `test/course.mjs`, `test/playground.mjs` | browser tests (Chromium through Playwright) |
+| `tools/verify.py` | checks every exercise with native Go: starting code fails, solution passes, wrong variants (`course/<n>/wrong.json`) are caught |
+| `test/all.mjs`, `test/course.mjs`, `test/playground.mjs` | browser tests (Chromium through Playwright): every exercise in the page, the course page, the playground |
 
 ## Rebuilding
 
@@ -55,6 +56,8 @@ bash tools/vendor/build-codemirror.sh  # the editor library (needs npm)
 
 ```
 python3 -m http.server 8790 &
+python3 tools/verify.py            # every exercise, native Go
+node test/all.mjs                  # every exercise in the browser
 node test/course.mjs && node test/playground.mjs
 ```
 

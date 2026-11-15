@@ -1,0 +1,20 @@
+<div class="keep"><span class="k">What this project practises</span><ul>
+<li>A <b>stack</b> to follow nesting (1.2.3): what is open, and in which order it must close.</li>
+<li>A <b>map</b> to add up by name (1.2.2), and a <b>slice</b> sorted to rank the results (1.2.1).</li>
+<li>Errors that say <b>where</b>: a line number and what was expected.</li>
+</ul></div>
+
+<h2>The situation</h2>
+<p>A tracing tool (OpenTelemetry, Jaeger, a CI system's timing log) records when each step of a job starts and ends. Steps nest: the <code>test</code> step runs inside <code>build</code>, which runs inside <code>pipeline</code>. You want to know where the time goes, and you want a broken trace to be rejected with a precise message rather than a wrong report.</p>
+<pre class="sample">10 start pipeline
+12 start build
+15 start test
+41 end test
+44 end build
+45 start deploy
+60 end deploy
+61 end pipeline</pre>
+<p>Here <code>pipeline</code> took 51, <code>test</code> 26, <code>deploy</code> 15, <code>build</code> 32 (it includes the test), and the deepest nesting is 3.</p>
+
+<h2 class="run">Exercise</h2>
+<div data-ex="e1"></div>

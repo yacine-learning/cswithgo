@@ -1,0 +1,13 @@
+{
+  "n": "1.7.2",
+  "title": "Project: merging logs from many pods",
+  "exercises": [
+    { "id": "e1", "kind": "Project", "title": "A k-way merge",
+      "task": "Each pod's log is sorted by time. Write <code>MergeAll</code>: one timeline of every entry, in O(N log k) for N entries from k pods, with a heap holding the next entry of each pod. The spec is in the file.",
+      "hints": [
+        "The heap holds one cursor per pod that still has entries: (pod, index of its next entry). The top is the cursor whose entry has the smallest time; on a tie, the smaller pod number.",
+        "Loop: pop the top cursor, append its entry, and if that pod has more entries, push the cursor again with index+1 (or change it in place and call <code>heap.Fix(h, 0)</code>).",
+        "Two pods is the merge of 1.5.2; the heap only answers \"which of the k heads is smallest?\" in O(log k) instead of comparing all k."
+      ] }
+  ]
+}

@@ -1,0 +1,7 @@
+[
+  {"ex": "e2", "name": "unstable merge (<)", "replace": [["\t\tif a[i].Key <= b[j].Key {", "\t\tif a[i].Key < b[j].Key {"]], "expect": "stable"},
+  {"ex": "e2", "name": "forgets the leftovers", "replace": [["\tout = append(out, a[i:]...)\n\treturn append(out, b[j:]...)", "\treturn out"]], "expect": "merge"},
+  {"ex": "e3", "name": "touching windows not merged", "replace": [["w.Start <= out[n-1].End", "w.Start < out[n-1].End"]], "expect": "touching"},
+  {"ex": "e3", "name": "end not maxed", "replace": [["\t\t\tout[n-1].End = max(out[n-1].End, w.End)", "\t\t\tout[n-1].End = w.End"]], "expect": "inside another"},
+  {"ex": "e3", "name": "sorts in place", "replace": [["\tsorted := slices.Clone(ws)", "\tsorted := ws"]], "expect": "not changed"}
+]
