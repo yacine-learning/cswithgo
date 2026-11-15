@@ -1,0 +1,18 @@
+<h2>History</h2>
+<p>In 1962 two Soviet mathematicians, <b>Georgy Adelson-Velsky</b> and <b>Evgenii Landis</b>, published the first tree that rebalances itself: the AVL tree. In 1972 <b>Rudolf Bayer</b> invented the "symmetric binary B-tree". In 1978 <b>Leonidas Guibas</b> and <b>Robert Sedgewick</b> reformulated it with a colour bit on each node: the red-black tree. Why red? By Sedgewick's account, it was the best-looking colour their laser printer at Xerox PARC could print.</p>
+<h2>The problem it fixes</h2>
+<p>A plain binary search tree (D7) fed sorted keys becomes a list: every operation O(n). Real data often arrives sorted (timestamps, increasing IDs).</p>
+<h2>How it works</h2>
+<p>After each insert or delete, repair the shape with <b>rotations</b>: local moves of three nodes that keep the keys in order but shorten one side. AVL keeps the heights of the two subtrees of every node within 1 of each other. Red-black keeps a looser rule (no red node has a red child, every path has the same number of black nodes), so the longest path is at most twice the shortest: height ≤ 2 log₂ n, and fewer rotations per update. Both guarantee O(log n) for every operation.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>The Linux kernel uses red-black trees in many places, including its process scheduler.</li>
+<li>Java's <code>TreeMap</code> and, in practice, C++'s <code>std::map</code> are red-black trees.</li>
+<li>Go's standard library has none: when Go code needs order it usually sorts a slice, or uses a B-tree package (D9).</li>
+</ul>
+<p class="note">No exercise: the rotation cases are long to write and quick to forget. What is worth keeping is the guarantee (O(log n), whatever the order of the input) and the fact that balancing exists. You will use these trees through libraries, not write them.</p>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/Binary_search_tree" target="_blank" rel="noopener">Binary search tree</a>: the AVL tree, 1962.</li>
+<li><a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree" target="_blank" rel="noopener">Red–black tree</a>: Bayer 1972; Guibas and Sedgewick 1978; the colour of the Xerox PARC laser printer.</li>
+<li><a href="https://cs.pomona.edu/classes/cs62/history/trees/" target="_blank" rel="noopener">History of trees</a>, Pomona College CS62.</li>
+</ul></details>

@@ -1,0 +1,35 @@
+[
+  {
+    "ex": "e1",
+    "name": "seen when dequeued",
+    "replace": [
+      [
+        "\t\tcur := queue[0]\n\t\tqueue = queue[1:]\n\t\tfor _, next := range g[cur] {\n\t\t\tif !seen[next] {\n\t\t\t\tseen[next] = true\n\t\t\t\tparent[next] = cur",
+        "\t\tcur := queue[0]\n\t\tqueue = queue[1:]\n\t\tseen[cur] = true\n\t\tfor _, next := range g[cur] {\n\t\t\tif !seen[next] {\n\t\t\t\tparent[next] = cur"
+      ]
+    ],
+    "expect": "shortcut|three hops|two hops"
+  },
+  {
+    "ex": "e1",
+    "name": "stack instead of queue (DFS)",
+    "replace": [
+      [
+        "\t\tcur := queue[0]\n\t\tqueue = queue[1:]",
+        "\t\tcur := queue[len(queue)-1]\n\t\tqueue = queue[:len(queue)-1]"
+      ]
+    ],
+    "expect": "hops|shortcut"
+  },
+  {
+    "ex": "e1",
+    "name": "path not reversed",
+    "replace": [
+      [
+        "\tfor i, j := 0, len(path)-1; i < j; i, j = i+1, j-1 {\n\t\tpath[i], path[j] = path[j], path[i]\n\t}\n",
+        ""
+      ]
+    ],
+    "expect": "one hop"
+  }
+]

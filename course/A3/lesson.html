@@ -1,0 +1,20 @@
+<h2>History</h2>
+<p>The first mention of binary search for computers is by <b>John Mauchly</b>, one of the designers of ENIAC, in the Moore School lectures of 1946. A version that works for every length was published only in 1962, as <b>Jon Bentley</b> recalls in <i>Programming Pearls</i>, where he also reports that most professional programmers he asked could not write it correctly. In 2006 <b>Joshua Bloch</b> found that Java's own binary search failed on arrays of more than about a billion elements: <code>(low + high) / 2</code> overflowed. Hence <code>mid := left + (right-left)/2</code>.</p>
+<h2>The problem it fixes</h2>
+<p>Finding a value in a sorted list of a billion entries by looking at each one is a billion steps.</p>
+<h2>How it works</h2>
+<p>Look at the middle: the answer is in the left half or in the right half, so throw the other half away. Thirty halvings take a billion down to one: O(log n). The trick to getting it right is the <b>promise</b> the loop keeps ("if the answer exists, it is in [left, right)"), and checking that every update keeps it. Your old bugs from our chat lessons, <code>right-left &gt; 1</code> and <code>left = mid</code>, both break that promise. The same halving finds the first n for which a property becomes true (exercise 2).</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Go's <code>sort.Search</code> and <code>slices.BinarySearch</code>.</li>
+<li>Database indexes and B-trees (D9) search inside each node.</li>
+<li>Profilers and debuggers turning an address into a function name search a sorted table of start addresses (the floor of D7, done with a slice).</li>
+<li>Numerical methods: the bisection method finds a root of a function.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li>Joshua Bloch, <a href="https://research.google/blog/extra-extra-read-all-about-it-nearly-all-binary-searches-and-mergesorts-are-broken/" target="_blank" rel="noopener">Nearly All Binary Searches and Mergesorts are Broken</a>, Google Research blog, 2006: Bentley's 1946 and 1962.</li>
+<li><a href="https://cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf" target="_blank" rel="noopener">History of data structures</a>, University of Rochester: Mauchly, 1946.</li>
+</ul></details>

@@ -1,0 +1,6 @@
+[
+ {"ex": "e1", "name": "never improves a distance once found", "replace": [["if old, seen := dist[e.To]; !seen || d < old {", "if _, seen := dist[e.To]; !seen {"]], "expect": "better route found later"},
+ {"ex": "e1", "name": "counts hops instead of costs", "replace": [["d := it.dist + e.Cost", "d := it.dist + 1"]], "expect": "detour"},
+ {"ex": "e1", "name": "reachable always", "replace": [["\tif !done[dst] {\n\t\treturn nil, 0, false\n\t}\n", "\tif _, seen := dist[dst]; !seen {\n\t\tdist[dst] = 0\n\t\treturn nil, 0, true\n\t}\n"]], "expect": "unreachable"},
+ {"ex": "e1", "name": "path not reversed", "replace": [["\t\tpath[i], path[j] = path[j], path[i]\n", ""]], "expect": "detour"}
+]

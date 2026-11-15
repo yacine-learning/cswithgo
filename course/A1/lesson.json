@@ -1,0 +1,29 @@
+{
+  "title": "Big O",
+  "exercises": [
+    {
+      "id": "e1",
+      "kind": "Implement",
+      "title": "The fast duplicate check",
+      "timeout": 8000,
+      "task": "Fill the two holes so <code>HasDuplicate</code> uses the map. <b>Run</b> compares it with the slow version; <b>Check</b> tests it, including on 300 000 values.",
+      "hints": [
+        "A map answers \"have I seen this value?\" in one step, whatever its size.",
+        "In Go, <code>seen[x]</code> is <code>false</code> for a key that was never set.",
+        "Hole 1: <code>if seen[x] { return true }</code>. Hole 2 is one assignment."
+      ]
+    },
+    {
+      "id": "e2",
+      "kind": "Use",
+      "title": "Read the growth",
+      "timeout": 8000,
+      "task": "Four functions count the steps they take for a given <code>n</code>. <b>Before running anything</b>, read each one and write its growth in <code>Answers</code>. Then <b>Run</b>: it doubles <code>n</code> and prints the ratio, so you can check yourself. <b>Check</b> grades the answers.",
+      "hints": [
+        "Ask for each loop: when n doubles, how many more times does it run?",
+        "A loop that halves its counter each time runs about log₂(n) times. A loop with a fixed upper bound does not grow at all.",
+        "Two of the four look like something they are not: one is nested but grows linearly, one has a loop but stops growing."
+      ]
+    }
+  ]
+}

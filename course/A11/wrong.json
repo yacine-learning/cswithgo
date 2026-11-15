@@ -1,0 +1,19 @@
+[
+  {
+    "ex": "e1",
+    "name": "one visited set: any visited node is a cycle",
+    "file": "package main\n\nimport \"sort\"\n\ntype Graph map[string][]string\n\nfunc FindCycle(g Graph) []string {\n\tvisited := map[string]bool{}\n\tvar cycle []string\n\tvar visit func(n string) bool\n\tvisit = func(n string) bool {\n\t\tvisited[n] = true\n\t\tfor _, next := range g[n] {\n\t\t\tif visited[next] {\n\t\t\t\tcycle = []string{next, n, next}\n\t\t\t\treturn true\n\t\t\t}\n\t\t\tif visit(next) {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t\treturn false\n\t}\n\tnames := make([]string, 0, len(g))\n\tfor n := range g {\n\t\tnames = append(names, n)\n\t}\n\tsort.Strings(names)\n\tfor _, n := range names {\n\t\tif !visited[n] && visit(n) {\n\t\t\treturn cycle\n\t\t}\n\t}\n\treturn nil\n}\n",
+    "expect": "DAG|diamond"
+  },
+  {
+    "ex": "e1",
+    "name": "only searches from one node",
+    "replace": [
+      [
+        "\t\tif state[n] == notVisited && visit(n) {\n\t\t\treturn cycle\n\t\t}",
+        "\t\tif visit(n) {\n\t\t\treturn cycle\n\t\t}\n\t\tbreak"
+      ]
+    ],
+    "expect": "second part"
+  }
+]

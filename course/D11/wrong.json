@@ -1,0 +1,46 @@
+[
+  {
+    "ex": "e1",
+    "name": "right-hand node not added",
+    "replace": [
+      [
+        "\t\tif _, ok := g[b]; !ok {\n\t\t\tg[b] = nil\n\t\t}\n",
+        ""
+      ]
+    ],
+    "expect": "only on the right"
+  },
+  {
+    "ex": "e1",
+    "name": "no trim",
+    "replace": [
+      [
+        "\t\ta, b := strings.TrimSpace(parts[0]), strings.TrimSpace(parts[1])",
+        "\t\ta, b := parts[0], parts[1]\n\t\t_ = strings.TrimSpace"
+      ]
+    ],
+    "expect": "edges in input order|spaces|only on the right"
+  },
+  {
+    "ex": "e2",
+    "name": "unsorted",
+    "replace": [
+      [
+        "\tsort.Strings(out)\n\treturn out\n}\n\n// Roots",
+        "\treturn out\n}\n\n// Roots"
+      ]
+    ],
+    "expect": "leaves"
+  },
+  {
+    "ex": "e2",
+    "name": "root = imports nothing",
+    "replace": [
+      [
+        "\t\tif importers[s] == 0 {",
+        "\t\tif len(g[s]) == 0 && importers[s] >= 0 {"
+      ]
+    ],
+    "expect": "roots"
+  }
+]

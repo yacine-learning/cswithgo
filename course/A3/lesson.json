@@ -1,0 +1,27 @@
+{
+  "title": "Binary search",
+  "exercises": [
+    {
+      "id": "e1",
+      "kind": "Implement",
+      "title": "Write the loop",
+      "task": "Fill the loop condition and the two moves. The rule to keep true: if the target is in the slice, it is between <code>left</code> and <code>right</code>, both included.",
+      "hints": [
+        "Your first version used <code>for right-left &gt; 1</code>: it stopped with two elements left, and never looked at them. The range [left, right] still holds one element when <code>left == right</code>.",
+        "It also used <code>left = mid</code> and <code>right = mid</code>. <code>mid</code> was already checked, so it can leave the range: without the +1/−1, the range can stop shrinking and the loop never ends.",
+        "<code>for left &lt;= right</code>, then <code>left = mid + 1</code> or <code>right = mid - 1</code>."
+      ]
+    },
+    {
+      "id": "e2",
+      "kind": "Use",
+      "title": "The first n where a property holds",
+      "task": "A property of whole numbers is false up to some n, then true for every larger n, and testing it is expensive. Find the first n where it holds, with as few tests as possible: about log₂ n. Run asks: from which n does n! have at least 1 000 digits? Return n if it never holds below n.",
+      "hints": [
+        "This is binary search for a boundary, not for a value: the answer is the first position where the condition becomes true.",
+        "Keep the answer in [lo, hi] with <code>lo = 0, hi = n</code>. If <code>holds(mid)</code>, the first one is at mid or before: <code>hi = mid</code>. Otherwise it is after: <code>lo = mid + 1</code>.",
+        "Stop when <code>lo == hi</code>: that is the answer. Go's <code>sort.Search(n, holds)</code> does exactly this, and it is fine to read its source, but write it yourself."
+      ]
+    }
+  ]
+}

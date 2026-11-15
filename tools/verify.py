@@ -10,7 +10,7 @@ For each exercise in course/<n>/lesson.json:
 wrong.json: [{"ex": "e2", "name": "...", "replace": [["old", "new"], ...], "expect": "regex"}]
   (replacements apply to the solution; "file": "..." gives a whole file instead)
 
-Usage: python3 tools/verify.py [lesson-number-prefix ...]
+Usage: python3 tools/verify.py [page ...]   (pages: D5, A13...)
 Timing in the browser is several times slower than here: checks must not rely on time.
 """
 import json, os, re, shutil, subprocess, sys, tempfile
@@ -47,11 +47,10 @@ def bad(where, msg, out=''):
 
 def lessons(prefixes):
     idx = json.load(open(os.path.join(COURSE, 'index.json')))
-    for m in idx['modules']:
-        for c in m['chapters']:
-            for l in c['lessons']:
-                if (not prefixes or any(l['n'].startswith(p) for p in prefixes)) and os.path.isdir(os.path.join(COURSE, l['n'])):
-                    yield l['n']
+    for sec in idx['sections']:
+        for p in sec['pages']:
+            if (not prefixes or p['n'] in prefixes) and os.path.isdir(os.path.join(COURSE, p['n'])):
+                yield p['n']
 
 
 for n in lessons(sys.argv[1:]):

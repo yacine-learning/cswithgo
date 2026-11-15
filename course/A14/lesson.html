@@ -1,0 +1,17 @@
+<h2>History</h2>
+<p>In 1926 the Czech mathematician <b>Otakar Borůvka</b> worked out how to connect the towns of Moravia to the electricity network with the least wire; his solution, stated for an abstract weighted graph, is the first minimum spanning tree algorithm. <b>Vojtěch Jarník</b> published another method in 1930, rediscovered by <b>Robert Prim</b> in 1957 and by Dijkstra in 1959. <b>Joseph Kruskal</b> published his in 1956.</p>
+<h2>The problem it fixes</h2>
+<p>Connect every point of a network (towns, machines, pins on a circuit board) using the cheapest set of links. Any loop is wasted money: remove its most expensive link and everything is still connected.</p>
+<h2>How it works</h2>
+<p>The answer is a tree with n-1 links. <b>Kruskal</b>: take the links from the cheapest up, and keep each one unless it would close a loop; union-find (D13) answers "would it close a loop?" in almost constant time. <b>Prim</b> (Jarník): grow one tree from any node, always adding the cheapest link that leaves the tree, with a priority queue (D10). Both are <b>greedy</b>: they never revisit a choice, and here that is provably optimal.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Designing networks of cables, pipes or roads.</li>
+<li>Clustering: remove the k-1 most expensive links of the tree and you get k groups.</li>
+<li>Ethernet switches avoid loops with a spanning tree (the Spanning Tree Protocol), though one chosen by switch priorities and path costs rather than a minimum one.</li>
+</ul>
+<p class="note">No exercise here: you already wrote Kruskal's algorithm in D13, exercise 2, where union-find does the hard part.</p>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/Minimum_spanning_tree" target="_blank" rel="noopener">Minimum spanning tree</a>: Borůvka 1926 and Moravia; Jarník 1930, Prim 1957, Dijkstra 1959.</li>
+<li><a href="https://www.khoury.northeastern.edu/home/lrazzaq/2510fa23/lecture32.html" target="_blank" rel="noopener">Lecture 32: Minimum Spanning Trees</a>, Northeastern University: Kruskal 1956; Borůvka's abstract formulation.</li>
+</ul></details>

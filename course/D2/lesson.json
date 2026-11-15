@@ -1,0 +1,16 @@
+{
+  "title": "Linked list",
+  "exercises": [
+    {
+      "id": "e1",
+      "kind": "Implement",
+      "title": "Reverse a list",
+      "task": "Reverse the list in place by turning each arrow around as you walk. Three pointers: the node before, the current node, and the one after (save it before you change <code>cur.next</code>).",
+      "hints": [
+        "Start with <code>prev = nil</code> and <code>cur = l.head.next</code> (the first real node).",
+        "In the loop: save <code>next := cur.next</code>, point <code>cur.next</code> at <code>prev</code>, then move both <code>prev</code> and <code>cur</code> one step.",
+        "When the loop ends, <code>prev</code> is the old last node: hang it after the dummy head."
+      ]
+    }
+  ]
+}

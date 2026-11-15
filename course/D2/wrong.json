@@ -1,0 +1,24 @@
+[
+  {
+    "ex": "e1",
+    "name": "does not save next",
+    "replace": [
+      [
+        "\t\tnext := cur.next // save it before changing cur.next\n\t\tcur.next = prev\n\t\tprev = cur\n\t\tcur = next",
+        "\t\tcur.next = prev\n\t\tprev = cur\n\t\tcur = cur.next"
+      ]
+    ],
+    "expect": "reverse five values"
+  },
+  {
+    "ex": "e1",
+    "name": "forgets the head",
+    "replace": [
+      [
+        "\tl.head.next = prev\n",
+        ""
+      ]
+    ],
+    "expect": "reverse five values"
+  }
+]

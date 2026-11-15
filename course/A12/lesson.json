@@ -1,0 +1,16 @@
+{
+  "title": "Topological sort",
+  "exercises": [
+    {
+      "id": "e1",
+      "kind": "Use",
+      "title": "Build order",
+      "task": "Write <code>Plan</code>: group packages into build rounds so every package is built after everything it imports, each package as early as possible. The packages of one round can be compiled at the same time. Report a cycle instead of a wrong plan. The spec is in the file.",
+      "hints": [
+        "Count, for each package, how many of its imports are not built yet (its in-degree). Round 0 is every package at 0.",
+        "Build the reverse graph (D11) once: when a round is done, decrease the count of every package that imports it; those that reach 0 form the next round. This is Kahn's algorithm.",
+        "When no package is at 0 but some are left, they are stuck behind a cycle: return the error with all of them, sorted."
+      ]
+    }
+  ]
+}

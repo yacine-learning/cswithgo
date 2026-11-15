@@ -1,0 +1,19 @@
+<h2>History</h2>
+<p><b>René de la Briandais</b> described the structure in 1959 to search files with keys of variable length. In 1960 <b>Edward Fredkin</b> published "Trie Memory" and gave it its name, from re<b>trie</b>val. In 2008 he wrote that he meant it to be pronounced "tree", as in retrieval; most people say "try" to tell it apart from a tree.</p>
+<h2>The problem it fixes</h2>
+<p>"Which words start with <code>co</code>?" A hash table cannot answer without looking at every key; a sorted list can, but inserting into it is slow. And many keys share long prefixes, stored again and again.</p>
+<h2>How it works</h2>
+<p>A tree where each edge is one letter: the path from the root to a node spells a prefix, and a flag marks the nodes where a whole word ends. Looking up a word of length k takes k steps, whatever the number of words. All the words with a given prefix are the subtree below that prefix's node.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Autocomplete in editors, search boxes and phone keyboards (exercise 2).</li>
+<li>Routers: the longest-prefix match of an IP address against the routing table uses tries on bits.</li>
+<li>Spell checkers, and the word lists of word games.</li>
+<li>HTTP routers that match URL paths segment by segment.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://xlinux.nist.gov/dads/HTML/trie.html" target="_blank" rel="noopener">trie</a>, NIST Dictionary of Algorithms and Data Structures: de la Briandais 1959, Fredkin's "Trie Memory" (CACM, 1960), his 2008 note on the pronunciation.</li>
+</ul></details>

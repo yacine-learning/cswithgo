@@ -1,0 +1,25 @@
+{
+ "title": "Union-find",
+ "exercises": [
+  {
+   "id": "e1",
+   "kind": "Implement",
+   "title": "Find and Union",
+   "task": "Fill <code>Find</code> (follow the parents up to the root, and on the way back point each element straight at it) and <code>Union</code> (join the two roots, the smaller group under the bigger). The last check links 200 000 elements: without one of the two tricks it never finishes.",
+   "hints": [
+    "<code>Find</code> is three lines of recursion: if <code>d.parent[x] == x</code> return x; otherwise <code>root := d.Find(d.parent[x])</code>, then <code>d.parent[x] = root</code>.",
+    "In <code>Union</code>: return false when <code>ra == rb</code>. Swap so that <code>d.size[ra] >= d.size[rb]</code>, then <code>d.parent[rb] = ra</code> and add the sizes."
+   ]
+  },
+  {
+   "id": "e2",
+   "kind": "Use",
+   "title": "The cheapest network (Kruskal)",
+   "task": "Connect every machine for the least total cable. Kruskal's rule: look at the links from the cheapest up, and keep one only if it joins two machines that are not connected yet. \"Already connected?\" is exactly what union-find answers, in almost constant time. Fill the two holes of <code>Cheapest</code>.",
+   "hints": [
+    "<code>d.Union(l.A, l.B)</code> both answers \"were they separate?\" and joins them.",
+    "A tree on n machines has n-1 links: if fewer were chosen, something is unreachable."
+   ]
+  }
+ ]
+}

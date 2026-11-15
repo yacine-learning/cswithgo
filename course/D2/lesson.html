@@ -1,0 +1,20 @@
+<h2>History</h2>
+<p><b>Allen Newell</b>, <b>Cliff Shaw</b> and <b>Herbert Simon</b> invented linked lists in 1955–56 for their Information Processing Language (IPL), to write the Logic Theorist, often called the first artificial intelligence program. The box-and-arrow drawing of a list first appears in Newell and Shaw's 1957 paper. IPL inspired Lisp, whose name means LISt Processing. Newell and Simon received the 1975 Turing Award, partly for list processing.</p>
+<h2>The problem it fixes</h2>
+<p>Inserting or deleting in the middle of an array shifts everything after it, O(n). And an array needs one contiguous block of memory, which early machines rarely had to spare.</p>
+<h2>How it works</h2>
+<p>Each element lives in its own node, which points to the next one. Inserting or removing next to a node you already hold is O(1): change two pointers. The price: no indexing (reaching element i walks i nodes), and every step is a pointer jump, unfriendly to the processor's cache. A <b>dummy head</b> node removes the special case of the first element.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Go's <code>container/list</code> (a doubly linked, circular list).</li>
+<li>The LRU cache (D6): a list keeps the order of use, a map finds the node.</li>
+<li>Inside operating systems: lists of processes, free memory blocks, waiting tasks.</li>
+<li>Hash table buckets with chaining (D5).</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/Linked_list#History" target="_blank" rel="noopener">Linked list: History</a>: Newell, Shaw and Simon, IPL, 1955–56; the 1957 diagram.</li>
+<li><a href="https://amturing.acm.org/award_winners/newell_3167755.cfm" target="_blank" rel="noopener">Allen Newell, Turing Award 1975</a>.</li>
+<li><a href="https://pkg.go.dev/container/list" target="_blank" rel="noopener">container/list</a>, Go standard library.</li>
+</ul></details>

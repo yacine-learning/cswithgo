@@ -1,0 +1,68 @@
+[
+ {
+  "ex": "e1",
+  "name": "replacing costs the same as keeping",
+  "replace": [
+   [
+    "\t\t\tif x[i-1] == y[j-1] {\n\t\t\t\tchange = 0\n\t\t\t}\n",
+    ""
+   ]
+  ],
+  "expect": "known distances"
+ },
+ {
+  "ex": "e1",
+  "name": "forgets the first row",
+  "replace": [
+   [
+    "\tfor j := range d[0] {\n\t\td[0][j] = j\n\t}\n",
+    ""
+   ]
+  ],
+  "expect": "known distances"
+ },
+ {
+  "ex": "e1",
+  "name": "never deletes",
+  "replace": [
+   [
+    "min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+change)",
+    "min(d[i][j-1]+1, d[i-1][j-1]+change)"
+   ]
+  ],
+  "expect": "known distances"
+ },
+ {
+  "ex": "e2",
+  "name": "first close word, not the closest",
+  "replace": [
+   [
+    "if d < bestDist || (d == bestDist && ok && k < best) {",
+    "if d < bestDist && !ok {"
+   ]
+  ],
+  "expect": "closest wins|tie"
+ },
+ {
+  "ex": "e2",
+  "name": "ignores ties",
+  "replace": [
+   [
+    " || (d == bestDist && ok && k < best)",
+    ""
+   ]
+  ],
+  "expect": "tie"
+ },
+ {
+  "ex": "e2",
+  "name": "suggests known words",
+  "replace": [
+   [
+    "\t\tif k == word {\n\t\t\treturn \"\", false\n\t\t}\n",
+    ""
+   ]
+  ],
+  "expect": "known word"
+ }
+]

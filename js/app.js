@@ -1,13 +1,14 @@
-// The course page: a lesson on the left; on the right the editor, Run, Check and the output.
+// The course: a home page with every data structure and algorithm as a tile (lit when done), and one page
+// per tile: the text on the left; on the right the editor, Run, Check and the output.
 import { Editor } from './editor.js';
 import { toolchain } from './toolchain.js';
 import { run, stop } from './runner.js';
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-const KEY = 'cswithgo:v1';
+const KEY = 'cswithgo:v2';
 const S = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } })();
-for (const k of ['code', 'checked', 'passed', 'hints']) S[k] ||= {};
+for (const k of ['code', 'checked', 'passed', 'hints', 'done']) S[k] ||= {};
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
 const toast = (msg) => { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; $('#toasts').append(t); setTimeout(() => t.remove(), 2600); };
 const status = (msg, cls = '') => { const el = $('#buildStatus'); el.textContent = msg; el.className = 'build-status ' + cls; };
@@ -18,21 +19,45 @@ let index, lesson, ex = null;          // ex: the exercise in the editor
 const exId = (e) => `${lesson.n}-${e.id}`;
 
 // ── navigation ──
-function lessonsOf(idx) { const out = []; for (const m of idx.modules) for (const c of m.chapters) for (const l of c.lessons) out.push({ ...l, chapter: c.title, module: m.title }); return out; }
+const pages = () => index.sections.flatMap((sec) => sec.pages.map((p) => ({ ...p, section: sec.title })));
+const lessons = new Map();
+const getLesson = (n) => lessons.get(n) || fetch(`course/${n}/lesson.json`).then((r) => r.json()).then((l) => (lessons.set(n, l), l));
+// a page is done when every exercise passes its checks; a page without exercises when marked as read
+const isDone = (n, l) => (l.exercises.length ? l.exercises.every((e) => S.passed[`${n}-${e.id}`]) : !!S.done[n]);
+
+async function openHome() {
+  lesson = null; ex = null; document.body.classList.add('home'); $('#nav').value = ''; S.lesson = ''; save();
+  const ls = await Promise.all(pages().map((p) => getLesson(p.n)));
+  const all = pages(); let done = 0;
+  const tiles = (sec) => sec.pages.map((p) => {
+    const l = ls[all.findIndex((x) => x.n === p.n)], d = isDone(p.n, l); if (d) done++;
+    const k = l.exercises.length, passed = l.exercises.filter((e) => S.passed[`${p.n}-${e.id}`]).length;
+    const st = d ? 'done' : k ? `${passed} of ${k} exercise${k > 1 ? 's' : ''}` : 'reading';
+    return `<a class="tile${d ? ' done' : ''}" href="#${p.n}"><span class="code">${esc(p.n)}</span><b>${esc(p.title)}</b><small>${esc(p.tag)}</small><span class="st">${st}</span></a>`;
+  }).join('');
+  const body = index.sections.map((sec) => `<h2>${esc(sec.title)}</h2><div class="tiles">${tiles(sec)}</div>`).join('');
+  $('#lesson').innerHTML = `<h1>Data structures and algorithms, in Go</h1><p class="intro">Every structure and algorithm of the course. A tile lights up when you have passed all its exercises (or marked a page without exercises as read). Click one to open it.</p><p class="progress"><b>${done}</b> of ${all.length} done</p>` + body;
+  $('#lesson').scrollTop = 0; document.title = 'cswithgo';
+  if (location.hash) history.replaceState(null, '', location.pathname);
+}
+
 async function openLesson(n) {
-  const list = lessonsOf(index), meta = list.find((l) => l.n === n) || list[0];
-  lesson = await (await fetch(`course/${meta.n}/lesson.json`)).json();
+  const list = pages(), meta = list.find((l) => l.n === n);
+  if (!meta) return openHome();
+  lesson = { ...(await getLesson(meta.n)), n: meta.n };
   const html = await text(`${meta.n}/lesson.html`);
   $('#nav').value = meta.n; S.lesson = meta.n; save();
+  document.body.classList.remove('home'); document.body.classList.toggle('read', !lesson.exercises.length);
   const i = list.indexOf(meta), prev = list[i - 1], next = list[i + 1];
   const link = (l, dir) => l ? `<a class="${dir}" href="#${l.n}"><small>${dir === 'prev' ? '← Previous' : 'Next →'}</small>${esc(l.n)} ${esc(l.title)}</a>` : '<span></span>';
-  $('#lesson').innerHTML = `<div class="crumb">${esc(meta.module)} › ${esc(meta.chapter)}</div><h1><span class="no">${esc(meta.n)}</span>${esc(lesson.title)}</h1>` + html
-    + `<nav class="lnav">${link(prev, 'prev')}${link(next, 'next')}</nav>`;
-  document.title = `${meta.n} ${lesson.title} · cswithgo`;
+  const mark = lesson.exercises.length ? '' : `<div class="mark"><button class="btn${S.done[meta.n] ? '' : ' primary'}" data-a="done">${S.done[meta.n] ? 'Read ✓ (click to undo)' : 'Mark as read'}</button></div>`;
+  $('#lesson').innerHTML = `<div class="crumb"><a href="#">Map</a> › ${esc(meta.section)}</div><h1><span class="no">${esc(meta.n)}</span>${esc(meta.title)}</h1>` + (html || '')
+    + mark + `<nav class="lnav">${link(prev, 'prev')}${link(next, 'next')}</nav>`;
+  document.title = `${meta.n} ${meta.title} · cswithgo`;
   for (const e of lesson.exercises) { const slot = $(`[data-ex="${e.id}"]`); if (slot) { slot.className = 'ex'; slot.dataset.id = e.id; drawExercise(e); } }
   $('#lesson').scrollTop = 0;
   const last = lesson.exercises.find((e) => exId(e) === S.last) || lesson.exercises[0];
-  if (last) await openExercise(last.id);
+  ex = null; if (last) await openExercise(last.id);
   if (location.hash.slice(1) !== meta.n) history.replaceState(null, '', '#' + meta.n);
 }
 
@@ -54,6 +79,7 @@ function drawExercise(e) {
 }
 $('#lesson').addEventListener('click', async (ev) => {
   const b = ev.target.closest('button[data-a]'); if (!b) return;
+  if (b.dataset.a === 'done') { S.done[lesson.n] = !S.done[lesson.n]; save(); return openLesson(lesson.n); }
   const card = b.closest('.ex'), e = lesson.exercises.find((x) => x.id === card.dataset.id), id = exId(e);
   if (b.dataset.a === 'open') openExercise(e.id);
   else if (b.dataset.a === 'hint') { S.hints[id] = (S.hints[id] || 0) + 1; save(); drawExercise(e); }
@@ -121,7 +147,9 @@ async function go(kind) {
     if (kind === 'check') {
       const ok = code === 0 && fail === 0 && pass > 0;
       if (!ok && code !== 0) fail++;
+      const was = isDone(lesson.n, lesson);
       S.checked[id] = true; S.passed[id] = ok; save(); drawExercise(e);
+      if (!was && isDone(lesson.n, lesson)) toast(`${lesson.n} ${lesson.title}: every exercise passes. Its tile is lit on the map.`);
       $('#runMeta').textContent = ok ? `all ${pass} checks pass` : `${pass} passed, ${fail} failed`;
     } else $('#runMeta').textContent = `exit status ${code} · ${ms} ms`;
   } });
@@ -139,8 +167,9 @@ $('#reset').addEventListener('click', async () => { if (!ex || !confirm('Replace
 $('#edStatus').addEventListener('click', (e) => { if (e.target.closest('#edProblems')) editor.nextProblem(); });
 $('#problems').addEventListener('click', (e) => { const a = e.target.closest('a[data-l]'); if (a) editor.goto(+a.dataset.l, +a.dataset.c); });
 index = await (await fetch('course/index.json')).json();
-$('#nav').innerHTML = index.modules.map((m) => `<optgroup label="${esc(m.n + ' ' + m.title)}">${m.chapters.map((c) => c.lessons.map((l) => `<option value="${l.n}">${l.n} ${esc(l.title)}</option>`).join('')).join('')}</optgroup>`).join('');
-$('#nav').addEventListener('change', () => openLesson($('#nav').value));
-window.addEventListener('hashchange', () => { const n = location.hash.slice(1); if (n && n !== lesson?.n) openLesson(n); });
-await openLesson(location.hash.slice(1) || S.lesson || '1.1.1');
+$('#nav').innerHTML = '<option value="">Map of the course</option>' + index.sections.map((sec) => `<optgroup label="${esc(sec.title)}">${sec.pages.map((p) => `<option value="${p.n}">${p.n} ${esc(p.title)}</option>`).join('')}</optgroup>`).join('');
+$('#nav').addEventListener('change', () => { const n = $('#nav').value; n ? openLesson(n) : openHome(); });
+const route = () => { const n = location.hash.slice(1); if (!n) return openHome(); if (n !== lesson?.n) return openLesson(n); };
+window.addEventListener('hashchange', route);
+await route();
 toolchain.load().then(() => { editor.toolchainReady(); edStatus(); });

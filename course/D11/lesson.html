@@ -1,0 +1,20 @@
+<h2>History</h2>
+<p>Königsberg was built around two islands linked by seven bridges, and its people wondered whether one could walk across each bridge exactly once. In 1736 <b>Leonhard Euler</b> proved it impossible by keeping only what mattered: the four land masses as points, the bridges as lines. Each land mass touched an odd number of bridges, and such a walk can have at most two of those, where it starts and ends. That abstraction, points and lines with everything else removed, is the first theorem of graph theory.</p>
+<h2>The problem it fixes</h2>
+<p>Lists and trees cannot describe relations where anything can link to anything, in both directions, with loops: who imports whom, which router is wired to which, which page links to which.</p>
+<h2>How it works</h2>
+<p>A graph is <b>nodes</b> and <b>edges</b> between them; edges may have a direction and a cost. The usual representation is an <b>adjacency list</b>: for each node, the list of its neighbours, <code>map[string][]string</code> in Go. It takes O(nodes + edges) memory. An adjacency <i>matrix</i> (n × n booleans) answers "is there an edge?" in O(1) but costs n² memory, so it is only worth it for small, dense graphs.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Package imports: the Go toolchain refuses import cycles (A11) and builds packages in dependency order (A12).</li>
+<li>Networks: routers and links (A10, A13).</li>
+<li>The web: pages and links; Google's PageRank ranked pages from the link graph.</li>
+<li>Garbage collection: objects and the pointers between them; what is not reachable from the variables is garbage.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg" target="_blank" rel="noopener">Seven Bridges of Königsberg</a>: Euler 1736, the first theorem of graph theory.</li>
+<li><a href="https://www.mathwords.com/s/seven_bridges_konigsberg.htm" target="_blank" rel="noopener">Seven Bridges of Königsberg</a>, Mathwords: four land masses of odd degree.</li>
+</ul></details>

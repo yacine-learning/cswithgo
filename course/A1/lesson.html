@@ -1,0 +1,20 @@
+<h2>History</h2>
+<p>The notation is older than computers. <b>Paul Bachmann</b>, a German number theorist, wrote O(n) in 1894 for "a quantity of the order of n": the O is for <i>Ordnung</i>. <b>Edmund Landau</b> spread it in 1909. Programmers needed it in the 1960s, when machines differed in speed by factors of a hundred and "it took 3 seconds" said more about the machine than about the algorithm. In 1976 <b>Donald Knuth</b> asked computer scientists to adopt O, Ω and Θ with precise meanings; they did.</p>
+<h2>The problem it fixes</h2>
+<p>"Is this fast enough?" depends on the machine, the language and the input. We need a way to compare two algorithms before writing them, and to know what happens when the input grows a thousand times.</p>
+<h2>How it works</h2>
+<p>Count the steps as a function of the input size n, keep only the term that grows fastest, drop the constants. Then doubling n tells you the class:</p><table class="tbl"><tr><th>class</th><th>n doubles, time…</th><th>example</th></tr><tr><td>O(1)</td><td>stays the same</td><td>a map lookup</td></tr><tr><td>O(log n)</td><td>+ one step</td><td>binary search</td></tr><tr><td>O(n)</td><td>× 2</td><td>one loop over the input</td></tr><tr><td>O(n log n)</td><td>a bit more than × 2</td><td>a good sort</td></tr><tr><td>O(n²)</td><td>× 4</td><td>two nested loops</td></tr><tr><td>O(2ⁿ)</td><td>squared</td><td>trying every subset</td></tr></table>
+<h2>Where it is used</h2>
+<ul>
+<li>Choosing a data structure: a map (O(1)) instead of a slice scan (O(n)) inside a loop turns O(n²) into O(n) (exercise 1).</li>
+<li>Knowing in advance what is feasible: n² is fine for 1 000 items, hopeless for 10 million.</li>
+<li>Every other page of this course states its cost this way.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li>Donald E. Knuth, <a href="https://danluu.com/knuth-big-o.pdf" target="_blank" rel="noopener">Big Omicron and Big Omega and Big Theta</a>, SIGACT News, 1976: Bachmann (1894), Landau (1909).</li>
+<li>Paul E. Black, <a href="https://xlinux.nist.gov/dads/HTML/bigOnotation.html" target="_blank" rel="noopener">big-O notation</a>, NIST: the O as <i>Ordnung</i>.</li>
+<li>Robert Sedgewick and Kevin Wayne, <i>Algorithms</i>, 4th edition, section 1.4: the doubling experiment.</li>
+</ul></details>

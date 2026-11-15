@@ -1,0 +1,27 @@
+{
+  "title": "Stack",
+  "exercises": [
+    {
+      "id": "e1",
+      "kind": "Use",
+      "title": "Balanced brackets",
+      "task": "Before evaluating a formula or compiling a program, check its brackets. <code>Balanced</code> returns <code>true, -1</code> when every <code>( [ {</code> is closed in the right order, otherwise <code>false</code> and the position of the problem: a closer that does not match, or, at the end, the innermost opener left unclosed.",
+      "hints": [
+        "Push the position of each opener; on a closer, pop and compare.",
+        "Three ways to fail: a closer with an empty stack, a closer of the wrong kind, openers left at the end.",
+        "Keep positions on the stack (not the characters): then the error position is right there, and <code>s[pos]</code> gives the character."
+      ]
+    },
+    {
+      "id": "e2",
+      "kind": "Use",
+      "title": "Analyze a call trace",
+      "task": "Write <code>Analyze</code>: from the lines of a call trace, compute each function's total time, the deepest nesting of calls, and the three slowest functions, or the first error with its line number. The spec is in the comments of the file. <b>Run</b> prints the report for a sample trace and for broken ones.",
+      "hints": [
+        "Read each line with <code>strings.Fields</code> and <code>strconv.Atoi</code>; anything that is not <code>time start|end name</code> is an error.",
+        "A stack of open calls (name and start time) gives both the nesting depth and the check that each <code>end</code> closes the innermost open call.",
+        "Add durations in a <code>map[string]int</code>; for the slowest, copy the names into a slice and sort by duration, then name. Keep at most 3."
+      ]
+    }
+  ]
+}

@@ -1,19 +1,19 @@
 // Every exercise of the course in the browser (the real page, the real toolchain in WebAssembly):
 // Read exercises run and exit 0; others: the starting code fails Check, the reference solution
-// passes Check and its Run exits 0. Usage: node test/all.mjs [lesson-prefix…]   (server on :8790)
+// passes Check and its Run exits 0. Usage: node test/all.mjs [page…]   (server on :8790)
 import { chromium } from 'playwright';
 import { readFileSync, existsSync } from 'node:fs';
 const BASE = process.env.URL || 'http://localhost:8790/';
 const only = process.argv.slice(2);
 const index = JSON.parse(readFileSync('course/index.json', 'utf8'));
-const lessons = index.modules.flatMap((m) => m.chapters.flatMap((c) => c.lessons.map((l) => l.n)))
-  .filter((n) => existsSync(`course/${n}/lesson.json`) && (!only.length || only.some((p) => n.startsWith(p))));
+const lessons = index.sections.flatMap((s) => s.pages.map((p) => p.n))
+  .filter((n) => existsSync(`course/${n}/lesson.json`) && (!only.length || only.includes(n)));
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1400, height: 900 } });
 const errors = []; page.on('pageerror', (e) => errors.push(String(e)));
 let failed = 0, done = 0;
 async function load(n, eid, code) {
-  await page.evaluate(([id, src]) => { const s = JSON.parse(localStorage.getItem('cswithgo:v1') || '{}'); s.code ||= {}; if (src == null) delete s.code[id]; else s.code[id] = src; s.last = id; localStorage.setItem('cswithgo:v1', JSON.stringify(s)); }, [`${n}-${eid}`, code]);
+  await page.evaluate(([id, src]) => { const s = JSON.parse(localStorage.getItem('cswithgo:v2') || '{}'); s.code ||= {}; if (src == null) delete s.code[id]; else s.code[id] = src; s.last = id; localStorage.setItem('cswithgo:v2', JSON.stringify(s)); }, [`${n}-${eid}`, code]);
   await page.goto(BASE + '#' + n); await page.reload();
   await page.waitForSelector(`.ex.on[data-id="${eid}"]`);
 }

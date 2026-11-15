@@ -1,0 +1,5 @@
+[
+ {"ex": "e1", "name": "checks only the first slot", "replace": [["\tfor _, p := range b.slots(s) {\n\t\tif !b.bits[p] {", "\tfor _, p := range b.slots(s)[:1] {\n\t\tif !b.bits[p] {"]], "expect": "few false positives"},
+ {"ex": "e1", "name": "any slot set means present", "replace": [["\t\tif !b.bits[p] {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true", "\t\tif b.bits[p] {\n\t\t\treturn true\n\t\t}\n\t}\n\treturn false"]], "expect": "few false positives"},
+ {"ex": "e1", "name": "Add sets only one slot", "replace": [["\tfor _, p := range b.slots(s) {\n\t\tb.bits[p] = true", "\tfor _, p := range b.slots(s)[:1] {\n\t\tb.bits[p] = true"]], "expect": "never a false negative"}
+]

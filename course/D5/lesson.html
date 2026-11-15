@@ -1,0 +1,22 @@
+<h2>History</h2>
+<p>In January 1953 <b>Hans Peter Luhn</b>, at IBM, wrote an internal memo proposing to put records into "buckets" chosen by computing on the key, the records of one bucket chained together. Around the same time another IBM group (Amdahl, Boehme, Rochester and Samuel) used the same idea for the IBM 701 assembler's table of names. Arnold Dumey published it in 1956. Luhn also gave his name to the checksum on credit card numbers, and in 1958 wrote the first programs that indexed documents by counting their words (exercise 2).</p>
+<h2>The problem it fixes</h2>
+<p>Finding a key in a list means comparing it with every key, O(n). A sorted array with binary search is O(log n), but inserting into it shifts elements. We want find, insert and delete all in O(1).</p>
+<h2>How it works</h2>
+<p>A <b>hash function</b> turns the key into a number; that number, modulo the table size, picks a bucket. Two keys can land in the same bucket (a collision): keep them in a short list. When the table gets too full, double it and re-insert everything, as the dynamic array does (D1). Go randomises map iteration order on purpose, so no program can rely on it.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Every Go <code>map</code> (Swiss Tables since Go 1.24).</li>
+<li>Compilers' symbol tables: from a name to its type and address.</li>
+<li>Caches, sets, deduplication, counting.</li>
+<li>Databases: hash indexes and hash joins.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li>Donald Knuth, <a href="https://www.Gwern.net/doc/cs/algorithm/information/compression/1998-knuth-taocp-v3-sortingandsearching-hashinghistory.pdf" target="_blank" rel="noopener"><i>The Art of Computer Programming</i>, vol. 3, section 6.4, History</a>: Luhn 1953, the IBM 701 group, Dumey 1956.</li>
+<li>Hallam Stevens, <a href="https://spectrum.ieee.org/hans-peter-luhn-and-the-birth-of-the-hashing-algorithm" target="_blank" rel="noopener">Hans Peter Luhn and the Birth of the Hashing Algorithm</a>, IEEE Spectrum, 2018.</li>
+<li>H. P. Luhn, <a href="https://courses.ischool.berkeley.edu/i256/f06/papers/luhn58.pdf" target="_blank" rel="noopener">The Automatic Creation of Literature Abstracts</a>, <i>IBM Journal</i>, 1958.</li>
+<li><a href="https://go.dev/doc/go1.24#runtime" target="_blank" rel="noopener">Go 1.24 release notes</a>: Swiss Tables.</li>
+</ul></details>

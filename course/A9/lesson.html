@@ -1,0 +1,21 @@
+<h2>History</h2>
+<p>The three orders were in use before computers, in how formulas are written. In the 1920s the Polish logician <b>Jan Łukasiewicz</b> wrote formulas with the operator first, <code>× 3 + 4 1</code>, which needs no brackets: a pre-order of the formula's tree, still called <i>Polish notation</i>. Its mirror, <code>3 4 1 + ×</code>, is <i>reverse Polish notation</i>, a post-order; in 1957 the Australian <b>Charles Hamblin</b> showed that a machine can evaluate it with a stack. Our usual <code>3 × (4 + 1)</code> is the in-order, and it needs brackets.</p>
+<h2>The problem it fixes</h2>
+<p>A tree has no single "next element". Every task on a tree (print it, evaluate it, copy it, delete it) needs a rule for the order in which the nodes are visited.</p>
+<h2>How it works</h2>
+<p>Visit a node and its subtrees, recursively; the only question is <b>when</b> you handle the node itself. <b>Pre-order</b>: before its children (copying a tree, creating folders top-down). <b>In-order</b>, for binary trees: between the left and the right subtree (a BST comes out sorted). <b>Post-order</b>: after its children (evaluating an expression, computing folder sizes, deleting a tree bottom-up).</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Compilers: evaluating and generating code for expression trees (exercise 1).</li>
+<li>File systems: <code>mkdir -p</code> works top-down, <code>rm -r</code> bottom-up (exercise 2).</li>
+<li>An in-order walk of a BST lists its keys in sorted order.</li>
+<li>Serialising a tree to JSON or XML is a pre-order walk.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/Depth-first_search#Vertex_orderings" target="_blank" rel="noopener">Depth-first search: vertex orderings</a>: pre-order of an expression tree is Polish notation.</li>
+<li><a href="https://cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf" target="_blank" rel="noopener">History of data structures</a>: Łukasiewicz's notation.</li>
+<li>Nelson H. F. Beebe, <a href="https://gcc.gnu.org/pipermail/algol68/2026-June/001506.html" target="_blank" rel="noopener">More history of Algol</a> (2026): Hamblin, 1957.</li>
+</ul></details>

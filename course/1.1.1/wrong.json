@@ -1,7 +1,0 @@
-[
-  {"ex": "e2", "name": "marks before checking", "replace": [["\t\tif seen[x] {\n\t\t\treturn true\n\t\t}\n\t\tseen[x] = true", "\t\tseen[x] = true\n\t\tif seen[x] {\n\t\t\treturn true\n\t\t}"]], "expect": "one value: HasDuplicate\\(\\[7\\]\\) returned true"},
-  {"ex": "e2", "name": "never finds one", "replace": [["\t\t\treturn true\n", "\t\t\tbreak\n"]], "expect": "duplicate next to each other"},
-  {"ex": "e2", "name": "nested loop", "file": "package main\n\nfunc HasDuplicate(xs []int) bool {\n\tfor i := range xs {\n\t\tfor j := i + 1; j < len(xs); j++ {\n\t\t\tif xs[i] == xs[j] {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t}\n\treturn false\n}\n", "expect": "TIMEOUT"},
-  {"ex": "e3", "name": "B quadratic", "replace": [["\"B\": Linear", "\"B\": Quadratic"]], "expect": "B: you said"},
-  {"ex": "e3", "name": "D linear", "replace": [["\"D\": Constant", "\"D\": Linear"]], "expect": "D: you said"}
-]

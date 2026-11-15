@@ -1,0 +1,4 @@
+{"title": "Backtracking", "exercises": [
+ {"id": "e1", "kind": "Implement", "title": "Eight queens", "task": "Fill <code>place</code>: one queen per row, in every column that is not attacked, then the next row, then <b>take the queen back</b> before trying the next column. <b>Run</b> compares the number of solutions with the number of boards a brute force would try.",
+  "hints": ["When <code>r == n</code>: <code>count++</code> and return.", "A square (r, c) is attacked when <code>col[c]</code>, <code>diag[r+c]</code> or <code>anti[r-c+n]</code> is true.", "Set the three to true, call <code>place(r + 1)</code>, set them back to false. Forgetting the last step is the classic bug: the board fills up with ghosts of queens already removed."]}
+]}

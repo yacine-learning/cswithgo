@@ -1,0 +1,19 @@
+<h2>History</h2>
+<p>Merge sort is credited to <b>John von Neumann</b>, who wrote it by hand in 1945 as one of the first programs for the EDVAC, a stored-program computer then being designed; Knuth's <i>The Art of Computer Programming</i> attributes it to him. Merging sorted tapes was how big files were sorted for decades, and it is still how data that does not fit in memory is sorted.</p>
+<h2>The problem it fixes</h2>
+<p>Simple sorts compare every pair, O(n²): a million items means a trillion comparisons.</p>
+<h2>How it works</h2>
+<p>Split the slice in two halves, sort each half (recursively), then <b>merge</b> the two sorted halves with two pointers (A4). There are log₂ n levels of halving and each level does n work: O(n log n), always. It needs a second array as big as the input. It is <b>stable</b>: equal elements keep their original order, which matters when you sort by one key after another.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Sorting data larger than memory: sort pieces that fit, write them out, merge them (external sort).</li>
+<li>Stable sorts: Go's <code>sort.Stable</code> and <code>slices.SortStableFunc</code> keep equal elements in order.</li>
+<li>Merging overlapping intervals once they are sorted (exercise 2).</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://www.educative.io/courses/data-structures-with-generic-types-in-cpp/discussion-on-sorting-algorithms" target="_blank" rel="noopener">Discussion on sorting algorithms</a>: Knuth attributes merge sort to von Neumann, 1945.</li>
+<li><a href="https://cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf" target="_blank" rel="noopener">History of data structures</a>: written by hand to run on the EDVAC.</li>
+</ul></details>

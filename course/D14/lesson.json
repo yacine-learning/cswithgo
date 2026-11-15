@@ -1,0 +1,4 @@
+{"title": "Bloom filter", "exercises": [
+ {"id": "e1", "kind": "Implement", "title": "Add and MayContain", "task": "The positions are computed for you by <code>slots</code>. Fill <code>Add</code> (set every slot) and <code>MayContain</code> (one clear slot is proof that the value was never added). <b>Run</b> measures, for k from 1 to 12, how often the filter wrongly says yes: you will see a best k, and why more hashing is not always better.",
+  "hints": ["Both are a loop over <code>b.slots(s)</code>.", "<code>MayContain</code> returns false at the first slot that is not set, and true after the loop."]}
+]}

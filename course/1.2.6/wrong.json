@@ -1,6 +1,0 @@
-[
-  {"ex": "e1", "name": "counter instead of stack", "replace": [["\t\ttop := stack[len(stack)-1]\n\t\tif top.name != name {\n\t\t\treturn Report{}, fmt.Errorf(\"line %d: end %s but %s is open\", i+1, name, top.name)\n\t\t}", "\t\ttop := stack[len(stack)-1]"]], "expect": "wrong span"},
-  {"ex": "e1", "name": "reports the outermost open span", "replace": [["fmt.Errorf(\"end of trace: %s is still open\", stack[len(stack)-1].name)", "fmt.Errorf(\"end of trace: %s is still open\", stack[0].name)"]], "expect": "innermost"},
-  {"ex": "e1", "name": "overwrites durations", "replace": [["r.Durations[name] += t - top.start", "r.Durations[name] = t - top.start"]], "expect": "adds up"},
-  {"ex": "e1", "name": "keeps all names", "replace": [["\tif len(r.Slowest) > 3 {\n\t\tr.Slowest = r.Slowest[:3]\n\t}\n", ""]], "expect": "three slowest"}
-]

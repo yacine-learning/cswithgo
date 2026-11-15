@@ -1,0 +1,17 @@
+<h2>History</h2>
+<p><b>Rudolf Bayer</b> and <b>Edward McCreight</b> invented the B-tree at Boeing Scientific Research Laboratories; their report "Organization and maintenance of large ordered indices" is dated July 1970. They never said what the B stands for. McCreight recalled the lunch where they chose the name: Boeing (which they could not use without the lawyers), balanced, Bayer… Bayer likes to say that the more you think about what the B means, the better you understand B-trees.</p>
+<h2>The problem it fixes</h2>
+<p>A disk (or an SSD) reads whole blocks, thousands of bytes at a time, and each read is far slower than a memory access. A binary tree of a billion keys is 30 levels deep: 30 reads per lookup.</p>
+<h2>How it works</h2>
+<p>Make each node one disk block holding hundreds of keys, with a child between every two keys. With 500 children per node, a billion keys fit in 4 levels, and the top levels stay in memory. The tree grows at the root: when a node is full it splits in two and pushes its middle key up, so all leaves stay at the same depth. The common variant, the B+ tree, keeps all values in the leaves and links the leaves together for fast range scans.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>The index of almost every relational database: PostgreSQL, MySQL (InnoDB), SQLite, Oracle.</li>
+<li>File systems: Btrfs, NTFS, Apple's APFS use B-trees for their metadata.</li>
+<li>Key-value stores such as BoltDB, written in Go.</li>
+</ul>
+<p class="note">No exercise: a correct B-tree with splits and merges is several hundred lines. Keep the idea: wide nodes the size of a disk block, a tree only 3 or 4 levels deep, all leaves at the same depth.</p>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://infolab.usc.edu/csci585/Spring2010/den_ar/indexing.pdf" target="_blank" rel="noopener">R. Bayer and E. McCreight, Organization and maintenance of large ordered indices</a>, Boeing Scientific Research Laboratories, July 1970.</li>
+<li><a href="https://wikiwand.com/en/B-trees" target="_blank" rel="noopener">B-tree</a>: the name, McCreight's 2013 account of the lunch.</li>
+</ul></details>

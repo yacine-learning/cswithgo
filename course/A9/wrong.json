@@ -1,0 +1,46 @@
+[
+  {
+    "ex": "e1",
+    "name": "pre-order evaluation order bug (right minus left)",
+    "replace": [
+      [
+        "\tcase '-':\n\t\treturn l - r",
+        "\tcase '-':\n\t\treturn r - l"
+      ]
+    ],
+    "expect": "order matters|Eval"
+  },
+  {
+    "ex": "e1",
+    "name": "no brackets",
+    "replace": [
+      [
+        "\treturn \"(\" + Infix(n.Left) + \" \" + string(n.Op) + \" \" + Infix(n.Right) + \")\"",
+        "\treturn Infix(n.Left) + \" \" + string(n.Op) + \" \" + Infix(n.Right)"
+      ]
+    ],
+    "expect": "Infix"
+  },
+  {
+    "ex": "e2",
+    "name": "delete uses pre-order",
+    "replace": [
+      [
+        "\tpost = func(d *Dir, path string) {\n\t\tfor _, c := range d.Children {\n\t\t\tpost(c, path+\"/\"+c.Name)\n\t\t}\n\t\tout = append(out, path)\n\t}",
+        "\tpost = func(d *Dir, path string) {\n\t\tout = append(out, path)\n\t\tfor _, c := range d.Children {\n\t\t\tpost(c, path+\"/\"+c.Name)\n\t\t}\n\t}"
+      ]
+    ],
+    "expect": "delete order"
+  },
+  {
+    "ex": "e2",
+    "name": "paths not joined",
+    "replace": [
+      [
+        "\t\t\tpre(c, path+\"/\"+c.Name)",
+        "\t\t\tpre(c, c.Name)"
+      ]
+    ],
+    "expect": "create order"
+  }
+]

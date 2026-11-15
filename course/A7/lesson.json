@@ -1,0 +1,27 @@
+{
+  "title": "Quicksort and quickselect",
+  "exercises": [
+    {
+      "id": "e1",
+      "kind": "Implement",
+      "title": "Write partition",
+      "task": "Your turn to write <code>partition</code>, Nico Lomuto's version. The pivot is the last element. Walk the range with <code>j</code>, and keep the promise: everything before <code>i</code> is smaller than the pivot. At the end, the pivot goes to <code>i</code>, and that is the index you return.",
+      "hints": [
+        "<code>i</code> marks the end of the \"smaller than the pivot\" part: it starts at <code>lo</code>.",
+        "For each <code>j</code> from <code>lo</code> to <code>hi-1</code>: if <code>a[j] &lt; pivot</code>, swap <code>a[i]</code> and <code>a[j]</code>, then <code>i++</code>.",
+        "At the end swap <code>a[i]</code> and <code>a[hi]</code> (the pivot) and return <code>i</code>."
+      ]
+    },
+    {
+      "id": "e2",
+      "kind": "Use",
+      "title": "A percentile without sorting",
+      "task": "You want the median of 100 000 values, not a sorted list of them. Hoare's FIND: partition, see where the pivot landed, and continue only in the side that contains position k. Write <code>Select</code>. It must compare only through <code>less</code>, because the check counts the calls: it must stay far below what a full sort needs. And the check also gives it sorted input: remember the trap.",
+      "hints": [
+        "Partition as in e1, but compare with <code>less(a[j], pivot)</code>. If the pivot lands at k, done; if k is before it, continue left; otherwise right. A loop, not two recursive calls.",
+        "Pick a random pivot (swap a random element of the range to the end first, with <code>rand.Intn</code>): with the last element, sorted input costs n²/2 comparisons, and the check tries sorted input.",
+        "Work on a copy (<code>slices.Clone</code>): Select must not reorder the caller's slice."
+      ]
+    }
+  ]
+}

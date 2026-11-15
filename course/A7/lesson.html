@@ -1,0 +1,23 @@
+<h2>History</h2>
+<p>In 1959 <b>Tony Hoare</b>, 25, an exchange student at Moscow State University, worked on translating Russian into English by computer. The dictionary was on magnetic tape in alphabetical order, so the words of each sentence had to be sorted first; his first idea was too slow, and he invented quicksort. Back in England, at Elliott Brothers, he bet his boss sixpence that he knew a faster sort than Shellsort, and won, though by his own account the method was "very difficult to explain". He could only write it clearly after an ALGOL 60 course in 1961: recursion was the key. He published Partition, Quicksort and Find in 1961, received the Turing Award in 1980, and died in March 2026.</p>
+<h2>The problem it fixes</h2>
+<p>Merge sort (A6) is always O(n log n) but needs a second array as big as the input. Can you sort as fast, inside the one array?</p>
+<h2>How it works</h2>
+<p>Pick a <b>pivot</b> and <b>partition</b>: smaller values to its left, larger to its right. The pivot is now in its final place and never moves again; sort each side the same way. Good pivots split in halves: O(n log n). Bad pivots (always the largest, as with sorted input and the last element as pivot) peel off one element per level: O(n²). A random pivot makes that a matter of bad luck. Partition alone answers "what is the k-th smallest?" in O(n) on average: <b>quickselect</b>, Hoare's Find.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Go's <code>slices.Sort</code> and <code>sort.Sort</code> use pdqsort (Go 1.19), a quicksort that detects bad patterns and falls back to heapsort (A8).</li>
+<li>Medians and percentiles without sorting everything (exercise 2).</li>
+<li>Most standard libraries' default sort is a quicksort variant.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li>C. A. R. Hoare, <a href="https://fermatslibrary.com/s/the-emperors-old-clothes" target="_blank" rel="noopener">The Emperor's Old Clothes</a>, 1980 Turing Award lecture: the sixpence bet, the ALGOL 60 course.</li>
+<li><a href="https://amturing.acm.org/award_recipient/hoare_4622167" target="_blank" rel="noopener">C. Antony R. Hoare, A.M. Turing Award</a>, ACM.</li>
+<li><a href="https://plus.maths.org/content/happy-birthday-quicksort" target="_blank" rel="noopener">Happy birthday Quicksort!</a>, Plus Magazine: the dictionary on magnetic tape.</li>
+<li><a href="https://www.bcs.org/media/utefo2gx/facs-jonathan-bowen-100726.pdf" target="_blank" rel="noopener">Jonathan Bowen, Tony Hoare</a>, BCS: Moscow 1959–1960, aged 25.</li>
+<li><a href="https://www.cs.ox.ac.uk/people/tony.hoare/index1.html" target="_blank" rel="noopener">Sir Tony Hoare: In Memoriam</a>, University of Oxford.</li>
+<li>Carl M. Johnson, <a href="https://blog.carlana.net/post/2022/golang-119-new-features/" target="_blank" rel="noopener">What's new in Go 1.19</a>: pdqsort.</li>
+</ul></details>

@@ -1,0 +1,83 @@
+[
+ {
+  "ex": "e1",
+  "name": "no path compression, no union by size",
+  "replace": [
+   [
+    "\troot := d.Find(d.parent[x])\n\td.parent[x] = root\n\treturn root",
+    "\treturn d.Find(d.parent[x])"
+   ],
+   [
+    "\tif d.size[ra] < d.size[rb] {\n\t\tra, rb = rb, ra\n\t}\n",
+    ""
+   ]
+  ],
+  "expect": "TIMEOUT"
+ },
+ {
+  "ex": "e1",
+  "name": "union always reports a merge",
+  "replace": [
+   [
+    "\tif ra == rb {\n\t\treturn false\n\t}\n",
+    ""
+   ]
+  ],
+  "expect": "returns false"
+ },
+ {
+  "ex": "e1",
+  "name": "links the elements, not their roots",
+  "replace": [
+   [
+    "ra, rb := d.Find(a), d.Find(b)",
+    "ra, rb := a, b"
+   ]
+  ],
+  "expect": "through their roots"
+ },
+ {
+  "ex": "e1",
+  "name": "forgets the size",
+  "replace": [
+   [
+    "\td.size[ra] += d.size[rb]\n",
+    ""
+   ]
+  ],
+  "expect": "sizes are kept"
+ },
+ {
+  "ex": "e2",
+  "name": "takes every link",
+  "replace": [
+   [
+    "\t\tif d.Union(l.A, l.B) {\n",
+    "\t\tif d.Union(l.A, l.B) || true {\n"
+   ]
+  ],
+  "expect": "cost"
+ },
+ {
+  "ex": "e2",
+  "name": "always ok",
+  "replace": [
+   [
+    "len(chosen) == n-1",
+    "true"
+   ]
+  ],
+  "expect": "unreachable"
+ },
+ {
+  "ex": "e2",
+  "name": "no sort",
+  "replace": [
+   [
+    "\tsort.SliceStable(sorted, func(i, j int) bool { return sorted[i].Cost < sorted[j].Cost })\n",
+    "\t_ = sort.SliceStable\n"
+   ]
+  ],
+  "expect": "expected 6"
+ }
+]

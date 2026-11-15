@@ -1,0 +1,57 @@
+[
+ {
+  "ex": "e1",
+  "name": "forgets to mark the end of a word",
+  "replace": [
+   [
+    "\tnode.word = true\n",
+    ""
+   ]
+  ],
+  "expect": "every inserted word is found"
+ },
+ {
+  "ex": "e1",
+  "name": "always creates a new child",
+  "replace": [
+   [
+    "\t\tnext, ok := node.children[r]\n\t\tif !ok {\n\t\t\tnext = NewTrie()\n\t\t\tnode.children[r] = next\n\t\t}\n\t\tnode = next\n\t}\n\tnode.word = true",
+    "\t\tnext := NewTrie()\n\t\tnode.children[r] = next\n\t\tnode = next\n\t}\n\tnode.word = true"
+   ]
+  ],
+  "expect": "share a prefix"
+ },
+ {
+  "ex": "e1",
+  "name": "find stays put on a missing letter",
+  "replace": [
+   [
+    "\t\tif !ok {\n\t\t\treturn nil\n\t\t}\n\t\tnode = next\n\t}\n\treturn node",
+    "\t\tif ok {\n\t\t\tnode = next\n\t\t}\n\t}\n\treturn node"
+   ]
+  ],
+  "expect": "HasPrefix"
+ },
+ {
+  "ex": "e2",
+  "name": "children in map order",
+  "replace": [
+   [
+    "sort.Slice(letters, func(i, j int) bool { return letters[i] < letters[j] })",
+    "sort.Slice(letters, func(i, j int) bool { return false })"
+   ]
+  ],
+  "expect": "in order"
+ },
+ {
+  "ex": "e2",
+  "name": "skips the word at the start node",
+  "replace": [
+   [
+    "\t\tif node.word {",
+    "\t\tif node.word && word != prefix {"
+   ]
+  ],
+  "expect": "prefix itself is a word"
+ }
+]

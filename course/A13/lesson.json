@@ -1,0 +1,4 @@
+{"title": "Dijkstra", "exercises": [
+ {"id": "e1", "kind": "Implement", "title": "Shortest path with costs", "task": "The priority queue is given (a <code>container/heap</code>, as in D10). Fill the three holes of <code>ShortestPath</code>: settle the closest node, relax its links, then rebuild the path from <code>prev</code>. <b>Run</b> shows why the fewest hops (BFS, A10) is not the cheapest route.",
+  "hints": ["Hole 1: <code>if done[it.node] { continue }</code>, then <code>done[it.node] = true</code>, and <code>break</code> if it is <code>dst</code>.", "Hole 2: for each <code>e</code> in <code>g[it.node]</code>, <code>d := it.dist + e.Cost</code>; if <code>e.To</code> has no distance yet or <code>d</code> is smaller, store <code>dist</code>, <code>prev</code>, and <code>heap.Push(q, item{e.To, d})</code>.", "Hole 3: follow <code>prev</code> from <code>dst</code> until <code>src</code>, appending each node, then reverse the slice."]}
+]}

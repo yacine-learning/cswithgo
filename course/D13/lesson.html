@@ -1,0 +1,21 @@
+<h2>History</h2>
+<p><b>Bernard Galler</b> and <b>Michael Fischer</b> described the structure in 1964 in "An improved equivalence algorithm": each group is a tree, and the root names the group. How fast it really is took years to understand. In 1975 <b>Robert Tarjan</b> proved that with both of its tricks, a long sequence of operations costs only the inverse Ackermann function per operation, a number below 5 for any input that could ever exist.</p>
+<h2>The problem it fixes</h2>
+<p>Things get connected two at a time, and the question keeps coming: "are these two connected yet, through any chain?" A search through the graph (A10) answers once, in O(n); asked a million times, it is far too slow.</p>
+<h2>How it works</h2>
+<p>Every element points to a parent; a root points to itself. <b>Find</b> follows the parents to the root. <b>Union</b> finds both roots and puts one under the other. Two tricks keep the trees flat: <b>union by size</b> (the smaller tree goes under the bigger) and <b>path compression</b> (after a Find, everything on the path points straight to the root).</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Kruskal's minimum spanning tree (exercise 2, and A14): "would this link close a loop?"</li>
+<li>Connected regions of an image: pixels of the same colour joined to their neighbours.</li>
+<li>Type inference in compilers: "these two type variables must be the same type".</li>
+<li>Networks: which machines can reach each other as links come up.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://people.ksp.sk/~kuko/gnarley-trees/UnionFind.html" target="_blank" rel="noopener">Union find</a>: Galler and Fischer (1964), path compression, Tarjan (1975).</li>
+<li>R. E. Tarjan, <a href="https://typeset.io/pdf/efficiency-of-a-good-but-not-linear-set-union-algorithm-936t8k17wv.pdf" target="_blank" rel="noopener">Efficiency of a good but not linear set union algorithm</a>, <i>Journal of the ACM</i> 22(2), April 1975.</li>
+<li><a href="https://graphsearch.epfl.ch/concept/1037551" target="_blank" rel="noopener">Disjoint-set data structure</a>, EPFL Graph Search: first described by Galler and Fischer in 1964.</li>
+</ul></details>

@@ -1,0 +1,22 @@
+<h2>History</h2>
+<p>Early languages such as FORTRAN gave each subroutine one fixed area for its variables, so a subroutine could not call itself. In 1960 <b>John McCarthy</b>'s paper on Lisp defined functions recursively, and <b>Edsger Dijkstra</b> published "Recursive Programming", showing how a stack of frames gives every call its own variables; recursion went into ALGOL 60 the same year. In 1968 <b>Donald Michie</b>, who had worked with Turing at Bletchley Park, proposed "memo functions": functions that remember their past results. That is where the word <i>memoization</i> comes from.</p>
+<h2>The problem it fixes</h2>
+<p>Many structures are defined in terms of themselves: a folder contains folders, an expression contains expressions, a JSON value contains values. Writing loops over them by hand means managing your own stack.</p>
+<h2>How it works</h2>
+<p>A function solves a small case directly (the <b>base case</b>) and a big case by calling itself on smaller pieces. Each call gets its own frame on the call stack (D3), and returns into the caller. When the same smaller calls come back again and again, as in Fibonacci, keep a <b>memo</b> of the answers: each one is then computed once. That is the first step towards dynamic programming (A15).</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Walking any tree: folders, the parse tree of a compiler, a JSON document (exercise 2).</li>
+<li>Divide and conquer: merge sort (A6), quicksort (A7), binary search (A3).</li>
+<li>Depth-first search (A11) and backtracking (A16).</li>
+<li>Memoization: compilers, parsers (packrat parsing), and caches of pure functions.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li>E. W. Dijkstra, <a href="https://ir.cwi.nl/pub/9253/9253D.pdf" target="_blank" rel="noopener">Recursive Programming</a>, <i>Numerische Mathematik</i> 2 (1960).</li>
+<li>Edgar G. Daylight, <a href="https://dijkstrascry.com/node/4?page=0%2C1" target="_blank" rel="noopener">the advent of the recursive procedure</a>: recursion in ALGOL 60.</li>
+<li>Adrian Colyer, <a href="https://blog.acolyer.org/2015/01/30/recursive-programming/" target="_blank" rel="noopener">Recursive Programming</a>: McCarthy's Lisp paper the same year.</li>
+<li>D. Michie, "Memo" functions and machine learning, <i>Nature</i> 218 (1968); <a href="https://www.aiai.ed.ac.uk/~dm/dmcv.html" target="_blank" rel="noopener">Donald Michie, CV</a>: memo functions, Bletchley Park.</li>
+</ul></details>

@@ -1,0 +1,16 @@
+{
+  "title": "Breadth-first search",
+  "exercises": [
+    {
+      "id": "e1",
+      "kind": "Implement",
+      "title": "Shortest path in hops",
+      "task": "Fill <code>ShortestPath</code>: a BFS from <code>from</code> that records each node's parent, then walks the parents back from <code>to</code>. Return nil if <code>to</code> cannot be reached.",
+      "hints": [
+        "Mark a node as seen when you <b>enqueue</b> it, not when you dequeue it: otherwise it can be queued several times.",
+        "<code>parent[next] = cur</code> when you first see <code>next</code>. The start has no parent.",
+        "To build the path, start at <code>to</code>, follow <code>parent</code> until <code>from</code>, then reverse the slice."
+      ]
+    }
+  ]
+}

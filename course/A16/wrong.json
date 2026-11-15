@@ -1,0 +1,5 @@
+[
+ {"ex": "e1", "name": "never takes a queen back", "replace": [["\t\t\tcol[c], diag[r+c], anti[r-c+n] = false, false, false\n", ""]], "expect": "Queens\\("},
+ {"ex": "e1", "name": "forgets one diagonal", "replace": [["if col[c] || diag[r+c] || anti[r-c+n] {", "if col[c] || diag[r+c] {"]], "expect": "Queens\\("},
+ {"ex": "e1", "name": "counts every row instead of full boards", "replace": [["\t\tif r == n {\n\t\t\tcount++\n\t\t\treturn\n\t\t}\n", "\t\tcount++\n\t\tif r == n {\n\t\t\treturn\n\t\t}\n"]], "expect": "Queens\\("}
+]

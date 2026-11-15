@@ -1,0 +1,17 @@
+<h2>History</h2>
+<p>In 1951 <b>David Huffman</b>'s information theory class at MIT was given a choice by the professor, <b>Robert Fano</b>: take the final exam, or write a term paper on finding the most efficient binary code. Huffman chose the paper, could not prove any method optimal, and was about to give up and study for the exam when he found the idea: build the code tree from the bottom up. It beat the method Fano himself had worked on with Claude Shannon. He published it in 1952.</p>
+<h2>The problem it fixes</h2>
+<p>Fixed-size codes (8 bits per character) waste space when some symbols are far more common than others: in English text, <code>e</code> appears far more often than <code>z</code>.</p>
+<h2>How it works</h2>
+<p>Give short codes to frequent symbols and long codes to rare ones, with no code a prefix of another so the bits can be decoded without separators. To build the tree: put every symbol in a <b>priority queue</b> (D10) by frequency; repeatedly take the two least frequent, join them under a new node whose frequency is their sum, and put it back. The last node is the root; left is 0, right is 1. No code built symbol by symbol is shorter on average.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>DEFLATE, the compression inside gzip, zip and PNG, uses Huffman codes (Go: <code>compress/flate</code>).</li>
+<li>JPEG images and MP3 audio use Huffman coding as their last step.</li>
+<li>Fax machines used fixed Huffman-style codes for runs of black and white.</li>
+</ul>
+<p class="note">No exercise: building the tree is a heap exercise you already did (D10), and the bit-level encoding is mostly plumbing. Keep the idea: frequent symbols get short codes, built bottom-up from the two rarest.</p>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/Huffman_coding" target="_blank" rel="noopener">Huffman coding</a>: the 1951 term paper, Fano, the 1952 paper.</li>
+<li><a href="https://graphsearch.epfl.ch/en/concept/13883" target="_blank" rel="noopener">Huffman coding</a>, EPFL Graph Search: about to give up, the bottom-up tree, outdoing Fano and Shannon.</li>
+</ul></details>

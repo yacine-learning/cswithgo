@@ -1,0 +1,20 @@
+<h2>History</h2>
+<p>In his 1946 design for the ACE computer, <b>Alan Turing</b> described two routines, BURY and UNBURY, to call subroutines and return from them with a stack of return addresses. In Munich in 1955, <b>Friedrich Bauer</b> and <b>Klaus Samelson</b> showed how a stack (their <i>Keller</i>, "cellar") lets a machine evaluate and translate formulas, and patented the method. It became the heart of compilers, and Bauer later received the IEEE Computer Pioneer Award for it.</p>
+<h2>The problem it fixes</h2>
+<p>Nested things must be closed in the reverse order they were opened: function calls, brackets, HTML tags, undo steps. Something has to remember what is open, innermost first.</p>
+<h2>How it works</h2>
+<p>Push on top, pop from the top: last in, first out. On a slice, both are O(1) at the end. When you meet an opener, push it; when you meet a closer, it must match the top.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>The call stack: every function call pushes a frame, every return pops it (A2).</li>
+<li>Parsers and compilers: brackets, nested blocks, expression evaluation.</li>
+<li>Undo in an editor; Back in a browser.</li>
+<li>Depth-first search (A11) is a stack, explicit or through recursion.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://people.computing.clemson.edu/~mark/subroutines.html" target="_blank" rel="noopener">Subroutine and procedure call support</a>: Turing's ACE report (1946), BURY and UNBURY.</li>
+<li><a href="https://history.computer.org/pioneers/bauer.html" target="_blank" rel="noopener">Friedrich L. Bauer</a>, IEEE Computer Society: the stack method with Samelson (1955), the patent.</li>
+</ul></details>

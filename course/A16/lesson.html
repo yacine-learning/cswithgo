@@ -1,0 +1,19 @@
+<h2>History</h2>
+<p>The chess composer <b>Max Bezzel</b> published the eight queens puzzle in 1848; <b>Franz Nauck</b> published solutions in 1850, and <b>Carl Friedrich Gauss</b> worked on it too. The word "backtrack" is credited to the American mathematician <b>D. H. Lehmer</b> in the 1950s. In 1972 <b>Edsger Dijkstra</b> used the eight queens to show what he called structured programming, with a detailed depth-first backtracking program.</p>
+<h2>The problem it fixes</h2>
+<p>Some problems are a sequence of choices, and only complete sequences can be checked: place eight queens, fill a sudoku, choose values for variables. Trying every combination blindly is hopeless: 16 777 216 boards of eight queens with one per row, but only 92 solutions.</p>
+<h2>How it works</h2>
+<p>Make one choice, check that it does not already break a rule, then make the next; when no choice works, <b>undo</b> the last one and try its next option. A dead end costs one step back, not a restart, and a whole branch of impossible boards is cut the moment its first bad choice is made. It is depth-first search (A11) over the tree of choices.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Puzzle solvers: sudoku, crosswords, the eight queens (exercise 1).</li>
+<li>SAT solvers, which decide whether a logical formula can be true, are backtracking with clever pruning.</li>
+<li>Regular expression engines in Perl and Python backtrack; Go's <code>regexp</code> deliberately does not, which guarantees linear time.</li>
+<li>Parsers that try one rule and fall back to another.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle" target="_blank" rel="noopener">Eight queens puzzle</a>: Bezzel 1848, Nauck 1850, Gauss; Dijkstra 1972; 92 solutions.</li>
+<li><a href="https://www.chessprogramming.org/Backtracking" target="_blank" rel="noopener">Backtracking</a>, Chessprogramming wiki: D. H. Lehmer and the term, 1950s.</li>
+</ul></details>

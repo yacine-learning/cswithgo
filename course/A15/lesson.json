@@ -1,0 +1,25 @@
+{
+ "title": "Dynamic programming",
+ "exercises": [
+  {
+   "id": "e1",
+   "kind": "Implement",
+   "title": "Edit distance",
+   "task": "Fill the table of <code>EditDistance</code>: first its edges, then every cell from its three neighbours above and to the left. <b>Run</b> also counts the calls of the same definition written as plain recursion: that is the difference a table makes.",
+   "hints": [
+    "The edges: <code>d[i][0] = i</code> for every row, <code>d[0][j] = j</code> for every column.",
+    "Go 1.21 has a built-in <code>min</code> that takes any number of arguments: <code>d[i][j] = min(a, b, c)</code>."
+   ]
+  },
+  {
+   "id": "e2",
+   "kind": "Use",
+   "title": "Did you mean\u2026?",
+   "task": "Spell checkers, search engines and command lines all suggest a correction for a typo: the known word with the smallest edit distance. Fill <code>Suggest</code>. <b>Run</b> corrects typos in Go keywords.",
+   "hints": [
+    "Return <code>\"\", false</code> as soon as <code>k == word</code>.",
+    "Keep <code>k</code> when <code>d &lt; bestDist</code>, or when <code>d == bestDist</code> and <code>k &lt; best</code>."
+   ]
+  }
+ ]
+}

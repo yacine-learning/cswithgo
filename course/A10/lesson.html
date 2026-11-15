@@ -1,0 +1,18 @@
+<h2>History</h2>
+<p>Breadth-first search was first written by <b>Konrad Zuse</b> in 1945, in his thesis on the Plankalkül language; it was rejected and stayed unpublished until 1972. It was reinvented in 1959 by <b>Edward F. Moore</b> to find the shortest path out of a maze, and in 1961 <b>C. Y. Lee</b> used it to route the wires on circuit boards.</p>
+<h2>The problem it fixes</h2>
+<p>"What is the fewest number of steps from here to there?" Following one path deep (A11) may find a long way first and never know a shorter one exists.</p>
+<h2>How it works</h2>
+<p>Explore in rings: first every node one step away, then every node two steps away, and so on. A <b>queue</b> (D4) holds the frontier, and a <b>visited</b> set makes sure each node enters the queue once. The first time BFS reaches a node, it has found a shortest path to it, counted in edges. O(nodes + edges). Remember for each node where you came from, and you can rebuild the path.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Fewest hops between two machines in a network (exercise 1).</li>
+<li>Garbage collectors that trace every object reachable from the variables.</li>
+<li>Web crawlers, and "friends of friends" in social networks.</li>
+<li>Solving puzzles in the fewest moves: each position is a node.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/Breadth-first_search" target="_blank" rel="noopener">Breadth-first search</a>: Zuse 1945 (published 1972), Moore 1959, Lee 1961.</li>
+</ul></details>

@@ -1,0 +1,16 @@
+{
+  "title": "LRU cache",
+  "exercises": [
+    {
+      "id": "e1",
+      "kind": "Use",
+      "title": "An LRU cache",
+      "task": "A cache that keeps the <code>capacity</code> most recently used keys and evicts the least recently used one. Use Go's <code>container/list</code> (a doubly linked list) for the order and a map from key to list element for the O(1) lookup. Hover over <code>list.</code> names in the editor for their documentation.",
+      "hints": [
+        "Keep the most recent at the front: <code>MoveToFront</code> on every Get and Put of an existing key.",
+        "The map holds <code>*list.Element</code>; store an <code>entry{key, value}</code> in the element, so that when you evict the back you know which key to delete from the map.",
+        "Evict with <code>back := c.order.Back()</code>, <code>c.order.Remove(back)</code>, <code>delete(c.items, back.Value.(entry).key)</code>."
+      ]
+    }
+  ]
+}

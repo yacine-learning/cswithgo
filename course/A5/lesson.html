@@ -1,0 +1,19 @@
+<h2>History</h2>
+<p>Like two pointers (A4), it is a technique without a single inventor: two pointers moving in the same direction. Its best-known use is in networking: in 1974 <b>Vint Cerf</b> and <b>Bob Kahn</b> published the design of TCP, with flow control by a window. The sender may have a window's worth of bytes in flight, and the window slides forward as acknowledgements come back.</p>
+<h2>The problem it fixes</h2>
+<p>"The average of the last 10 values", "how many events in the last minute", "the longest stretch without a repeat": recomputing each window from scratch costs O(n × k).</p>
+<h2>How it works</h2>
+<p>Keep the window's summary (a sum, a count, a set) up to date as it moves: add what enters on the right, remove what leaves on the left. Each element enters once and leaves once: O(n), whatever the window size.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>TCP flow control: the window of bytes allowed in flight.</li>
+<li>Moving averages of measurements; counting events over the last few seconds (exercise 1).</li>
+<li>String algorithms: the longest run without a repeated element (exercise 2).</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li>V. G. Cerf and R. E. Kahn, <a href="https://www.cs.bu.edu/fac/matta/Teaching/cs556/archive/cerfkahn.pdf" target="_blank" rel="noopener">A Protocol for Packet Network Intercommunication</a>, IEEE Transactions on Communications, May 1974.</li>
+<li><a href="https://www.historyofcomputercommunications.info/section/8.4/Transmission-Control-Protocol-(TCP)-1973-1976/" target="_blank" rel="noopener">History of computer communications: TCP 1973–1976</a>: the window scheme.</li>
+</ul></details>

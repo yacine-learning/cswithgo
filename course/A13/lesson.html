@@ -1,0 +1,19 @@
+<h2>History</h2>
+<p>In 1956 <b>Edsger Dijkstra</b> needed a demonstration for the inauguration of the ARMAC computer in Amsterdam, a problem a non-technical audience would understand: the shortest route between two Dutch cities. One morning, shopping with his fiancée, he sat on a café terrace and designed the algorithm in about twenty minutes, without pencil or paper. He published it three years later, in 1959.</p>
+<h2>The problem it fixes</h2>
+<p>BFS (A10) finds the fewest steps, but real links have different costs: a slow link, a long road. The path with the fewest hops is often not the cheapest.</p>
+<h2>How it works</h2>
+<p>Always settle the <b>closest node not yet settled</b>: its distance can no longer improve, because any other route would pass through a node that is already farther away. Then update the distances of its neighbours through it. A <b>priority queue</b> (D10) gives the closest node in O(log n): O((nodes + edges) log nodes) in all. It requires costs that are never negative.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Link-state routing: OSPF and IS-IS run Dijkstra on every router to compute its routes (exercise 1).</li>
+<li>Maps and navigation (with improvements such as A*, which adds a guess of the remaining distance).</li>
+<li>Any "cheapest way from A to B": games, network design, puzzles with move costs.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://cacm.acm.org/news/an-interview-with-edsger-w-dijkstra" target="_blank" rel="noopener">An interview with Edsger W. Dijkstra</a>, CACM: the café, the twenty minutes, published 1959.</li>
+<li><a href="https://amturing.acm.org/award_winners/dijkstra_1053701" target="_blank" rel="noopener">Edsger W. Dijkstra, A.M. Turing Award</a>, ACM: the ARMAC inauguration, his fiancée Ria Debets.</li>
+<li><a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm" target="_blank" rel="noopener">Dijkstra's algorithm</a>: use in OSPF and IS-IS.</li>
+</ul></details>

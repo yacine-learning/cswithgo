@@ -1,0 +1,21 @@
+<h2>History</h2>
+<p><b>J. W. J. Williams</b>, at Elliott Brothers in London (where Tony Hoare had just written quicksort, A7), invented the binary heap in 1963 to build a sorting method, heapsort, published in 1964. The same year <b>Robert Floyd</b> showed how to build a heap from n values in O(n). The heap outlived heapsort: today it is mostly a priority queue.</p>
+<h2>The problem it fixes</h2>
+<p>Many problems need "the smallest (or most urgent) item right now", over and over, while new items keep arriving. Sorting again after every insertion is O(n log n) each time; scanning for the minimum is O(n).</p>
+<h2>How it works</h2>
+<p>A complete binary tree stored in a slice, with no pointers: the children of index i are 2i+1 and 2i+2, its parent (i-1)/2. Rule: every parent is smaller than its children, so the minimum is always at index 0. Push: append at the end, then move <b>up</b> while smaller than the parent. Pop: move the last element to the root, then move it <b>down</b>, swapping with the smaller child. Both O(log n). Go's <code>container/heap</code> implements exactly this.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Go's runtime keeps its timers in a heap (4 children per node instead of 2): the next timer to fire is always on top.</li>
+<li>Operating system schedulers: the most urgent task next.</li>
+<li>Dijkstra's shortest paths (A13), Huffman coding (A17), merging k sorted files.</li>
+<li>Top-k: the k largest of a stream, with a heap of size k (exercise 2).</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/J._W._J._Williams" target="_blank" rel="noopener">J. W. J. Williams</a>: the binary heap and heapsort, 1963, Elliott Brothers; Algorithm 232, CACM, June 1964.</li>
+<li><a href="https://hjemmesider.diku.dk/~jyrki/Course/Dat2P-1999/classics_in_algorithmics.html" target="_blank" rel="noopener">Classics in Algorithmics</a>: Williams' Algorithm 232 and Floyd's Algorithm 245 (1964).</li>
+<li><a href="https://go.dev/src/container/heap/heap.go" target="_blank" rel="noopener">container/heap/heap.go</a>, Go source.</li>
+</ul></details>

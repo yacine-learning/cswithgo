@@ -1,0 +1,19 @@
+<h2>History</h2>
+<p>Two pointers is a technique, not one invention. Its oldest and most famous use is the <b>merge</b> at the heart of merge sort, which <b>John von Neumann</b> wrote in 1945 for the EDVAC (A6): two sorted runs, one index in each, always take the smaller.</p>
+<h2>The problem it fixes</h2>
+<p>On sorted data, many questions look like they need two nested loops ("is there a pair that sums to x?", "merge these two lists"), O(n²).</p>
+<h2>How it works</h2>
+<p>Keep two indexes and move only one of them at each step, chosen so that no possible answer is skipped. Each index crosses the slice once: O(n). They can start at both ends and walk towards each other (pair sum), or both start at the beginning, one reading and one writing (removing duplicates in place).</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Merging sorted data: merge sort, merging traces from two processors (exercise 2).</li>
+<li>Databases: the "merge join" of two tables sorted on the same key.</li>
+<li>Removing duplicates or filtering a slice in place, without a second array.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://hjemmesider.diku.dk/~jyrki/Course/Dat2P-1999/classics_in_algorithmics.html" target="_blank" rel="noopener">Classics in Algorithmics</a>: mergesort in Goldstine and von Neumann's <i>Planning and coding of problems for an electronic computing instrument</i>.</li>
+<li><a href="https://cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf" target="_blank" rel="noopener">History of data structures</a>: von Neumann, 1945, for the EDVAC.</li>
+</ul></details>

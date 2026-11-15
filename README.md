@@ -2,7 +2,7 @@
 
 Computer science with Go, in the browser: lessons, exercises, and the real Go compiler running in the page.
 
-Module 1, data structures and algorithms, is written: 24 lessons (Big O, slices, maps, stacks, queues, linked lists, recursion, binary search trees, traversals, graphs, BFS/DFS, binary search, two pointers, sliding window, merge sort, quicksort, heaps) and 6 chapter projects, 60 Go exercises in all. `playground.html` is a free Go playground. Lessons are numbered `module.chapter.lesson` and live in `course/<number>/`; `CLAUDE.md` has the rules every lesson follows.
+The course covers data structures and algorithms: 14 data structures (D1 to D14) and 17 algorithms (A1 to A17), one page each with a few lines of history, the problem it fixes, how it works and where it is used, then one or two Go exercises (44 in all; 7 pages have none, on purpose). The home page is the map of all 31, a tile lighting up when its exercises pass. `playground.html` is a free Go playground. Pages live in `course/<code>/`; `CLAUDE.md` has the rules every page follows.
 
 Everything runs in the page. There is no backend and no build step.
 
@@ -32,8 +32,8 @@ To add one: put it in `PKGS` in `tools/build-toolchain.sh` and in `pkgs` in `too
 
 | Path | What |
 |---|---|
-| `index.html`, `js/app.js`, `css/course.css` | the course page: lesson on the left, editor and output on the right |
-| `course/` | `index.json` (modules, chapters, lessons), then one folder per lesson: `lesson.html`, `lesson.json`, and per exercise `eN.go` (starting code), `eN.run.go`, `eN.check.go`, `eN.solution.go` |
+| `index.html`, `js/app.js`, `css/course.css` | the course: the map of tiles, then each page with its text on the left, the editor and output on the right |
+| `course/` | `index.json` (two sections, the pages with their code, title and one-line tag), then one folder per page (`D5`, `A13`…): `lesson.html`, `lesson.json`, `wrong.json`, and per exercise `eN.go` (starting code), `eN.run.go`, `eN.check.go`, `eN.solution.go` |
 | `playground.html`, `js/playground.js` | the free playground |
 | `css/editor.css` | the editor's frame (VS Code, One Dark Pro) |
 | `js/toolchain.js`, `js/toolchain-worker.js` | the Go compiler and linker, in a worker, with an in-memory file system |

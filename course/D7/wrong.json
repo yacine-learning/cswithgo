@@ -1,0 +1,57 @@
+[
+  {
+    "ex": "e1",
+    "name": "two children: uses the left minimum",
+    "replace": [
+      [
+        "\tn.Key = Min(n.Right)\n\tn.Right = Delete(n.Right, n.Key)",
+        "\tn.Key = Min(n.Left)\n\tn.Left = Delete(n.Left, n.Key)"
+      ]
+    ],
+    "expect": "two children|wrong side"
+  },
+  {
+    "ex": "e1",
+    "name": "two children: forgets to delete the successor",
+    "replace": [
+      [
+        "\tn.Right = Delete(n.Right, n.Key)\n",
+        ""
+      ]
+    ],
+    "expect": "two children|wrong side"
+  },
+  {
+    "ex": "e1",
+    "name": "one child: drops the subtree",
+    "replace": [
+      [
+        "\t\treturn n.Right // no child (nil), or only a right child: it takes n's place",
+        "\t\treturn nil"
+      ]
+    ],
+    "expect": "only a right child"
+  },
+  {
+    "ex": "e2",
+    "name": "stops at the first candidate",
+    "replace": [
+      [
+        "\t\t\tkey, found = n.Key, true // a candidate; a larger one can only be on the right\n\t\t\tn = n.Right",
+        "\t\t\treturn n.Key, true"
+      ]
+    ],
+    "expect": "between two keys|right subtree|after the last"
+  },
+  {
+    "ex": "e2",
+    "name": "uses < instead of <=",
+    "replace": [
+      [
+        "\t\tif n.Key <= t {",
+        "\t\tif n.Key < t {"
+      ]
+    ],
+    "expect": "exactly a key"
+  }
+]

@@ -1,6 +1,0 @@
-[
-  {"ex": "e1", "name": "Count scans", "replace": [["\treturn sort.SearchInts(ts, to) - sort.SearchInts(ts, from)", "\tn := 0\n\tfor _, t := range ts {\n\t\tif t >= from && t < to {\n\t\t\tn++\n\t\t}\n\t}\n\t_ = sort.SearchInts\n\treturn n"]], "expect": "TIMEOUT"},
-  {"ex": "e1", "name": "Count with an inclusive end", "replace": [["\treturn sort.SearchInts(ts, to) - sort.SearchInts(ts, from)", "\treturn sort.SearchInts(ts, to+1) - sort.SearchInts(ts, from)"]], "expect": "Count in a range"},
-  {"ex": "e1", "name": "Busiest window includes its end", "replace": [["ts[right] < ts[left]+width", "ts[right] <= ts[left]+width"]], "expect": "Busiest window"},
-  {"ex": "e1", "name": "Silences strict", "replace": [["\t\tif ts[i+1]-ts[i] >= min {", "\t\tif ts[i+1]-ts[i] > min {"]], "expect": "exactly min"}
-]

@@ -1,45 +1,172 @@
 {
-  "go": "go1.24.7",
-  "modules": [
-    { "n": "1", "title": "Data structures and algorithms", "chapters": [
-      { "n": "1.1", "title": "Measuring algorithms", "lessons": [
-        { "n": "1.1.1", "title": "Big O" }
-      ] },
-      { "n": "1.2", "title": "Linear structures", "lessons": [
-        { "n": "1.2.1", "title": "Arrays and slices" },
-        { "n": "1.2.2", "title": "Hash maps" },
-        { "n": "1.2.3", "title": "Stacks" },
-        { "n": "1.2.4", "title": "Queues" },
-        { "n": "1.2.5", "title": "Linked lists" },
-        { "n": "1.2.6", "title": "Project: profiling function calls" }
-      ] },
-      { "n": "1.3", "title": "Recursion and trees", "lessons": [
-        { "n": "1.3.1", "title": "Recursion and the call stack" },
-        { "n": "1.3.2", "title": "Binary search trees" },
-        { "n": "1.3.3", "title": "Tree traversals" },
-        { "n": "1.3.4", "title": "Min, max and delete" },
-        { "n": "1.3.5", "title": "Project: sizes in a tree of folders" }
-      ] },
-      { "n": "1.4", "title": "Graphs", "lessons": [
-        { "n": "1.4.1", "title": "Graphs" },
-        { "n": "1.4.2", "title": "BFS and DFS" },
-        { "n": "1.4.3", "title": "Project: build order" }
-      ] },
-      { "n": "1.5", "title": "Searching sorted data", "lessons": [
-        { "n": "1.5.1", "title": "Binary search" },
-        { "n": "1.5.2", "title": "Two pointers" },
-        { "n": "1.5.3", "title": "Sliding window" },
-        { "n": "1.5.4", "title": "Project: a meteor shower" }
-      ] },
-      { "n": "1.6", "title": "Sorting", "lessons": [
-        { "n": "1.6.1", "title": "Merge sort" },
-        { "n": "1.6.2", "title": "Quicksort" },
-        { "n": "1.6.3", "title": "Project: sorting a file bigger than memory" }
-      ] },
-      { "n": "1.7", "title": "Priority queues", "lessons": [
-        { "n": "1.7.1", "title": "Heaps" },
-        { "n": "1.7.2", "title": "Project: merging many sorted streams" }
-      ] }
-    ] }
-  ]
+ "go": "go1.24.7",
+ "sections": [
+  {
+   "id": "ds",
+   "title": "Data structures",
+   "pages": [
+    {
+     "n": "D1",
+     "title": "Dynamic array",
+     "tag": "A slice that doubles when full"
+    },
+    {
+     "n": "D2",
+     "title": "Linked list",
+     "tag": "Nodes pointing to the next one"
+    },
+    {
+     "n": "D3",
+     "title": "Stack",
+     "tag": "Last in, first out"
+    },
+    {
+     "n": "D4",
+     "title": "Queue",
+     "tag": "First in, first out, in a ring"
+    },
+    {
+     "n": "D5",
+     "title": "Hash table",
+     "tag": "Find by key in constant time"
+    },
+    {
+     "n": "D6",
+     "title": "LRU cache",
+     "tag": "A hash table and a list, together"
+    },
+    {
+     "n": "D7",
+     "title": "Binary search tree",
+     "tag": "Sorted, searchable, changeable"
+    },
+    {
+     "n": "D8",
+     "title": "Balanced trees",
+     "tag": "AVL and red-black: trees that stay short"
+    },
+    {
+     "n": "D9",
+     "title": "B-tree",
+     "tag": "The index of every database"
+    },
+    {
+     "n": "D10",
+     "title": "Heap",
+     "tag": "Always know the smallest"
+    },
+    {
+     "n": "D11",
+     "title": "Graph",
+     "tag": "Nodes and the edges between them"
+    },
+    {
+     "n": "D12",
+     "title": "Trie",
+     "tag": "A tree of prefixes"
+    },
+    {
+     "n": "D13",
+     "title": "Union-find",
+     "tag": "Which group is this in?"
+    },
+    {
+     "n": "D14",
+     "title": "Bloom filter",
+     "tag": "\"Definitely not\" or \"probably\""
+    }
+   ]
+  },
+  {
+   "id": "algo",
+   "title": "Algorithms",
+   "pages": [
+    {
+     "n": "A1",
+     "title": "Big O",
+     "tag": "How cost grows with n"
+    },
+    {
+     "n": "A2",
+     "title": "Recursion",
+     "tag": "A function that calls itself, and a memo"
+    },
+    {
+     "n": "A3",
+     "title": "Binary search",
+     "tag": "Halve the range every step"
+    },
+    {
+     "n": "A4",
+     "title": "Two pointers",
+     "tag": "Two indexes walking a sorted slice"
+    },
+    {
+     "n": "A5",
+     "title": "Sliding window",
+     "tag": "The last k, without starting over"
+    },
+    {
+     "n": "A6",
+     "title": "Merge sort",
+     "tag": "Split, sort, merge"
+    },
+    {
+     "n": "A7",
+     "title": "Quicksort and quickselect",
+     "tag": "Partition around a pivot"
+    },
+    {
+     "n": "A8",
+     "title": "Heapsort, counting and radix sort",
+     "tag": "Other ways to sort"
+    },
+    {
+     "n": "A9",
+     "title": "Tree traversals",
+     "tag": "Pre-order, in-order, post-order"
+    },
+    {
+     "n": "A10",
+     "title": "Breadth-first search",
+     "tag": "Shortest path in hops"
+    },
+    {
+     "n": "A11",
+     "title": "Depth-first search and cycles",
+     "tag": "Go deep, come back"
+    },
+    {
+     "n": "A12",
+     "title": "Topological sort",
+     "tag": "An order that respects dependencies"
+    },
+    {
+     "n": "A13",
+     "title": "Dijkstra",
+     "tag": "Shortest path with weights"
+    },
+    {
+     "n": "A14",
+     "title": "Minimum spanning tree",
+     "tag": "Connect everything for the least cost"
+    },
+    {
+     "n": "A15",
+     "title": "Dynamic programming",
+     "tag": "Solve each subproblem once"
+    },
+    {
+     "n": "A16",
+     "title": "Backtracking",
+     "tag": "Try, and undo when stuck"
+    },
+    {
+     "n": "A17",
+     "title": "Huffman coding",
+     "tag": "Short codes for frequent symbols"
+    }
+   ]
+  }
+ ]
 }

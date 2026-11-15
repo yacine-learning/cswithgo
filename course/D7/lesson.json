@@ -1,0 +1,27 @@
+{
+  "title": "Binary search tree",
+  "exercises": [
+    {
+      "id": "e1",
+      "kind": "Implement",
+      "title": "Write Delete",
+      "task": "Fill the three cases of <code>Delete</code>. Going down to the node is given; each call returns the new root of its subtree, and the parent reconnects itself.",
+      "hints": [
+        "When you first wrote this in December, you found the parent with a separate search and changed <code>parent.Left</code> or <code>parent.Right</code>. That broke when the node to delete was the root itself. Returning the new subtree root avoids the parent entirely.",
+        "No child: return <code>nil</code>. One child: return that child. The parent's <code>n.Left = Delete(…)</code> does the rest.",
+        "Two children: copy the smallest key of the right subtree into <code>n.Key</code>, then delete that key from the right subtree: <code>n.Right = Delete(n.Right, n.Key)</code>."
+      ]
+    },
+    {
+      "id": "e2",
+      "kind": "Use",
+      "title": "Floor: which function is running?",
+      "task": "A program's functions sit one after another in memory. A profiler (D3, exercise 2) or a panic's stack trace only knows an address, the program counter; to print a name it needs the function whose code begins at the largest address ≤ pc. Keep the start addresses in a BST: that is the <b>floor</b>, the largest key ≤ t. (Go's runtime does this lookup with a sorted table instead of a tree, for <code>runtime.FuncForPC</code>.) Follow one path from the root, like Search, remembering the best candidate.",
+      "hints": [
+        "If the node's key is ≤ t, it is a candidate; a better one can only be on its right.",
+        "If the node's key is > t, the answer can only be on its left.",
+        "A loop is enough: <code>for n != nil { … }</code>, keeping <code>best</code> and <code>found</code>."
+      ]
+    }
+  ]
+}

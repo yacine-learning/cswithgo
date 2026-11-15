@@ -1,0 +1,20 @@
+<h2>History</h2>
+<p>The binary search tree was discovered independently around 1960 by several people: <b>P. F. Windley</b>, <b>A. D. Booth</b> and <b>A. J. T. Colin</b>, and <b>Thomas Hibbard</b>. Hibbard published the deletion method in 1962: replace the deleted key by its successor, the smallest key larger than it. It is still called <i>Hibbard deletion</i>.</p>
+<h2>The problem it fixes</h2>
+<p>A hash table finds a key but knows nothing about order: "the smallest key", "everything between 10 and 20", "the largest key ≤ x" all mean looking at every key. A sorted array answers them, but inserting shifts elements.</p>
+<h2>How it works</h2>
+<p>Every node has a key, a left subtree with only smaller keys and a right subtree with only larger ones. Search, insert and delete walk one path from the root: O(height). Delete has three cases: no child (remove it), one child (lift the child up), two children (copy the successor's key here, then delete the successor). Inserting keys already sorted gives a tree that is a list, height n: that is what balanced trees (D8) prevent.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Ordered maps and sets: Java's <code>TreeMap</code>, C++'s <code>std::map</code> (both balanced, D8).</li>
+<li>Range queries: "all events between two times".</li>
+<li>Floor and ceiling lookups: which function contains this address (exercise 2), which interval contains this point.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/Binary_search_tree" target="_blank" rel="noopener">Binary search tree</a>: Windley, Booth, Colin and Hibbard, around 1960.</li>
+<li><a href="https://en.wikipedia.org/wiki/Thomas_N._Hibbard" target="_blank" rel="noopener">Thomas N. Hibbard</a>: Hibbard deletion.</li>
+<li>J. Culberson and J. I. Munro, <a href="https://ime.usp.br/~yoshi/2012i/mac323/exx/ST_ABB_Evolution/culberson_Algo.pdf" target="_blank" rel="noopener">Analysis of the standard deletion algorithms</a>, <i>Algorithmica</i> 5 (1990): Hibbard's 1962 deletion.</li>
+</ul></details>

@@ -1,0 +1,18 @@
+<h2>History</h2>
+<p><b>Heapsort</b>: <b>J. W. J. Williams</b> invented the binary heap (D10) in 1963 precisely to sort with it, published in 1964. <b>Radix sort</b> is older than computers: <b>Herman Hollerith</b>'s punched-card machines tabulated the 1890 US census, and card sorters later sorted a deck one column at a time, from the least significant column to the most. Knuth calls Hollerith's sorting machine the basis of the radix sorting methods used in computers.</p>
+<h2>The problem it fixes</h2>
+<p>Quicksort can degrade to O(n²); merge sort needs extra memory. And every comparison sort needs at least about n log₂ n comparisons. Can a sort avoid both problems, or avoid comparing at all?</p>
+<h2>How it works</h2>
+<p><b>Heapsort</b>: build a heap from the slice, then pop the top n times. O(n log n) in every case and in place, but its jumps around memory make it slower than quicksort in practice. <b>Counting sort</b>: when keys are small integers, count how many of each key there are, then write them out in order: O(n + k) for keys below k, no comparisons. <b>Radix sort</b>: sort by the last digit, then the one before, and so on, with a stable counting sort at each step: O(n × digits).</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Heapsort is the safety net inside Go's pdqsort: when quicksort's pivots keep going badly, it switches to heapsort.</li>
+<li>Counting sort: histograms, sorting bytes, ranking scores in a small range.</li>
+<li>Radix sort: fixed-size keys such as integers, IP addresses, dates; suffix arrays in text indexing.</li>
+</ul>
+<p class="note">No exercise: once you have a heap (D10) heapsort is ten lines, and counting sort is a loop over a slice of counters. What is worth keeping is the trade-off: heapsort guarantees O(n log n) with no extra memory, and counting and radix sort beat n log n by not comparing at all, when the keys allow it.</p>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/J._W._J._Williams" target="_blank" rel="noopener">J. W. J. Williams</a>: heapsort, 1963–1964.</li>
+<li><a href="https://ed-thelen.org/comp-hist/Knuth-Sort.html" target="_blank" rel="noopener">Knuth, <i>The Art of Computer Programming</i>, vol. 3, history of sorting</a>: Hollerith, the 1890 census, the basis of radix sorting.</li>
+<li><a href="https://en.wikipedia.org/wiki/Punched_card_sorter" target="_blank" rel="noopener">Punched card sorter</a>: least significant digit first, column by column.</li>
+</ul></details>

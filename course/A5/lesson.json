@@ -1,0 +1,27 @@
+{
+  "title": "Sliding window",
+  "exercises": [
+    {
+      "id": "e1",
+      "kind": "Implement",
+      "title": "A Geiger counter",
+      "task": "A Geiger counter clicks at each particle it detects. At every click, report how many clicks happened in the last <code>window</code> seconds, the current one included: that is the measured activity. The counter keeps the times of recent clicks in a queue. Fill <code>Click</code>: drop the times that have left the window, record the new one, count.",
+      "hints": [
+        "A time t has left the window at <code>now</code> when <code>t &lt;= now - window</code>. The oldest times are at the front of the queue.",
+        "Drop from the front while the front is too old: <code>for len(c.times) &gt; 0 &amp;&amp; …</code>.",
+        "Then append <code>now</code> and return <code>len(c.times)</code>."
+      ]
+    },
+    {
+      "id": "e2",
+      "kind": "Use",
+      "title": "The longest run without a repeat",
+      "task": "In a text, find the longest run of consecutive words with no word repeated. Return its start and length. A window that grows on the right and shrinks on the left: each word enters once and leaves once, O(n).",
+      "hints": [
+        "Keep a map from word to its last position. Move <code>right</code> one step at a time.",
+        "If the word at <code>right</code> was last seen at a position ≥ <code>left</code>, it is a repeat inside the window: move <code>left</code> just past that position.",
+        "After each step, the window is <code>[left, right]</code>: keep the longest one (the earliest, on a tie)."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+<h2>History</h2>
+<p><b>Burton Bloom</b> published "Space/Time Trade-offs in Hash Coding with Allowable Errors" in 1970. His example was a hyphenation program: suppose simple rules hyphenate 90% of English words correctly, and the other 10% need a dictionary that lives on disk. A small structure in memory that answers "definitely not in the dictionary" for most words avoids most of the disk reads, as long as you accept that it sometimes says "maybe" wrongly.</p>
+<h2>The problem it fixes</h2>
+<p>Before an expensive lookup (a disk read, a network request), you want to know cheaply whether it can possibly succeed. Storing the full set to check it costs too much memory.</p>
+<h2>How it works</h2>
+<p>An array of m bits, all 0, and k hash functions. Adding a value sets its k bits. Looking a value up: if any of its k bits is 0, it was <b>never</b> added; if all are 1, it was <b>probably</b> added (they may have been set by other values). No false negatives, a controlled rate of false positives, and no way to delete. The more bits per value, the fewer false positives.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Databases built on log-structured merge trees (LevelDB, RocksDB, Cassandra, Bigtable) keep a Bloom filter per file to skip the files that cannot contain a key.</li>
+<li>Web caches and crawlers: "have we seen this URL?"</li>
+<li>Networking: summarising what another machine holds without sending the whole list.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://redwood.berkeley.edu/wp-content/uploads/2021/08/Bloom1970.pdf" target="_blank" rel="noopener">B. H. Bloom, Space/Time Trade-offs in Hash Coding with Allowable Errors</a>, <i>Communications of the ACM</i> 13(7), 1970: the hyphenation example.</li>
+<li>A. Kirsch and M. Mitzenmacher, Less Hashing, Same Performance: Building a Better Bloom Filter (2006): the h1 + i·h2 trick used in the exercise.</li>
+</ul></details>

@@ -1,0 +1,35 @@
+[
+  {
+    "ex": "e1",
+    "name": "rounds not sorted",
+    "replace": [
+      [
+        "\t\tsort.Strings(round)\n",
+        ""
+      ]
+    ],
+    "expect": "rounds"
+  },
+  {
+    "ex": "e1",
+    "name": "only the cycle members reported",
+    "replace": [
+      [
+        "\t\t\tif n > 0 {",
+        "\t\t\tif n > 0 && len(neededBy[s]) > 0 {"
+      ]
+    ],
+    "expect": "waiting behind a cycle"
+  },
+  {
+    "ex": "e1",
+    "name": "imported-only packages forgotten",
+    "replace": [
+      [
+        "\t\t\tif _, ok := waiting[d]; !ok {\n\t\t\t\twaiting[d] = 0\n\t\t\t}\n",
+        ""
+      ]
+    ],
+    "expect": "three rounds|early|shared"
+  }
+]

@@ -1,0 +1,63 @@
+[
+  {
+    "ex": "e1",
+    "name": "counts brackets instead of a stack",
+    "file": "package main\n\nfunc Balanced(s string) (bool, int) {\n\tdepth := 0\n\tfor i := 0; i < len(s); i++ {\n\t\tswitch s[i] {\n\t\tcase '(', '[', '{':\n\t\t\tdepth++\n\t\tcase ')', ']', '}':\n\t\t\tdepth--\n\t\t\tif depth < 0 {\n\t\t\t\treturn false, i\n\t\t\t}\n\t\t}\n\t}\n\tif depth != 0 {\n\t\treturn false, len(s) - 1\n\t}\n\treturn true, -1\n}\n",
+    "expect": "wrong kind of closer|wrong order"
+  },
+  {
+    "ex": "e1",
+    "name": "reports the outermost unclosed opener",
+    "replace": [
+      [
+        "\t\treturn false, stack[len(stack)-1]",
+        "\t\treturn false, stack[0]"
+      ]
+    ],
+    "expect": "innermost"
+  },
+  {
+    "ex": "e2",
+    "name": "counter instead of stack",
+    "replace": [
+      [
+        "\t\ttop := stack[len(stack)-1]\n\t\tif top.name != name {\n\t\t\treturn Report{}, fmt.Errorf(\"line %d: end %s but %s is open\", i+1, name, top.name)\n\t\t}",
+        "\t\ttop := stack[len(stack)-1]"
+      ]
+    ],
+    "expect": "wrong span"
+  },
+  {
+    "ex": "e2",
+    "name": "reports the outermost open span",
+    "replace": [
+      [
+        "fmt.Errorf(\"end of trace: %s is still open\", stack[len(stack)-1].name)",
+        "fmt.Errorf(\"end of trace: %s is still open\", stack[0].name)"
+      ]
+    ],
+    "expect": "innermost"
+  },
+  {
+    "ex": "e2",
+    "name": "overwrites durations",
+    "replace": [
+      [
+        "r.Durations[name] += t - top.start",
+        "r.Durations[name] = t - top.start"
+      ]
+    ],
+    "expect": "adds up"
+  },
+  {
+    "ex": "e2",
+    "name": "keeps all names",
+    "replace": [
+      [
+        "\tif len(r.Slowest) > 3 {\n\t\tr.Slowest = r.Slowest[:3]\n\t}\n",
+        ""
+      ]
+    ],
+    "expect": "three slowest"
+  }
+]

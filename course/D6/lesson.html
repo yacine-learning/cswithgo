@@ -1,0 +1,20 @@
+<h2>History</h2>
+<p>In 1962 the Atlas computer at Manchester introduced virtual memory: a small fast memory pretending to be a large one, pages moving in from a drum when needed. When memory is full, which page do you throw out? In 1966 <b>László Bélády</b> at IBM tested every replacement policy he could find. The best possible one (his MIN) needs to know the future; among the real ones, <b>least recently used</b> generally did best.</p>
+<h2>The problem it fixes</h2>
+<p>Fast memory is small. A cache must decide what to keep, and do it in O(1) on every access, or it costs more than it saves.</p>
+<h2>How it works</h2>
+<p>Bet that what was used recently will be used again soon. Two structures together: a <b>doubly linked list</b> keeps the entries in order of use (most recent at the front), and a <b>hash table</b> finds the list node of a key in O(1). On every access, move the node to the front; when full, drop the node at the back.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Operating systems: choosing which memory page to evict (approximations of LRU).</li>
+<li>Processor caches use LRU-like policies inside each set.</li>
+<li>Databases' buffer pools; Redis has an approximated LRU eviction mode.</li>
+<li>Any memoisation with a size limit.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li>Peter J. Denning, <a href="https://cacm.acm.org/opinion/the-atlas-milestone" target="_blank" rel="noopener">The Atlas Milestone</a>, CACM: Atlas virtual memory (1962), Bélády's 1966 study.</li>
+<li>Peter J. Denning, <a href="https://cacm.acm.org/opinion/the-locality-principle" target="_blank" rel="noopener">The Locality Principle</a>, CACM: LRU was consistently the best performer among those tested.</li>
+<li><a href="https://adithyabhatkajake.github.io/notes/literature-notes/beladyStudyReplacementAlgorithms1966.html" target="_blank" rel="noopener">Notes on Bélády 1966</a>: the MIN algorithm.</li>
+</ul></details>

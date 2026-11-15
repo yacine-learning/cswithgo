@@ -1,0 +1,18 @@
+<h2>History</h2>
+<p><b>Arthur Kahn</b> published the method in 1962 to order the tasks of large project networks: repeatedly take everything that has no unfinished prerequisite. In April 1976 at Bell Labs <b>Stuart Feldman</b> wrote <code>make</code>, which rebuilds a program from a graph of files and what each depends on, after a colleague lost a morning debugging a program that had simply not been recompiled.</p>
+<h2>The problem it fixes</h2>
+<p>Things that depend on each other must happen in an order where every dependency comes first: compile a package after what it imports, compute a spreadsheet cell after the cells it reads.</p>
+<h2>How it works</h2>
+<p>Count, for every node, how many dependencies it still waits for (its in-degree). Everything at 0 can go first. Each time a node is done, decrease the count of the nodes that depended on it; those reaching 0 can go next. If some nodes never reach 0, they are on a cycle and no order exists. Grouping the nodes that reach 0 together gives <b>rounds</b> that can run in parallel. O(nodes + edges).</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Build systems: <code>make</code>, the Go toolchain compiling packages in dependency order (exercise 1).</li>
+<li>Package managers installing dependencies before what needs them.</li>
+<li>Spreadsheets recomputing cells; course prerequisites; the steps of any recipe.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li>A. B. Kahn, <a href="https://scilit.com/publications/1bc5bd2b4676f7e4e83f2fd8d23f7aaf" target="_blank" rel="noopener">Topological sorting of large networks</a>, <i>Communications of the ACM</i> 5(11), 1962.</li>
+<li><a href="https://en.wikipedia.org/wiki/Make_(software)" target="_blank" rel="noopener">Make (software)</a>: Stuart Feldman, Bell Labs, April 1976.</li>
+</ul></details>

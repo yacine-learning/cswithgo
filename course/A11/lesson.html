@@ -1,0 +1,19 @@
+<h2>History</h2>
+<p>Depth-first search is older than computers: in the 19th century the French engineer <b>Charles Pierre Trémaux</b> described a way out of any maze by marking the passages you have walked, published by Édouard Lucas in 1882.</p>
+<h2>The problem it fixes</h2>
+<p>Some questions need the whole structure of a graph, not distances: does it have a cycle? Which nodes can I reach at all? In what order must things happen?</p>
+<h2>How it works</h2>
+<p>Go as deep as possible along one path; when stuck, back up to the last node with an unexplored edge. Recursion (A2) does the backing up for you. Colour the nodes to find cycles: <b>white</b> (not seen), <b>grey</b> (on the current path), <b>black</b> (finished). Meeting a grey node again means the path has come back to itself: a cycle. O(nodes + edges).</p>
+<h2>Where it is used</h2>
+<ul>
+<li>The Go toolchain refuses import cycles and prints the cycle (exercise 1).</li>
+<li>Topological sort (A12) can be done with DFS: a node goes on the list after all its dependencies.</li>
+<li>Solving mazes, and backtracking (A16), which is DFS over choices.</li>
+<li>Detecting deadlocks: a cycle in the graph of "who waits for whom".</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://en.wikipedia.org/wiki/Depth-first_search" target="_blank" rel="noopener">Depth-first search</a>: Trémaux's maze strategy.</li>
+<li>Shimon Even, <a href="https://resolve.cambridge.org/core/books/graph-algorithms/depthfirst-search/EE0CE2AAA5C13C498C899A2F6693282C" target="_blank" rel="noopener"><i>Graph Algorithms</i>, ch. 3</a>: Lucas' 1882 report of Trémaux's work.</li>
+</ul></details>

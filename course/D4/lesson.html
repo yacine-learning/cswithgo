@@ -1,0 +1,22 @@
+<h2>History</h2>
+<p>The mathematics of waiting lines started with telephones: in 1909 <b>Agner Krarup Erlang</b>, of the Copenhagen Telephone Company, published his first study of how calls arrive and wait for a free line. Queues entered computing with time-sharing: in November 1961 <b>Fernando Corbató</b>'s team at MIT demonstrated CTSS, several people typing at once on one IBM 709, each program getting a short slice of processor time in turn. Corbató received the 1990 Turing Award for it.</p>
+<h2>The problem it fixes</h2>
+<p>Work arrives faster than it can be done, or from several sources at once. It must wait, and be served in arrival order. Removing from the front of a slice is O(1), but the memory in front is never reused.</p>
+<h2>How it works</h2>
+<p>First in, first out. A <b>ring buffer</b> keeps the queue in a fixed array with two indexes, head and tail, that wrap around to 0 at the end: no shifting, no allocation, memory reused forever.</p>
+<h2>Where it is used</h2>
+<ul>
+<li>A buffered Go channel is a ring buffer (<code>runtime/chan.go</code>).</li>
+<li>The scheduler's run queue: processes waiting for their turn on the processor.</li>
+<li>Network cards and keyboards: bytes wait in a ring until the program reads them.</li>
+<li>Breadth-first search (A10).</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://mathshistory.st-andrews.ac.uk/Biographies/Erlang/" target="_blank" rel="noopener">Agner Krarup Erlang</a>, MacTutor.</li>
+<li><a href="https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System" target="_blank" rel="noopener">Compatible Time-Sharing System</a>: November 1961, IBM 709.</li>
+<li><a href="https://computer.org/profiles/fernando-corbato" target="_blank" rel="noopener">Fernando J. Corbató</a>, IEEE Computer Society.</li>
+<li><a href="https://go.dev/src/runtime/chan.go" target="_blank" rel="noopener">runtime/chan.go</a>, Go source.</li>
+</ul></details>

@@ -1,0 +1,19 @@
+<h2>History</h2>
+<p>Memory has been a row of numbered cells since the first stored-program computers of the late 1940s. An array is a run of consecutive cells, and finding element i is one multiplication and one addition on the address. The growable array came later; why "double when full" is cheap was put on firm ground by <b>Robert Tarjan</b> in 1985, who named <i>amortized analysis</i>: the rare expensive copy is paid for by the many cheap appends around it.</p>
+<h2>The problem it fixes</h2>
+<p>A fixed array must be sized in advance: too small and it overflows, too big and memory is wasted. Growing it by one cell at a time means copying everything at every append, O(n²) for n appends.</p>
+<h2>How it works</h2>
+<p>Keep spare room. When it runs out, allocate twice the size and copy once. Over n appends the copies add up to less than 2n moves: O(1) per append on average. A Go slice is exactly this: a pointer, a length and a capacity, and <code>append</code> grows the backing array when the capacity is reached. Two slices can share one backing array, which is fast and also the source of the classic aliasing bug (exercise 2).</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Every Go slice, <code>strings.Builder</code> and <code>bytes.Buffer</code>.</li>
+<li>The stack, the queue and the heap of this course are all built on one.</li>
+<li>Any sequence read by index: pixels of an image, samples of a sound, rows of a table.</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li><a href="https://go.dev/blog/slices-intro" target="_blank" rel="noopener">Go Slices: usage and internals</a>, The Go Blog.</li>
+<li>Robert E. Tarjan, Amortized computational complexity, <i>SIAM Journal on Algebraic and Discrete Methods</i> 6 (1985); listed in <a href="https://hjemmesider.diku.dk/~jyrki/Course/Dat2P-1999/classics_in_algorithmics.html" target="_blank" rel="noopener">Classics in Algorithmics</a>.</li>
+</ul></details>

@@ -1,0 +1,46 @@
+[
+  {
+    "ex": "e1",
+    "name": "grows by one",
+    "replace": [
+      [
+        "newCap := 2 * len(v.data)",
+        "newCap := len(v.data) + 1"
+      ]
+    ],
+    "expect": "capacities after each growth|copies for 1 000 pushes"
+  },
+  {
+    "ex": "e1",
+    "name": "forgets to copy",
+    "replace": [
+      [
+        "\t\t\tbigger[i] = v.data[i]\n",
+        ""
+      ]
+    ],
+    "expect": "were the old values copied"
+  },
+  {
+    "ex": "e1",
+    "name": "no start at 1",
+    "replace": [
+      [
+        "\t\tif newCap == 0 {\n\t\t\tnewCap = 1\n\t\t}\n",
+        ""
+      ]
+    ],
+    "expect": "panicked"
+  },
+  {
+    "ex": "e2",
+    "name": "reslices base",
+    "replace": [
+      [
+        "\tout := make([]int, len(prefix), len(prefix)+1)\n\tcopy(out, prefix)\n",
+        "\tout := prefix[:len(prefix)]\n"
+      ]
+    ],
+    "expect": "first path is"
+  }
+]

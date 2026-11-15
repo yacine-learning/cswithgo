@@ -1,0 +1,21 @@
+<h2>History</h2>
+<p><b>Richard Bellman</b> developed the method at the RAND Corporation in the early 1950s. In his autobiography he says he chose the name on purpose: the Secretary of Defense, Charles Wilson, disliked the word "research", RAND worked for the Air Force, and Bellman wanted a name for his mathematics that "not even a Congressman could object to". The best-known example in text is the edit distance, defined by <b>Vladimir Levenshtein</b> in Moscow in 1965 while studying codes that correct inserted and deleted symbols.</p>
+<h2>The problem it fixes</h2>
+<p>Plain recursion on many problems recomputes the same subproblems an exponential number of times: comparing two words of 10 letters recursively makes millions of calls (exercise 1 counts them).</p>
+<h2>How it works</h2>
+<p>Find a way to express the answer from answers to <b>smaller</b> problems of the same kind, then solve each smaller problem <b>once</b>, storing it: in a memo (A2), or in a table filled in an order where every cell needed is already there. For two strings of lengths m and n, the edit distance table has (m+1)(n+1) cells, each computed from three neighbours: O(m × n).</p>
+<h2>Where it is used</h2>
+<ul>
+<li>Spell checkers and "did you mean…?" (exercise 2).</li>
+<li><code>diff</code> and version control compare files line by line with a closely related table (the longest common subsequence).</li>
+<li>Biology: aligning DNA and protein sequences.</li>
+<li>Speech recognition and decoding (the Viterbi algorithm), shortest paths with negative costs (Bellman-Ford).</li>
+</ul>
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<details class="fold"><summary>Sources</summary><ul>
+<li>Stuart Dreyfus, <a href="https://web.cs.miami.edu/home/odelia/teaching/csc317_fall19/syllabus/dy_birth.pdf" target="_blank" rel="noopener">Richard Bellman on the Birth of Dynamic Programming</a>, <i>Operations Research</i> 50(1), 2002: excerpts from <i>Eye of the Hurricane</i> (1984).</li>
+<li><a href="https://notes.zachmanson.com/on-the-origins-of-dynamic-programming" target="_blank" rel="noopener">On the Origins of Dynamic Programming</a>: the passage about Wilson and the name.</li>
+<li>V. I. Levenshtein, <a href="https://mathnet.ru/eng/dan31411" target="_blank" rel="noopener">Binary codes capable of correcting deletions, insertions, and reversals</a>, <i>Doklady Akademii Nauk SSSR</i> 163(4), 1965.</li>
+</ul></details>
