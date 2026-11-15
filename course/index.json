@@ -1,0 +1,10 @@
+{
+  "go": "go1.24.7",
+  "modules": [
+    { "n": "1", "title": "Data structures and algorithms", "chapters": [
+      { "n": "1.1", "title": "Measuring algorithms", "lessons": [
+        { "n": "1.1.1", "title": "Big O" }
+      ] }
+    ] }
+  ]
+}

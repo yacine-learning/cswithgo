@@ -1,7 +1,7 @@
-// Browser tests of the playground: build, run, output, compiler errors, panics, stop, stdlib for data structures.
+// Browser tests of the playground page: build, run, output, compiler errors, panics, stop, stdlib for data structures.
 // Needs a server on :8790 (python3 -m http.server 8790) and Playwright with Chromium.
 import { chromium } from 'playwright';
-const URL = process.env.URL || 'http://localhost:8790/';
+const URL = (process.env.URL || 'http://localhost:8790/') + 'playground.html';
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1200, height: 800 } });
 const errors = []; page.on('pageerror', (e) => errors.push(String(e)));

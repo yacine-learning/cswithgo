@@ -1,0 +1,41 @@
+<div class="keep"><span class="k">Keep this</span><ul>
+<li><b>Big O describes how the work grows when the input grows</b>, not how many seconds a program takes.</li>
+<li>Keep only what dominates when n is large: 3n² + 5n + 20 is <b>O(n²)</b>. The ladder to know: O(1) &lt; O(log n) &lt; O(n) &lt; O(n log n) &lt; O(n²).</li>
+<li><b>The doubling test:</b> double n and watch the work (steps, or time on a big enough n). ×1: O(1) or O(log n). ×2: O(n). ×4: O(n²). A loop inside a loop over the same data is the usual O(n²); a map often brings it back to O(n).</li>
+</ul></div>
+
+<h2>The problem</h2>
+<p>You wrote a script that checks a list of request IDs for duplicates. On your laptop, with 1 000 IDs, it takes a blink. In production there are 100 000, and it takes minutes. Nothing is broken: the method itself does not scale.</p>
+<p>Timing it does not tell you why, or how bad it will get. The same program runs at different speeds on different machines, under different load. You need a way to talk about the <i>method</i>, independent of the machine.</p>
+
+<h2>Where it comes from</h2>
+<p>The notation is older than computers. <b>Paul Bachmann</b>, a German number theorist, wrote <i>O(n)</i> in 1894 to mean "a quantity of the order of n": the O is for <i>Ordnung</i>, order. <b>Edmund Landau</b> spread it in 1909 in his book on prime numbers.</p>
+<p>Programmers met the same problem in the 1960s: machines differed in speed by factors of a hundred, so "it took 3 seconds" said more about the machine than about the algorithm. In 1976 <b>Donald Knuth</b>, author of <i>The Art of Computer Programming</i>, published a short note asking computer scientists to adopt O, Ω and Θ with precise meanings. They did; it is the vocabulary every algorithm book uses since.</p>
+
+<h2>The idea</h2>
+<p>Count the steps as a function of n, the size of the input, and keep only the part that wins when n is large. Constants do not matter: 10n and n both grow the same way when n doubles.</p>
+<table class="tbl">
+<tr><th>Growth</th><th>Typical code</th><th>n doubles, time…</th></tr>
+<tr><td>O(1)</td><td>read <code>xs[i]</code>, look up a map key</td><td>stays the same</td></tr>
+<tr><td>O(log n)</td><td>halve the problem each step (binary search)</td><td>grows by one step</td></tr>
+<tr><td>O(n)</td><td>one loop over the data</td><td>×2</td></tr>
+<tr><td>O(n log n)</td><td>a good sort</td><td>a bit more than ×2</td></tr>
+<tr><td>O(n²)</td><td>a loop inside a loop over the same data</td><td>×4</td></tr>
+</table>
+<p>The doubling test comes from Robert Sedgewick and Kevin Wayne's <i>Algorithms</i>: you do not need the maths to know the class of a program, you run it at n and 2n and read the ratio. That is what the exercises below do.</p>
+<details class="fold"><summary>Why a map lookup is O(1) and a nested loop O(n²)</summary>
+<p>A map turns the key into a position with a hash function, then goes there directly: the work does not depend on how many keys the map holds (lesson 1.2.2 shows how). Comparing every pair of n values is n(n−1)/2 comparisons: for 1 000 values, about 500 000; for 100 000 values, about 5 000 000 000. That is the jump from a blink to minutes.</p>
+<p>Big O is about large n. For 20 items, the "slower" method can win, because the constants Big O ignores (making a map costs something) dominate.</p>
+</details>
+
+<h2 class="run">Exercises</h2>
+<div data-ex="e1"></div>
+<div data-ex="e2"></div>
+<div data-ex="e3"></div>
+
+<details class="fold"><summary>Sources</summary><ul>
+<li>Donald E. Knuth, <a href="https://danluu.com/knuth-big-o.pdf" target="_blank" rel="noopener">Big Omicron and Big Omega and Big Theta</a>, SIGACT News, 1976. Traces O back to Bachmann (1894) via Landau (1909).</li>
+<li>Paul E. Black, <a href="https://xlinux.nist.gov/dads/HTML/bigOnotation.html" target="_blank" rel="noopener">big-O notation</a>, NIST Dictionary of Algorithms and Data Structures. The O as <i>Ordnung</i>.</li>
+<li>MAA Convergence, <a href="https://old.maa.org/press/periodicals/convergence/math-origins-orders-of-growth" target="_blank" rel="noopener">Math Origins: Orders of Growth</a>. Bachmann's and Landau's books.</li>
+<li>Robert Sedgewick and Kevin Wayne, <i>Algorithms</i>, 4th edition, section 1.4: the doubling ratio experiment.</li>
+</ul></details>

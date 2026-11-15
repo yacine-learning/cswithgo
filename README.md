@@ -2,7 +2,7 @@
 
 Computer science with Go, in the browser: lessons, exercises, and the real Go compiler running in the page.
 
-Right now it holds the Go playground: write a program, run it, see its output. The lessons come next, starting with data structures and algorithms.
+Module 1 is data structures and algorithms. Lesson 1.1.1 (Big O) is written; the others follow. `playground.html` is a free Go playground. Lessons are numbered `module.chapter.lesson` and live in `course/<number>/`; `CLAUDE.md` has the rules every lesson follows.
 
 Everything runs in the page. There is no backend and no build step.
 
@@ -32,13 +32,16 @@ To add one: put it in `PKGS` in `tools/build-toolchain.sh` and in `pkgs` in `too
 
 | Path | What |
 |---|---|
-| `index.html`, `js/playground.js`, `css/editor.css` | the playground page |
+| `index.html`, `js/app.js`, `css/course.css` | the course page: lesson on the left, editor and output on the right |
+| `course/` | `index.json` (modules, chapters, lessons), then one folder per lesson: `lesson.html`, `lesson.json`, and per exercise `eN.go` (starting code), `eN.run.go`, `eN.check.go`, `eN.solution.go` |
+| `playground.html`, `js/playground.js` | the free playground |
+| `css/editor.css` | the editor's frame (VS Code, One Dark Pro) |
 | `js/toolchain.js`, `js/toolchain-worker.js` | the Go compiler and linker, in a worker, with an in-memory file system |
 | `js/runner.js`, `js/run-worker.js` | runs a compiled program in its own worker and streams its output |
 | `js/editor.js`, `js/vendor/`, `js/goapi.json`, `js/godoc/` | the editor; `goapi.json` and `godoc/` are the standard library's API and documentation |
 | `toolchain/` | compiler, linker, gofmt and standard library, built by `tools/build-toolchain.sh` |
 | `tools/` | build scripts: toolchain, API index (`genapi`), vendored editor |
-| `test/e2e.mjs` | browser tests (Chromium through Playwright) |
+| `test/course.mjs`, `test/playground.mjs` | browser tests (Chromium through Playwright) |
 
 ## Rebuilding
 
@@ -52,7 +55,7 @@ bash tools/vendor/build-codemirror.sh  # the editor library (needs npm)
 
 ```
 python3 -m http.server 8790 &
-node test/e2e.mjs
+node test/course.mjs && node test/playground.mjs
 ```
 
 Go is distributed under a BSD-style licence (see https://go.dev/LICENSE); `js/wasm_exec.js` and the files in `toolchain/` are built from it. CodeMirror is MIT-licensed (`js/vendor/CODEMIRROR-LICENSE`).

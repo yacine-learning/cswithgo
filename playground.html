@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cswithgo · Go playground</title>
+<link rel="stylesheet" href="css/editor.css">
+<style>
+  html, body { margin: 0; height: 100%; background: #282c34; }
+  .vsc { height: 100vh; display: flex; flex-direction: column; }
+</style>
+</head>
+<body>
+<div class="vsc">
+  <div class="vsc-tabs">
+    <div class="vsc-tab on"><svg class="vsc-go" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M2.3 9.6c-.1 0-.1 0-.1-.1l.2-.3.1-.1h4.1c.1 0 .1.1.1.1l-.2.3-.1.1H2.3zM.6 10.7c-.1 0-.1 0-.1-.1l.2-.3.1-.1h5.2c.1 0 .1.1.1.1l-.1.3-.1.1H.6zm2.8 1.1c-.1 0-.1-.1-.1-.1l.2-.3.1-.1h2.3c.1 0 .1.1.1.1v.3l-.1.1H3.4zm11.9-2.4-1.9.5c-.2 0-.2.1-.4-.1-.2-.2-.4-.4-.7-.5-.9-.5-1.8-.3-2.6.2-1 .6-1.5 1.6-1.5 2.8 0 1.1.8 2 1.9 2.2.9.1 1.7-.2 2.3-.9l.4-.5H10.5c-.3 0-.3-.2-.2-.4.2-.4.5-1.1.7-1.4 0-.1.1-.2.3-.2h4.4c0 .3 0 .7-.1 1-.1.9-.5 1.7-1 2.4-.9 1.2-2.1 1.9-3.6 2.1-1.2.2-2.4 0-3.3-.8-.9-.8-1.4-1.7-1.5-2.9-.2-1.4.2-2.6 1.1-3.7.9-1.2 2.1-1.9 3.6-2.2 1.2-.2 2.3-.1 3.4.6.7.4 1.1 1 1.5 1.7 0 .1 0 .2-.1.2zm3.3 5.5c-1.1 0-2.2-.3-3-1.1-.7-.6-1.2-1.5-1.3-2.5-.2-1.5.3-2.8 1.2-3.9 1-1.2 2.2-1.8 3.7-2 1.3-.2 2.5 0 3.6.7 1 .7 1.6 1.6 1.8 2.8.2 1.7-.3 3.1-1.4 4.2-.8.9-1.8 1.4-3 1.7-.5.1-.9.1-1.6.1zm2.8-4.6v-.4c-.2-1.2-1.3-1.9-2.5-1.6-1.1.2-1.8.9-2.1 2-.2.9.2 1.8 1 2.2.6.3 1.3.2 1.9-.1.9-.5 1.4-1.2 1.6-2.1z"/></svg>main.go</div>
+    <span class="sp"></span>
+    <div class="vsc-actions">
+      <button class="vsc-btn primary" id="run" title="Build and run (Ctrl+Enter)"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 2.5v11l9-5.5z"/></svg>Run</button>
+      <button class="vsc-btn" id="stop" hidden title="Stop the program">Stop</button>
+      <button class="vsc-btn" id="format" title="Format Document with gofmt (Shift+Alt+F)">Format</button>
+    </div>
+  </div>
+  <div class="vsc-crumbs"><span id="edCrumbs">main.go</span><span class="sp"></span><span class="build-status" id="buildStatus">Not built yet</span></div>
+  <div class="editor" id="editor"></div>
+  <div class="problems" id="problems" hidden></div>
+  <div class="run-out"><div class="p-h"><span>Output</span><span class="meta" id="runMeta"></span></div><pre id="out"></pre></div>
+  <div class="ed-status" id="edStatus"></div>
+</div>
+<div class="toasts" id="toasts"></div>
+<script type="module" src="js/playground.js"></script>
+</body>
+</html>
