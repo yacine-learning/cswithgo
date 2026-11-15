@@ -1,14 +1,14 @@
 package main
 
-// Graph maps each species to the species it eats.
+// Graph maps each package to the packages it imports.
 type Graph map[string][]string
 
-// Producers returns the species that eat nothing, sorted.
-func Producers(g Graph) []string {
+// Leaves returns the packages that import nothing, sorted.
+func Leaves(g Graph) []string {
 	return nil
 }
 
-// ApexPredators returns the species that no other species eats, sorted.
-func ApexPredators(g Graph) []string {
+// Roots returns the packages that no other package imports, sorted.
+func Roots(g Graph) []string {
 	return nil
 }

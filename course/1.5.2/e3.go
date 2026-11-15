@@ -1,6 +1,6 @@
 package main
 
-// Entry is one observation at time T (seconds after dusk).
+// Entry is one event at time T (microseconds since the program started).
 type Entry struct {
 	T   int
 	Msg string

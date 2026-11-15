@@ -6,18 +6,18 @@ import (
 	"strings"
 )
 
-// Plan groups topics into semesters.
+// Plan groups packages into build rounds.
 //
-// deps[t] lists the prerequisites of topic t: each of them must be in an earlier semester
-// than t. A topic that appears only as a prerequisite is a topic too.
+// deps[p] lists the packages that p imports: each of them must be built in an earlier
+// round than p. A package that appears only as an import is a package too.
 //
-//   - semester 0 holds every topic with no prerequisite; semester k holds every topic whose
-//     prerequisites are all in semesters before k (each topic as early as possible);
-//   - the topics of each semester are sorted by name;
-//   - when some topics can never be studied (they are on a cycle, or need one),
-//     Plan returns the error "cannot order: a, b, c": all those topics, sorted.
+//   - round 0 holds every package that imports nothing; round k holds every package whose
+//     imports are all built in rounds before k (each package as early as possible);
+//   - the packages of each round are sorted by name;
+//   - when some packages can never be built (they are on a cycle, or import one),
+//     Plan returns the error "cannot order: a, b, c": all those packages, sorted.
 func Plan(deps map[string][]string) ([][]string, error) {
-	waiting := map[string]int{}       // number of prerequisites not studied yet
+	waiting := map[string]int{}       // number of imports not built yet
 	neededBy := map[string][]string{} // the reverse graph
 	for s, ds := range deps {
 		waiting[s] += len(ds)
@@ -28,20 +28,20 @@ func Plan(deps map[string][]string) ([][]string, error) {
 			neededBy[d] = append(neededBy[d], s)
 		}
 	}
-	var semester []string
+	var round []string
 	for s, n := range waiting {
 		if n == 0 {
-			semester = append(semester, s)
+			round = append(round, s)
 		}
 	}
-	var semesters [][]string
+	var rounds [][]string
 	placed := 0
-	for len(semester) > 0 {
-		sort.Strings(semester)
-		semesters = append(semesters, semester)
-		placed += len(semester)
+	for len(round) > 0 {
+		sort.Strings(round)
+		rounds = append(rounds, round)
+		placed += len(round)
 		var next []string
-		for _, s := range semester {
+		for _, s := range round {
 			for _, t := range neededBy[s] {
 				waiting[t]--
 				if waiting[t] == 0 {
@@ -49,7 +49,7 @@ func Plan(deps map[string][]string) ([][]string, error) {
 				}
 			}
 		}
-		semester = next
+		round = next
 	}
 	if placed < len(waiting) {
 		var stuck []string
@@ -61,5 +61,5 @@ func Plan(deps map[string][]string) ([][]string, error) {
 		sort.Strings(stuck)
 		return nil, fmt.Errorf("cannot order: %s", strings.Join(stuck, ", "))
 	}
-	return semesters, nil
+	return rounds, nil
 }

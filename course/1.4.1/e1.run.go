@@ -20,14 +20,15 @@ func show(g Graph) {
 
 func main() {
 	g := Graph{}
-	g.AddEdge("fox", "rabbit")
-	g.AddEdge("fox", "mouse")
-	g.AddEdge("owl", "mouse")
-	g.AddEdge("rabbit", "grass")
-	g.AddEdge("mouse", "seeds")
-	g.AddEdge("mouse", "grass")
-	fmt.Println("eats:")
+	// a few Go packages and what they import (simplified)
+	g.AddEdge("main", "fmt")
+	g.AddEdge("main", "strings")
+	g.AddEdge("fmt", "strconv")
+	g.AddEdge("fmt", "io")
+	g.AddEdge("strings", "unicode")
+	g.AddEdge("strconv", "unicode")
+	fmt.Println("imports:")
 	show(g)
-	fmt.Println("\neaten by (the reverse graph):")
+	fmt.Println("\nimported by (the reverse graph):")
 	show(g.Reverse())
 }

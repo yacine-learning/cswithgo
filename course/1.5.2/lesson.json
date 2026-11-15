@@ -22,8 +22,8 @@
     {
       "id": "e3",
       "kind": "Use",
-      "title": "Merge two observation logs",
-      "task": "Two observatories each recorded their observations of the same night, sorted by time. <code>Merge</code> returns all the entries in time order, in O(n + m), without sorting. On equal times, observatory A's entry comes first.",
+      "title": "Merge two processor traces",
+      "task": "A tracer records what each processor does in its own buffer, sorted by time: one shared buffer would make the processors wait for each other at every event. To read the program's story you need one timeline. <code>Merge</code> returns all the events in time order, in O(n + m), without sorting. On equal times, the event from <code>a</code> comes first.",
       "hints": [
         "One index into each slice. Take the smaller of <code>a[i]</code> and <code>b[j]</code>, append it, move that index.",
         "When one list is used up, append the rest of the other one.",

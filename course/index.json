@@ -23,7 +23,7 @@
       { "n": "1.4", "title": "Graphs", "lessons": [
         { "n": "1.4.1", "title": "Graphs" },
         { "n": "1.4.2", "title": "BFS and DFS" },
-        { "n": "1.4.3", "title": "Project: the order of study" }
+        { "n": "1.4.3", "title": "Project: build order" }
       ] },
       { "n": "1.5", "title": "Searching sorted data", "lessons": [
         { "n": "1.5.1", "title": "Binary search" },

@@ -24,7 +24,7 @@
       "id": "e3",
       "kind": "Use",
       "title": "Flatten a nested document",
-      "task": "A nested document (as read from JSON) is a tree. Turn it into flat paths to its leaves: <code>{\"orbit\": {\"period\": 365}}</code> becomes <code>orbit.period=365</code>. Lists use their index: <code>moons.0</code>. A nested map is a smaller document: recursion.",
+      "task": "A nested document (as read from JSON) is a tree. Turn it into flat paths to its leaves: <code>{\"pos\": {\"line\": 3}}</code> becomes <code>pos.line=3</code>. Lists use their index: <code>imports.0</code>. The Run document is what a compiler might report about a Go file. A nested map is a smaller document: recursion.",
       "hints": [
         "Write a helper <code>walk(prefix string, v any, out map[string]string)</code> and call it on each top-level key.",
         "A type switch on <code>v</code>: <code>map[string]any</code> and <code>[]any</code> recurse with a longer prefix; anything else is a leaf: <code>out[prefix] = fmt.Sprint(v)</code>.",

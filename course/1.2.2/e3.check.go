@@ -12,15 +12,15 @@ func main() {
 		return ""
 	})
 	try("upper and lower case are the same word", func() string {
-		got := WordCounts("Sea sea SEA")
-		if fmt.Sprint(got) != "[{sea 3}]" {
-			return fmt.Sprintf("got %v, expected [{sea 3}]", got)
+		got := WordCounts("Loop loop LOOP")
+		if fmt.Sprint(got) != "[{loop 3}]" {
+			return fmt.Sprintf("got %v, expected [{loop 3}]", got)
 		}
 		return ""
 	})
 	try("punctuation and line breaks separate words", func() string {
-		got := WordCounts("life, with its several powers;\nlife!")
-		want := "[{life 2} {its 1} {powers 1} {several 1} {with 1}]"
+		got := WordCounts("engine, with its several cards;\nengine!")
+		want := "[{engine 2} {cards 1} {its 1} {several 1} {with 1}]"
 		if fmt.Sprint(got) != want {
 			return fmt.Sprintf("got %v, expected %s", got, want)
 		}

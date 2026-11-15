@@ -14,19 +14,19 @@ func show(m *HashMap) {
 
 func main() {
 	m := NewHashMap()
-	for i, h := range []string{"hydrogen", "helium", "lithium", "carbon", "nitrogen", "oxygen"} {
-		m.Put(h, []int{1, 2, 3, 6, 7, 8}[i]) // atomic numbers
+	for i, h := range []string{"start", "loop", "sum", "count", "next", "done"} {
+		m.Put(h, []int{100, 104, 200, 201, 112, 120}[i]) // memory addresses
 		fmt.Printf("hash(%q) %% %d = %d\n", h, len(m.buckets), hash(h)%uint32(len(m.buckets)))
 	}
 	fmt.Println("\n6 entries in 4 buckets:")
 	show(m)
-	m.Put("neon", 10)
-	m.Put("sodium", 11)
-	m.Put("iron", 26)
+	m.Put("print", 300)
+	m.Put("buffer", 202)
+	m.Put("exit", 124)
 	fmt.Printf("\nafter 3 more (9 entries > 2 per bucket): the map grew to %d buckets\n", len(m.buckets))
 	show(m)
-	v, ok := m.Get("carbon")
-	fmt.Println("\nGet(carbon) =", v, ok)
-	_, ok = m.Get("unobtainium")
-	fmt.Println("Get(unobtainium) found:", ok)
+	v, ok := m.Get("count")
+	fmt.Println("\nGet(count) =", v, ok)
+	_, ok = m.Get("missing")
+	fmt.Println("Get(missing) found:", ok)
 }

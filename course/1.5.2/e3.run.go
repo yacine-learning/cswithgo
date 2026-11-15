@@ -3,9 +3,9 @@ package main
 import "fmt"
 
 func main() {
-	a := []Entry{{100, "A: Jupiter rises"}, {105, "A: meteor, north"}, {112, "A: Io transit begins"}, {130, "A: clouds"}}
-	b := []Entry{{101, "B: Jupiter rises"}, {105, "B: meteor, north"}, {140, "B: Moon sets"}}
-	for _, e := range Merge(a, b) {
+	cpu0 := []Entry{{100, "cpu0: main starts"}, {105, "cpu0: go worker()"}, {112, "cpu0: waits on channel"}, {130, "cpu0: receives result"}}
+	cpu1 := []Entry{{101, "cpu1: idle"}, {105, "cpu1: worker starts"}, {128, "cpu1: sends result"}, {140, "cpu1: idle"}}
+	for _, e := range Merge(cpu0, cpu1) {
 		fmt.Println(e.T, e.Msg)
 	}
 }

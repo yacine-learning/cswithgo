@@ -23,7 +23,7 @@
       "id": "e3",
       "kind": "Use",
       "title": "Build order and dismantle order",
-      "task": "Given a directory tree, return the paths in the order to <b>create</b> them (a directory before what is inside it) and in the order to <b>delete</b> them (what is inside before the directory). Children are visited in the order given.",
+      "task": "Given a directory tree (here, the source of a small compiler), return the paths in the order to <b>create</b> them (a directory before what is inside it) and in the order to <b>delete</b> them (what is inside before the directory). Children are visited in the order given. This is what <code>mkdir -p</code> and <code>rm -r</code> do inside the file system: <code>rmdir</code> refuses a directory that is not empty.",
       "hints": [
         "Create: pre-order (the node, then its children). Delete: post-order (the children, then the node).",
         "Pass the parent's path down: a child's path is <code>parent + \"/\" + name</code>; the root's path is its name.",

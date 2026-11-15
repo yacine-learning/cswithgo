@@ -6,12 +6,17 @@ import (
 )
 
 func main() {
-	jupiter := map[string]any{
-		"name":  "Jupiter",
-		"orbit": map[string]any{"period_days": 4333, "eccentricity": 0.0489, "around": map[string]any{"star": "Sun"}},
-		"moons": []any{"Io", "Europa", "Ganymede", "Callisto"},
+	// what a compiler front end might report about one Go file
+	file := map[string]any{
+		"file":    "main.go",
+		"package": "main",
+		"imports": []any{"fmt", "strings"},
+		"funcs": []any{
+			map[string]any{"name": "main", "pos": map[string]any{"line": 5, "col": 6}},
+			map[string]any{"name": "count", "pos": map[string]any{"line": 12, "col": 6}, "params": []any{"text"}},
+		},
 	}
-	flat := Flatten(jupiter)
+	flat := Flatten(file)
 	keys := make([]string, 0, len(flat))
 	for k := range flat {
 		keys = append(keys, k)

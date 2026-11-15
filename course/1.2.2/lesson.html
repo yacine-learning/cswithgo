@@ -8,7 +8,7 @@
 <p>You have a dictionary of 100 000 words and want the definition of <i>quokka</i>. A list means comparing words until you find it: O(n). A sorted list allows binary search: O(log n), but every insertion has to keep it sorted. You want to go to the right place directly, from the name alone.</p>
 
 <h2>Where it comes from</h2>
-<p>In January 1953 <b>Hans Peter Luhn</b>, an IBM engineer, wrote an internal memo proposing to put records into "buckets" chosen by computing on the key, with the records of a bucket chained together: hashing with chaining, the design of this lesson. Around the same time another IBM group (Amdahl, Boehme, Rochester, Samuel) had the same idea for the IBM 701 assembler. Arnold Dumey published it in 1956, suggesting the remainder of a division by a prime as the hash. Luhn is also the author of the checksum still used on credit card numbers.</p>
+<p>In January 1953 <b>Hans Peter Luhn</b>, an IBM engineer, wrote an internal memo proposing to put records into "buckets" chosen by computing on the key, with the records of a bucket chained together: hashing with chaining, the design of this lesson. Around the same time another IBM group (Amdahl, Boehme, Rochester, Samuel) had the same idea for the IBM 701 assembler. Arnold Dumey published it in 1956, suggesting the remainder of a division by a prime as the hash. Luhn is also the author of the checksum still used on credit card numbers, and in 1958 of the first programs that indexed and summarised documents by counting their words (exercise 3).</p>
 <p>Go made map iteration order unpredictable in Go 1 (2012), so that a program silently relying on an order breaks at once, instead of years later on another machine.</p>
 
 <h2>The idea</h2>
@@ -26,6 +26,8 @@
 <details class="fold"><summary>Sources</summary><ul>
 <li>Donald Knuth, <a href="https://www.Gwern.net/doc/cs/algorithm/information/compression/1998-knuth-taocp-v3-sortingandsearching-hashinghistory.pdf" target="_blank" rel="noopener"><i>The Art of Computer Programming</i>, vol. 3, section 6.4, History</a>: Luhn's January 1953 memo, the IBM 701 group, Dumey 1956.</li>
 <li>Hallam Stevens, <a href="https://spectrum.ieee.org/hans-peter-luhn-and-the-birth-of-the-hashing-algorithm" target="_blank" rel="noopener">Hans Peter Luhn and the Birth of the Hashing Algorithm</a>, IEEE Spectrum, 2018.</li>
+<li>H. P. Luhn, <a href="https://courses.ischool.berkeley.edu/i256/f06/papers/luhn58.pdf" target="_blank" rel="noopener">The Automatic Creation of Literature Abstracts</a>, <i>IBM Journal</i> 2(2), April 1958.</li>
+<li>Ada Lovelace, Note G (1843): <a href="https://www.Wikipedia.com/wiki/Note_G" target="_blank" rel="noopener">Note G</a>.</li>
 <li><a href="https://go.dev/doc/go1.24#runtime" target="_blank" rel="noopener">Go 1.24 release notes</a>: the new map implementation based on Swiss Tables.</li>
 <li><a href="https://go.dev/doc/go1#iteration" target="_blank" rel="noopener">Go 1 release notes: iterating in maps</a>.</li>
 </ul></details>

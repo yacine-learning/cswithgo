@@ -14,7 +14,7 @@
       "title": "Write merge",
       "task": "<code>MergeSort</code> is given; fill <code>merge</code>. Take from the left half when its value is smaller <b>or equal</b>: that keeps equal values in their original order (a <i>stable</i> sort), which the check verifies with records sorted by one field.",
       "hints": [
-        "One index in each half, take the smaller, then append what is left of both. You wrote this already in 1.5.2 for observations.",
+        "One index in each half, take the smaller, then append what is left of both. You wrote this already in 1.5.2 for processor traces.",
         "Stable means: on a tie, the left half first. Compare with <code>&lt;=</code>, not <code>&lt;</code>.",
         "Make the result with <code>make([]Rec, 0, len(a)+len(b))</code>: the merge needs O(n) extra memory, which is merge sort's price."
       ]
@@ -22,8 +22,8 @@
     {
       "id": "e3",
       "kind": "Use",
-      "title": "When was the sky watched?",
-      "task": "Several telescopes each observed the same patch of sky during some intervals of the night, which may overlap. Return the union: the merged, non-overlapping intervals in time order. Sort by start, then one pass. Use Go's sort (<code>slices.SortFunc</code> or <code>sort.Slice</code>): in real code, you sort with the library.",
+      "title": "When was the processor busy?",
+      "task": "A profiler recorded when each thread of a program was running; the intervals of different threads may overlap. When was at least one thread running? Return the union: the merged, non-overlapping intervals in time order. Sort by start, then one pass. Use Go's sort (<code>slices.SortFunc</code> or <code>sort.Slice</code>): in real code, you sort with the library.",
       "hints": [
         "After sorting by start, a window overlaps the previous merged one when it starts before (or exactly when) that one ends.",
         "If it overlaps, extend the end of the last merged window to the max of both ends; otherwise start a new merged window.",

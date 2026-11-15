@@ -1,21 +1,22 @@
 <div class="keep"><span class="k">What this project practises</span><ul>
-<li>A <b>graph</b> and its <b>reverse</b> (1.4.1), with an <b>in-degree</b> count per node.</li>
+<li>A <b>graph</b> of imports and its <b>reverse</b> (1.4.1), with an <b>in-degree</b> count per node.</li>
 <li><b>Topological sorting</b>: an order where every edge goes forward. Done level by level, it is a BFS (1.4.2) over the nodes whose prerequisites are all done.</li>
 <li>Detecting the impossible case (a <b>cycle</b>) instead of producing a wrong answer.</li>
 </ul></div>
 
 <h2>The situation</h2>
-<p>Mathematics is learned in an order: calculus needs functions, functions need algebra, statistics needs probability and calculus. Given the prerequisites of each topic, which topics can be studied in the first semester, which in the second, and so on, each as early as possible? The same question orders the steps of any computation where some results are needed before others: a compiler orders the pieces of a program, a spreadsheet the cells of a sheet.</p>
-<p>The method is <b>Arthur Kahn</b>'s, published in 1962 to order the tasks of large PERT networks, then used to plan big engineering projects: repeatedly take everything with no unfinished prerequisite. Unix has a small command for it, <code>tsort</code>.</p>
-<pre class="sample">calculus    needs functions, algebra
-functions   needs algebra
-probability needs algebra, combinatorics
-statistics  needs probability, calculus
+<p>A program is made of packages, and a package can only be compiled once everything it imports is compiled. Given what each package imports, which packages can be compiled first, which in the second round, and so on, each as early as possible? Everything in one round is independent, so a compiler with several processors can build a whole round at once. The same question orders any computation where some results are needed before others: the cells of a spreadsheet, the instructions a processor may run out of order.</p>
+<p>The method is <b>Arthur Kahn</b>'s, published in 1962 to order the tasks of large PERT networks: repeatedly take everything with no unfinished prerequisite. In April 1976 at Bell Labs <b>Stuart Feldman</b> wrote <code>make</code>, which rebuilds a program from a graph of files and what each depends on, after a colleague lost a morning debugging a program that had simply not been recompiled. Unix also has a small command for the ordering alone, <code>tsort</code>.</p>
+<pre class="sample">main    imports parser, eval
+parser  imports lexer, ast
+eval    imports ast, strconv
+lexer   imports token, unicode
+ast     imports token
 
-semester 0: algebra combinatorics
-semester 1: functions probability
-semester 2: calculus
-semester 3: statistics</pre>
+round 0: strconv token unicode
+round 1: ast lexer
+round 2: eval parser
+round 3: main</pre>
 
 <h2 class="run">Exercise</h2>
 <div data-ex="e1"></div>
@@ -23,4 +24,5 @@ semester 3: statistics</pre>
 <details class="fold"><summary>Sources</summary><ul>
 <li>A. B. Kahn, <a href="https://scilit.com/publications/1bc5bd2b4676f7e4e83f2fd8d23f7aaf" target="_blank" rel="noopener">Topological sorting of large networks</a>, <i>Communications of the ACM</i> 5(11), 1962: the method, motivated by PERT networks.</li>
 <li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Topological_sorting" target="_blank" rel="noopener">Topological sorting</a>: ordering tasks from their dependencies; <code>tsort</code>.</li>
+<li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Make_(software)" target="_blank" rel="noopener">Make (software)</a>: created by Stuart Feldman at Bell Labs, April 1976, after Steve Johnson's debugging of a program that had not been rebuilt.</li>
 </ul></details>

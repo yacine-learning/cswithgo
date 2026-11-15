@@ -2,7 +2,7 @@ package main
 
 import "sort"
 
-// Graph maps each word to the words used in its definition.
+// Graph maps each package to the packages it imports.
 type Graph map[string][]string
 
 const (

@@ -26,21 +26,21 @@
   "name": "unsorted",
   "replace": [
    [
-    "\tsort.Strings(out)\n\treturn out\n}\n\n// ApexPredators",
-    "\treturn out\n}\n\n// ApexPredators"
+    "\tsort.Strings(out)\n\treturn out\n}\n\n// Roots",
+    "\treturn out\n}\n\n// Roots"
    ]
   ],
-  "expect": "producers"
+  "expect": "leaves"
  },
  {
   "ex": "e3",
-  "name": "apex = eats nothing",
+  "name": "root = imports nothing",
   "replace": [
    [
-    "\t\tif eaten[s] == 0 {",
-    "\t\tif len(g[s]) == 0 && eaten[s] >= 0 {"
+    "\t\tif importers[s] == 0 {",
+    "\t\tif len(g[s]) == 0 && importers[s] >= 0 {"
    ]
   ],
-  "expect": "apex predators"
+  "expect": "roots"
  }
 ]

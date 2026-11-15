@@ -3,11 +3,10 @@ package main
 import "fmt"
 
 func main() {
-	darwin := `There is grandeur in this view of life, with its several powers, having been
-originally breathed into a few forms or into one; and that, whilst this planet has gone
-cycling on according to the fixed law of gravity, from so simple a beginning endless forms
-most beautiful and most wonderful have been, and are being, evolved.`
-	for i, c := range WordCounts(darwin) {
+	lovelace := `The Analytical Engine has no pretensions whatever to originate anything.
+It can do whatever we know how to order it to perform. It can follow analysis;
+but it has no power of anticipating any analytical relations or truths.`
+	for i, c := range WordCounts(lovelace) {
 		if i == 8 {
 			break
 		}

@@ -2,30 +2,31 @@ package main
 
 import "fmt"
 
-func show(name string, deps map[string][]string) {
+func show(name string, imports map[string][]string) {
 	fmt.Println(name + ":")
-	semesters, err := Plan(deps)
+	rounds, err := Plan(imports)
 	if err != nil {
 		fmt.Println("  error:", err)
 		return
 	}
-	for i, s := range semesters {
-		fmt.Printf("  semester %d: %v\n", i, s)
+	for i, r := range rounds {
+		fmt.Printf("  round %d: %v\n", i, r)
 	}
 }
 
 func main() {
-	show("a mathematics curriculum", map[string][]string{
-		"calculus":    {"functions", "algebra"},
-		"functions":   {"algebra"},
-		"probability": {"algebra", "combinatorics"},
-		"statistics":  {"probability", "calculus"},
+	show("a small calculator", map[string][]string{
+		"main":   {"parser", "eval"},
+		"parser": {"lexer", "ast"},
+		"eval":   {"ast", "strconv"},
+		"lexer":  {"token", "unicode"},
+		"ast":    {"token"},
 	})
 	show("with a cycle", map[string][]string{
-		"physics":  {"calculus"},
-		"calculus": {"limits"},
-		"limits":   {"series"},
-		"series":   {"calculus"},
-		"geometry": {"logic"},
+		"main":   {"parser"},
+		"parser": {"ast"},
+		"ast":    {"types"},
+		"types":  {"parser"},
+		"fmt":    {"strconv"},
 	})
 }

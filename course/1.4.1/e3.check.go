@@ -4,37 +4,37 @@ import "fmt"
 
 func main() {
 	g := Graph{
-		"heron": {"frog", "fish"}, "frog": {"dragonfly", "snail"}, "fish": {"dragonfly", "algae"},
-		"otter": {"fish"}, "dragonfly": {"mosquito"}, "mosquito": {"algae"}, "snail": {"algae", "pondweed"},
-		"algae": nil, "pondweed": nil,
+		"main": {"parser", "eval"}, "parser": {"lexer", "ast"}, "eval": {"lexer", "errors"},
+		"repl": {"eval"}, "lexer": {"token"}, "token": {"errors"}, "ast": {"errors", "unicode"},
+		"errors": nil, "unicode": nil,
 	}
-	try("producers (20 calls, always sorted)", func() string {
+	try("leaves (20 calls, always sorted)", func() string {
 		for i := 0; i < 20; i++ {
-			if got := fmt.Sprint(Producers(g)); got != "[algae pondweed]" {
-				return "Producers = " + got + ", expected [algae pondweed]"
+			if got := fmt.Sprint(Leaves(g)); got != "[errors unicode]" {
+				return "Leaves = " + got + ", expected [errors unicode]"
 			}
 		}
 		return ""
 	})
-	try("apex predators (20 calls, always sorted)", func() string {
+	try("roots (20 calls, always sorted)", func() string {
 		for i := 0; i < 20; i++ {
-			if got := fmt.Sprint(ApexPredators(g)); got != "[heron otter]" {
-				return "ApexPredators = " + got + ", expected [heron otter]"
+			if got := fmt.Sprint(Roots(g)); got != "[main repl]" {
+				return "Roots = " + got + ", expected [main repl]"
 			}
 		}
 		return ""
 	})
-	try("a lone species is both", func() string {
-		g := Graph{"lichen": nil}
-		if fmt.Sprint(Producers(g)) != "[lichen]" || fmt.Sprint(ApexPredators(g)) != "[lichen]" {
-			return fmt.Sprintf("Producers = %v, ApexPredators = %v, expected [lichen] for both", Producers(g), ApexPredators(g))
+	try("a lone package is both", func() string {
+		g := Graph{"hello": nil}
+		if fmt.Sprint(Leaves(g)) != "[hello]" || fmt.Sprint(Roots(g)) != "[hello]" {
+			return fmt.Sprintf("Leaves = %v, Roots = %v, expected [hello] for both", Leaves(g), Roots(g))
 		}
 		return ""
 	})
-	try("a chain hawk -> snake -> mouse -> grass", func() string {
-		g := Graph{"hawk": {"snake"}, "snake": {"mouse"}, "mouse": {"grass"}, "grass": nil}
-		if fmt.Sprint(Producers(g)) != "[grass]" || fmt.Sprint(ApexPredators(g)) != "[hawk]" {
-			return fmt.Sprintf("Producers = %v, ApexPredators = %v; expected [grass] and [hawk]", Producers(g), ApexPredators(g))
+	try("a chain main -> parser -> lexer -> unicode", func() string {
+		g := Graph{"main": {"parser"}, "parser": {"lexer"}, "lexer": {"unicode"}, "unicode": nil}
+		if fmt.Sprint(Leaves(g)) != "[unicode]" || fmt.Sprint(Roots(g)) != "[main]" {
+			return fmt.Sprintf("Leaves = %v, Roots = %v; expected [unicode] and [main]", Leaves(g), Roots(g))
 		}
 		return ""
 	})

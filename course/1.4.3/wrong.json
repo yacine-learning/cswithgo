@@ -1,14 +1,14 @@
 [
  {
   "ex": "e1",
-  "name": "semesters not sorted",
+  "name": "rounds not sorted",
   "replace": [
    [
-    "\t\tsort.Strings(semester)\n",
+    "\t\tsort.Strings(round)\n",
     ""
    ]
   ],
-  "expect": "semesters"
+  "expect": "rounds"
  },
  {
   "ex": "e1",
@@ -23,13 +23,13 @@
  },
  {
   "ex": "e1",
-  "name": "dependency-only services forgotten",
+  "name": "imported-only packages forgotten",
   "replace": [
    [
     "\t\t\tif _, ok := waiting[d]; !ok {\n\t\t\t\twaiting[d] = 0\n\t\t\t}\n",
     ""
    ]
   ],
-  "expect": "three semesters|early|shared"
+  "expect": "three rounds|early|shared"
  }
 ]

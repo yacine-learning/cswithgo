@@ -1,7 +1,7 @@
 package main
 
 type Node struct {
-	Key         int // the day an observation was made
+	Key         int // the sequence number of a segment waiting for its acknowledgement
 	Left, Right *Node
 }
 

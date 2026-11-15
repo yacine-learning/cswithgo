@@ -13,7 +13,7 @@
 <h2>The idea</h2>
 <p>A slice of one element is sorted. Two sorted slices merge into one in a single pass (1.5.2). So: split until the pieces are single elements, then merge back up. Every level of merging touches all n elements once, and there are log₂ n levels: n log n comparisons, whatever the input.</p>
 <details class="fold"><summary>Why stability matters</summary>
-<p>Sort the chemical elements by atomic number, then sort them by period with a stable sort: within each period, they are still in order of atomic number. With an unstable sort, that second order is lost. Go has both: <code>sort.Stable</code> / <code>slices.SortStableFunc</code> (a merge-based algorithm) and the faster, unstable <code>sort.Sort</code> / <code>slices.Sort</code> (1.6.2).</p>
+<p>Take processes in their order of arrival and sort them by priority with a stable sort: within each priority they keep their order of arrival, first come first served. With an unstable sort, that order is lost. Go has both: <code>sort.Stable</code> / <code>slices.SortStableFunc</code> (a merge-based algorithm) and the faster, unstable <code>sort.Sort</code> / <code>slices.Sort</code> (1.6.2).</p>
 </details>
 
 <h2 class="run">Exercises</h2>

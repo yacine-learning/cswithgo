@@ -5,7 +5,7 @@
 </ul></div>
 
 <h2>The problem</h2>
-<p>You look for a word in a dictionary, a star in a catalogue sorted by brightness, the root of an equation between two bounds. Checking every item is O(n), and when each check is an expensive computation or a real experiment, n checks is not an option.</p>
+<p>You look for a word in a dictionary, a key in a sorted index on disk, the root of an equation between two bounds. Checking every item is O(n), and when each check is an expensive computation or a real experiment, n checks is not an option.</p>
 
 <h2>Where it comes from</h2>
 <p>The first recorded mention of binary search for computers is by <b>John Mauchly</b>, one of the designers of ENIAC, in the Moore School lectures of 1946. It then took until 1962 before a version that works for every length was published, as <b>Jon Bentley</b> recalls in <i>Programming Pearls</i>, where he also reports that most professional programmers he asked could not write it correctly. In 2006 <b>Joshua Bloch</b> found that the binary search in Java's standard library, which he had written from Bentley's book, failed on arrays of more than about a billion elements: <code>(low + high) / 2</code> overflowed. It had been there for years. Hence <code>mid := left + (right-left)/2</code>.</p>

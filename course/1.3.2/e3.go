@@ -1,7 +1,7 @@
 package main
 
 type Node struct {
-	Key         int // when a geological period began, in millions of years (negative: ago)
+	Key         int // the address where a function's machine code begins
 	Left, Right *Node
 }
 

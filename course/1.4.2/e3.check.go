@@ -21,21 +21,21 @@ func isCycle(g Graph, p []string) string {
 
 func main() {
 	try("no cycle in a DAG", func() string {
-		g := Graph{"puppy": {"young", "dog"}, "kitten": {"young", "cat"}, "dog": {"animal"}, "cat": {"animal"}, "young": nil, "animal": nil}
+		g := Graph{"main": {"fmt", "parser"}, "repl": {"fmt", "eval"}, "parser": {"lexer"}, "eval": {"lexer"}, "fmt": nil, "lexer": nil}
 		if c := FindCycle(g); c != nil {
-			return fmt.Sprintf("FindCycle = %v on a graph without a cycle (two words sharing a word in their definitions is not a cycle)", c)
+			return fmt.Sprintf("FindCycle = %v on a graph without a cycle (two packages importing the same package is not a cycle)", c)
 		}
 		return ""
 	})
 	try("a three-node cycle", func() string {
-		g := Graph{"huge": {"big"}, "big": {"large", "size"}, "large": {"great"}, "great": {"big"}, "size": nil}
+		g := Graph{"main": {"parser"}, "parser": {"ast", "errors"}, "ast": {"types"}, "types": {"parser"}, "errors": nil}
 		c := FindCycle(g)
 		if c == nil {
-			return "no cycle found in big -> large -> great -> big"
+			return "no cycle found in parser -> ast -> types -> parser"
 		}
 		return isCycle(g, c)
 	})
-	try("a word defined by itself", func() string {
+	try("a package that imports itself", func() string {
 		g := Graph{"a": {"a"}}
 		c := FindCycle(g)
 		if c == nil {

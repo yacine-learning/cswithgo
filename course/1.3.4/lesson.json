@@ -22,8 +22,8 @@
     {
       "id": "e3",
       "kind": "Use",
-      "title": "Discard old observations",
-      "task": "Observations are kept in a BST by the day they were made. <code>DeleteBelow</code> removes every key strictly below <code>t</code> and returns the new root. Do not delete them one by one: whole subtrees can be dropped at once.",
+      "title": "Acknowledged segments",
+      "task": "A TCP sender keeps every segment it sent until the receiver confirms it, in case it must send it again. Here they are in a BST by sequence number. TCP acknowledgements are cumulative: \"ACK t\" means everything before t arrived. (TCP was described by Vint Cerf and Bob Kahn in 1974.) <code>DeleteBelow</code> removes every key strictly below <code>t</code> and returns the new root. Do not delete them one by one: whole subtrees can be dropped at once.",
       "hints": [
         "If <code>n.Key &lt; t</code>, the node and its whole left subtree are too old: the answer is <code>DeleteBelow(n.Right, t)</code>.",
         "Otherwise the node stays; only its left side can hold old keys: <code>n.Left = DeleteBelow(n.Left, t)</code>.",

@@ -5,26 +5,26 @@ import "fmt"
 func main() {
 	try("put then get", func() string {
 		m := NewHashMap()
-		m.Put("hydrogen", 1)
-		if v, ok := m.Get("hydrogen"); !ok || v != 1 {
-			return fmt.Sprintf("Get(\"hydrogen\") = %d, %v after Put(\"hydrogen\", 1)", v, ok)
+		m.Put("loop", 1)
+		if v, ok := m.Get("loop"); !ok || v != 1 {
+			return fmt.Sprintf("Get(\"loop\") = %d, %v after Put(\"loop\", 1)", v, ok)
 		}
 		return ""
 	})
 	try("a missing key", func() string {
 		m := NewHashMap()
-		m.Put("hydrogen", 1)
-		if v, ok := m.Get("helium"); ok {
-			return fmt.Sprintf("Get(\"helium\") = %d, true; it was never put", v)
+		m.Put("loop", 1)
+		if v, ok := m.Get("sum"); ok {
+			return fmt.Sprintf("Get(\"sum\") = %d, true; it was never put", v)
 		}
 		return ""
 	})
 	try("putting a key again replaces its value", func() string {
 		m := NewHashMap()
-		m.Put("hydrogen", 1)
-		m.Put("hydrogen", 100)
-		if v, _ := m.Get("hydrogen"); v != 100 {
-			return fmt.Sprintf("Get(\"hydrogen\") = %d after Put 1 then 100", v)
+		m.Put("loop", 1)
+		m.Put("loop", 100)
+		if v, _ := m.Get("loop"); v != 100 {
+			return fmt.Sprintf("Get(\"loop\") = %d after Put 1 then 100", v)
 		}
 		if m.Len() != 1 {
 			return fmt.Sprintf("Len() = %d after putting the same key twice, expected 1", m.Len())

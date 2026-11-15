@@ -5,7 +5,7 @@
 </ul></div>
 
 <h2>The situation</h2>
-<p>Three hundred weather stations each record readings in time order. To study a storm crossing the country you need a single timeline. Concatenating and sorting works, but costs O(N log N) and needs everything in memory at once; a k-way merge reads each record front to back, keeps only one reading per station in the heap, and works just as well on files or streams. It is also the step that merges many runs at once in external sorting (1.6.3), instead of two at a time.</p>
+<p>A program runs three hundred threads, and the tracer gives each thread its own buffer of events in time order (1.5.2 merged two of them). To understand how the threads interacted you need a single timeline. Concatenating and sorting works, but costs O(N log N) and needs everything in memory at once; a k-way merge reads each record front to back, keeps only one event per thread in the heap, and works just as well on files or streams. It is also the step that merges many runs at once in external sorting (1.6.3), instead of two at a time.</p>
 
 <h2 class="run">Exercise</h2>
 <div data-ex="e1"></div>

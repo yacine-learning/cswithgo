@@ -1,5 +1,5 @@
 [
-  {"ex": "e1", "name": "no tie-break on stations", "replace": [["\treturn h.cs[a].station < h.cs[b].station", "\treturn false"]], "expect": "tie|300 stations"},
-  {"ex": "e1", "name": "forgets to fix the heap", "replace": [["\t\t\th.cs[0].i++\n\t\t\theap.Fix(h, 0)", "\t\t\th.cs[0].i++"]], "expect": "three stations|300 stations"},
-  {"ex": "e1", "name": "stops after the first station runs out", "replace": [["\t\t} else {\n\t\t\theap.Pop(h)\n\t\t}", "\t\t} else {\n\t\t\tbreak\n\t\t}"]], "expect": "three stations|entries out"}
+  {"ex": "e1", "name": "no tie-break on threads", "replace": [["\treturn h.cs[a].thread < h.cs[b].thread", "\treturn false"]], "expect": "tie|300 threads"},
+  {"ex": "e1", "name": "forgets to fix the heap", "replace": [["\t\t\th.cs[0].i++\n\t\t\theap.Fix(h, 0)", "\t\t\th.cs[0].i++"]], "expect": "three threads|300 threads"},
+  {"ex": "e1", "name": "stops after the first thread runs out", "replace": [["\t\t} else {\n\t\t\theap.Pop(h)\n\t\t}", "\t\t} else {\n\t\t\tbreak\n\t\t}"]], "expect": "three threads|entries out"}
 ]

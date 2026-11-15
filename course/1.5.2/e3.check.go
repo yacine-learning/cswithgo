@@ -16,7 +16,7 @@ func main() {
 	b := []Entry{{101, "b1"}, {105, "b2"}, {140, "b3"}}
 	try("interleaved, equal times: a first", expect(a, b, "[{100 a1} {101 b1} {105 a2} {105 b2} {112 a3} {130 a4} {140 b3}]"))
 	try("b entirely before a", expect([]Entry{{5, "a"}}, []Entry{{1, "b1"}, {2, "b2"}}, "[{1 b1} {2 b2} {5 a}]"))
-	try("one log empty", expect(nil, []Entry{{1, "b"}}, "[{1 b}]"))
+	try("one trace empty", expect(nil, []Entry{{1, "b"}}, "[{1 b}]"))
 	try("both empty", expect(nil, nil, "[]"))
 	try("the inputs are not changed", func() string {
 		x := []Entry{{1, "x"}, {3, "y"}}

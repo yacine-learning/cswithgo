@@ -5,7 +5,7 @@
 </ul></div>
 
 <h2>The problem</h2>
-<p>A hash map finds an exact key in O(1), but knows nothing about order: "which is the next eclipse after today?", "which geological period was the Earth in 300 million years ago?", "all words between <i>a</i> and <i>f</i>". A sorted array answers those with binary search, but inserting into the middle of an array moves everything after it. You want sorted order and cheap insertion together.</p>
+<p>A hash map finds an exact key in O(1), but knows nothing about order: "which timer expires next after now?", "which function contains address 0x4017ff?", "all words between <i>a</i> and <i>f</i>". A sorted array answers those with binary search, but inserting into the middle of an array moves everything after it. You want sorted order and cheap insertion together.</p>
 
 <h2>Where it comes from</h2>
 <p>The binary search tree was discovered independently around 1960 by several people: <b>P. F. Windley</b>, <b>A. D. Booth</b> and <b>A. J. T. Colin</b>, and <b>T. N. Hibbard</b>. Two years later, in 1962, the Soviet mathematicians <b>Georgy Adelson-Velsky</b> and <b>Evgenii Landis</b> published the AVL tree, the first one that rebalances itself after each insertion to keep its height near log₂ n.</p>

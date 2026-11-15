@@ -11,22 +11,22 @@ func same(got, want map[string]string) string {
 
 func main() {
 	try("a flat document stays flat", func() string {
-		return same(Flatten(map[string]any{"name": "Earth", "moons": 1}), map[string]string{"name": "Earth", "moons": "1"})
+		return same(Flatten(map[string]any{"name": "main", "lines": 1}), map[string]string{"name": "main", "lines": "1"})
 	})
 	try("one level of nesting", func() string {
-		return same(Flatten(map[string]any{"orbit": map[string]any{"period": 365, "tilt": 23}}),
-			map[string]string{"orbit.period": "365", "orbit.tilt": "23"})
+		return same(Flatten(map[string]any{"pos": map[string]any{"line": 3, "col": 7}}),
+			map[string]string{"pos.line": "3", "pos.col": "7"})
 	})
 	try("deep nesting", func() string {
 		return same(Flatten(map[string]any{"a": map[string]any{"b": map[string]any{"c": map[string]any{"d": true}}}}),
 			map[string]string{"a.b.c.d": "true"})
 	})
 	try("lists use indexes", func() string {
-		return same(Flatten(map[string]any{"moons": []any{"Io", "Europa"}}), map[string]string{"moons.0": "Io", "moons.1": "Europa"})
+		return same(Flatten(map[string]any{"imports": []any{"fmt", "os"}}), map[string]string{"imports.0": "fmt", "imports.1": "os"})
 	})
 	try("maps inside lists", func() string {
-		return same(Flatten(map[string]any{"planets": []any{map[string]any{"name": "Mercury"}, map[string]any{"name": "Venus"}}}),
-			map[string]string{"planets.0.name": "Mercury", "planets.1.name": "Venus"})
+		return same(Flatten(map[string]any{"funcs": []any{map[string]any{"name": "main"}, map[string]any{"name": "parse"}}}),
+			map[string]string{"funcs.0.name": "main", "funcs.1.name": "parse"})
 	})
 	try("an empty document", func() string { return same(Flatten(map[string]any{}), map[string]string{}) })
 }

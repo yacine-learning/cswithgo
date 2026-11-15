@@ -1,6 +1,6 @@
 package main
 
-// Interval is an observation [Start, End], in minutes after dusk.
+// Interval is a time a thread was running [Start, End], in microseconds.
 type Interval struct{ Start, End int }
 
 // MergeIntervals returns the union of the windows as non-overlapping windows sorted by

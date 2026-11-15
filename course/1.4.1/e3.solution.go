@@ -2,14 +2,14 @@ package main
 
 import "sort"
 
-// Graph maps each species to the species it eats.
+// Graph maps each package to the packages it imports.
 type Graph map[string][]string
 
-// Producers returns the species that eat nothing, sorted.
-func Producers(g Graph) []string {
+// Leaves returns the packages that import nothing, sorted.
+func Leaves(g Graph) []string {
 	var out []string
-	for s, prey := range g {
-		if len(prey) == 0 {
+	for s, imports := range g {
+		if len(imports) == 0 {
 			out = append(out, s)
 		}
 	}
@@ -17,17 +17,17 @@ func Producers(g Graph) []string {
 	return out
 }
 
-// ApexPredators returns the species that no other species eats, sorted.
-func ApexPredators(g Graph) []string {
-	eaten := map[string]int{} // in-degree: how many species eat it
-	for _, prey := range g {
-		for _, p := range prey {
-			eaten[p]++
+// Roots returns the packages that no other package imports, sorted.
+func Roots(g Graph) []string {
+	importers := map[string]int{} // in-degree: how many packages import it
+	for _, imports := range g {
+		for _, p := range imports {
+			importers[p]++
 		}
 	}
 	var out []string
 	for s := range g {
-		if eaten[s] == 0 {
+		if importers[s] == 0 {
 			out = append(out, s)
 		}
 	}

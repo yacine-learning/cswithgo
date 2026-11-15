@@ -1,6 +1,6 @@
 package main
 
-// Graph maps each word to the words used in its definition.
+// Graph maps each package to the packages it imports.
 type Graph map[string][]string
 
 // FindCycle returns one cycle as a path that starts and ends on the same node,

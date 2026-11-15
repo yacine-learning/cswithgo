@@ -22,11 +22,11 @@ func keys(n *Node) []int {
 }
 
 func main() {
-	var obs *Node
-	for _, day := range []int{120, 40, 300, 10, 90, 200, 365, 60} {
-		obs = insert(obs, day)
+	var sent *Node
+	for _, seq := range []int{120, 40, 300, 10, 90, 200, 365, 60} {
+		sent = insert(sent, seq)
 	}
-	fmt.Println("observation days:", keys(obs))
-	obs = DeleteBelow(obs, 100)
-	fmt.Println("keep day 100 onwards:", keys(obs))
+	fmt.Println("segments not yet acknowledged:", keys(sent))
+	sent = DeleteBelow(sent, 100) // the receiver says: I have everything before 100
+	fmt.Println("after ACK 100:", keys(sent))
 }

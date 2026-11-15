@@ -1,19 +1,19 @@
 <div class="keep"><span class="k">Keep this</span><ul>
 <li>A graph is <b>nodes</b> and <b>edges</b> between them, directed or not. A tree is a graph with no cycles where each node has one parent.</li>
 <li>Store it as an <b>adjacency list</b>: <code>map[node][]node</code>. Memory O(nodes + edges), and the neighbours of a node in one step.</li>
-<li>Much of the world is a graph: food webs, road maps, molecules, citations between papers, the links of the web; in computing, the calls between functions and the order of computations (directed graphs without cycles: DAGs).</li>
+<li>Much of computing is a graph: packages and their imports, functions and their calls, routers and their links, the pages of the web; outside computing too: road maps, molecules, citations. Dependencies without cycles form a DAG (directed acyclic graph).</li>
 </ul></div>
 
 <h2>The problem</h2>
-<p>Lists and trees describe things with one order or one parent. Many real relations are not like that: a species eats several others and is eaten by several; a word is defined with other words, which are defined with others; roads connect towns in loops. You need a structure for "who is connected to whom", with any shape.</p>
+<p>Lists and trees describe things with one order or one parent. Many real relations are not like that: a package imports several others and is imported by several; a function calls others and is called by others; network links connect routers in loops. You need a structure for "who is connected to whom", with any shape.</p>
 
 <h2>Where it comes from</h2>
 <p>Königsberg (today Kaliningrad) was built around two islands linked by seven bridges, and its people wondered whether one could walk across each bridge exactly once. In 1736 <b>Leonhard Euler</b> proved it impossible, by keeping only what mattered: the four land masses as points, the bridges as lines between them. Each land mass touched an odd number of bridges, and a walk that crosses every bridge once can have at most two such points, where it starts and ends. That abstraction, points and lines with everything else removed, is the first theorem of graph theory.</p>
 
 <h2>The idea</h2>
-<p>Edges are what you store. An adjacency list keeps, for each node, its outgoing edges, which is what traversals need (1.4.2). Following an edge backwards ("who eats the rabbit?") needs the reverse graph, built once by flipping every edge.</p>
+<p>Edges are what you store. An adjacency list keeps, for each node, its outgoing edges, which is what traversals need (1.4.2). Following an edge backwards ("who imports <code>unicode</code>?") needs the reverse graph, built once by flipping every edge.</p>
 <details class="fold"><summary>Adjacency matrix: the other way to store a graph</summary>
-<p>An n × n table where cell (a, b) says whether there is an edge. Checking one edge is O(1), but it takes n² cells even when there are few edges, and listing a node's neighbours means reading a whole row. Most real graphs are sparse (a species eats a handful of others, not all of them), so adjacency lists are the usual choice.</p>
+<p>An n × n table where cell (a, b) says whether there is an edge. Checking one edge is O(1), but it takes n² cells even when there are few edges, and listing a node's neighbours means reading a whole row. Most real graphs are sparse (a package imports a handful of others, not all of them), so adjacency lists are the usual choice.</p>
 </details>
 
 <h2 class="run">Exercises</h2>

@@ -6,11 +6,11 @@
       "id": "e1",
       "kind": "Project",
       "title": "A k-way merge",
-      "task": "Each weather station's record is sorted by time. Write <code>MergeAll</code>: one timeline of every reading, in O(N log k) for N readings from k stations, with a heap holding the next reading of each station. The spec is in the file.",
+      "task": "Each thread's trace is sorted by time. Write <code>MergeAll</code>: one timeline of every event, in O(N log k) for N events from k threads, with a heap holding the next event of each thread. The spec is in the file.",
       "hints": [
-        "The heap holds one cursor per station that still has readings: (station, index of its next reading). The top is the cursor whose reading has the smallest time; on a tie, the smaller station number.",
-        "Loop: pop the top cursor, append its reading, and if that station has more readings, push the cursor again with index+1 (or change it in place and call <code>heap.Fix(h, 0)</code>).",
-        "Two stations is the merge of 1.5.2; the heap only answers \"which of the k heads is smallest?\" in O(log k) instead of comparing all k."
+        "The heap holds one cursor per thread that still has events: (thread, index of its next event). The top is the cursor whose event has the smallest time; on a tie, the smaller thread number.",
+        "Loop: pop the top cursor, append its event, and if that thread has more events, push the cursor again with index+1 (or change it in place and call <code>heap.Fix(h, 0)</code>).",
+        "Two threads is the merge of 1.5.2; the heap only answers \"which of the k heads is smallest?\" in O(log k) instead of comparing all k."
       ]
     }
   ]

@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func num(v int) *Node              { return &Node{Num: v} }
+func num(v int) *Node             { return &Node{Num: v} }
 func op(o rune, l, r *Node) *Node { return &Node{Op: o, Left: l, Right: r} }
 
 func main() {

@@ -4,10 +4,10 @@ import "fmt"
 
 func main() {
 	files := []string{
-		"thesis/abstract.txt 2",
-		"thesis/chapters/intro.tex 12",
-		"thesis/chapters/figures/plot.svg 20",
-		"thesis/data/results.csv 1",
+		"compiler/go.mod 2",
+		"compiler/lexer/lex.go 12",
+		"compiler/lexer/testdata/input.txt 20",
+		"compiler/parser/parse.go 1",
 		"notes/2026-11-14.txt 300",
 		"notes/archive/2026-10.txt 900",
 	}

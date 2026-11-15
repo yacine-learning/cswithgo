@@ -6,7 +6,7 @@
       "id": "e1",
       "kind": "Read",
       "title": "An adjacency list",
-      "task": "Read <code>Graph</code>: a map from each node to the list of nodes it points to. <b>Run</b> builds a small food web (<code>fox -> rabbit</code> means the fox eats the rabbit), prints what each species eats, then the reverse graph: who eats it."
+      "task": "Read <code>Graph</code>: a map from each node to the list of nodes it points to. <b>Run</b> builds the import graph of a few Go packages (<code>main -> fmt</code> means main imports fmt), prints what each package imports, then the reverse graph: who imports it."
     },
     {
       "id": "e2",
@@ -22,11 +22,11 @@
     {
       "id": "e3",
       "kind": "Use",
-      "title": "Producers and apex predators",
-      "task": "In a food web, list the <b>producers</b> (species that eat nothing: plants, algae) and the <b>apex predators</b> (species that nothing eats). Both lists sorted.",
+      "title": "Leaves and roots",
+      "task": "In the import graph of a program, list the <b>leaves</b> (packages that import nothing: the compiler can build them first, with nothing else ready) and the <b>roots</b> (packages that nothing imports: the programs themselves, or dead code). Both lists sorted.",
       "hints": [
-        "Producer: the node's own list is empty.",
-        "Apex predator: it never appears in anyone's list. Count the incoming edges (the <i>in-degree</i>) in a map.",
+        "Leaf: the node's own list is empty.",
+        "Root: it never appears in anyone's list. Count the incoming edges (the <i>in-degree</i>) in a map.",
         "<code>sort.Strings</code> before returning: map iteration order is random."
       ]
     }
