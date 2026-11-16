@@ -66,3 +66,41 @@ body.read .lesson > * { max-width: 760px; }
 .lesson .crumb a { color: #7f848e; }
 .lesson h2.sec { font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: #9da5b4; }
 .lesson p.note { border-left: 3px solid #4b5263; padding: 4px 0 4px 14px; color: #9da5b4; }
+
+/* light theme: everything except the editor panel (.bench), which stays VS Code dark */
+html.light body { background: #fafaf7; color: #2f3337; }
+html.light a { color: #2563b8; }
+html.light .top { background: #f0efea; border-bottom-color: #dcdad2; }
+html.light .top .brand { color: #1c1f23; }
+html.light .top select { background: #fff; color: #2f3337; border-color: #cfccc2; }
+html.light .top a, html.light .top .theme { color: #5c6168; } html.light .top a:hover, html.light .top .theme:hover { color: #1c1f23; }
+html.light .lesson { border-right-color: #dcdad2; }
+html.light .lesson h1, html.light .lesson h2, html.light .lesson .lead { color: #1c1f23; }
+html.light .lesson h1 .no, html.light .ex .id, html.light .tile .code { color: #2563b8; }
+html.light .lesson code { background: #efede6; color: #9a4f0e; }
+html.light .keep { background: #eef4fb; border-color: #bcd2ea; } html.light .keep .k { color: #2563b8; }
+html.light .tbl th, html.light .tbl td { border-bottom-color: #e3e1d9; } html.light .tbl th { color: #5c6168; }
+html.light details.fold, html.light details.think { border-color: #dcdad2; } html.light details.fold summary { color: #5c6168; }
+html.light details.think[open] { background: #f3f2ed; } html.light details.think summary, html.light .predict .k { color: #9a6a00; }
+html.light .predict { background: #fbf5e3; border-left-color: #d9a520; }
+html.light .ex { background: #fff; border-color: #e0ded6; } html.light .ex.on { border-color: #2563b8; box-shadow: 0 0 0 1px #2563b8 inset; }
+html.light .ex .t { color: #1c1f23; } html.light .ex .st { color: #7a7f86; } html.light .ex .st.ok { color: #2f7d32; }
+html.light .ex .kind { color: #2f7d32; border-color: #b9d8ba; }
+html.light .ex .kind[data-k="Implement"] { color: #2563b8; border-color: #bcd2ea; }
+html.light .ex .kind[data-k="Use"] { color: #9a6a00; border-color: #e6d29a; }
+html.light .ex .kind[data-k="Project"] { color: #8a3fb3; border-color: #dcc4ea; }
+html.light .btn { background: #fff; color: #2f3337; border-color: #cfccc2; } html.light .btn:hover { background: #f0efea; }
+html.light .btn.primary { background: #2563b8; border-color: #2563b8; color: #fff; } html.light .btn.primary:hover { background: #1d4f94; }
+html.light .hint { background: #fbf3e8; border-left-color: #d9822b; }
+html.light .sol pre, html.light .lesson pre.sample { background: #f3f2ed; border-color: #e0ded6; color: #2f3337; }
+html.light .lesson .crumb, html.light .lesson .crumb a { color: #7a7f86; }
+html.light .lnav { border-top-color: #e0ded6; } html.light .lnav a { border-color: #e0ded6; color: #2f3337; background: #fff; }
+html.light .lnav a:hover, html.light .tile:hover { border-color: #2563b8; } html.light .lnav a small { color: #7a7f86; }
+html.light .lesson .intro, html.light .lesson .progress, html.light .lesson h2.sec { color: #5c6168; } html.light .lesson .progress b { color: #2f7d32; }
+html.light .lesson p.note { border-left-color: #cfccc2; color: #5c6168; }
+html.light .tbl.trace code b { color: #2f7d32; } html.light .tbl.trace .pv { color: #8a3fb3; }
+html.light .tile { background: #fff; border-color: #e0ded6; color: #4a4f55; }
+html.light .tile b { color: #1c1f23; } html.light .tile small, html.light .tile .st { color: #7a7f86; }
+html.light .tile.done { border-color: #7fbf83; background: linear-gradient(160deg, #e3f3e3, #fff 70%); box-shadow: 0 0 0 1px #7fbf83 inset; }
+html.light .tile.done .code, html.light .tile.done .st { color: #2f7d32; }
+.top .theme { background: none; border: 0; padding: 0; font: inherit; color: #9da5b4; cursor: pointer; } .top .theme:hover { color: #d7dae0; }

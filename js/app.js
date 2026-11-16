@@ -166,6 +166,15 @@ $('#format').addEventListener('click', () => editor.format());
 $('#reset').addEventListener('click', async () => { if (!ex || !confirm('Replace your code with the starting code of this exercise?')) return; delete S.code[exId(ex)]; save(); editor.value = await text(`${lesson.n}/${ex.id}.go`); });
 $('#edStatus').addEventListener('click', (e) => { if (e.target.closest('#edProblems')) editor.nextProblem(); });
 $('#problems').addEventListener('click', (e) => { const a = e.target.closest('a[data-l]'); if (a) editor.goto(+a.dataset.l, +a.dataset.c); });
+// light or dark course pages; the editor panel is always dark
+const themeBtn = $('#theme');
+const showTheme = () => { themeBtn.textContent = document.documentElement.classList.contains('light') ? 'Dark theme' : 'Light theme'; };
+themeBtn.addEventListener('click', () => {
+  const light = document.documentElement.classList.toggle('light');
+  try { localStorage.setItem('cswithgo:theme', light ? 'light' : 'dark'); } catch {}
+  showTheme();
+});
+showTheme();
 index = await (await fetch('course/index.json')).json();
 $('#nav').innerHTML = '<option value="">Map of the course</option>' + index.sections.map((sec) => `<optgroup label="${esc(sec.title)}">${sec.pages.map((p) => `<option value="${p.n}">${p.n} ${esc(p.title)}</option>`).join('')}</optgroup>`).join('');
 $('#nav').addEventListener('change', () => { const n = $('#nav').value; n ? openLesson(n) : openHome(); });

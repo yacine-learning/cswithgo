@@ -6,10 +6,14 @@
 <title>cswithgo</title>
 <link rel="stylesheet" href="css/editor.css">
 <link rel="stylesheet" href="css/course.css">
+<script>
+  // the theme of the course pages (the editor stays dark): the saved choice, else the system's
+  try { const t = localStorage.getItem('cswithgo:theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); if (t === 'light') document.documentElement.classList.add('light'); } catch {}
+</script>
 </head>
 <body>
 <div class="app">
-  <div class="top"><a class="brand" href="#">cswithgo</a><select id="nav" aria-label="Page"></select><span class="sp"></span><a href="playground.html">Playground</a></div>
+  <div class="top"><a class="brand" href="#">cswithgo</a><select id="nav" aria-label="Page"></select><span class="sp"></span><button class="theme" id="theme" type="button"></button><a href="playground.html">Playground</a></div>
   <article class="lesson" id="lesson"></article>
   <section class="bench vsc">
     <div class="vsc-tabs">
