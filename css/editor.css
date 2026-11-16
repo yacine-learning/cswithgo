@@ -47,3 +47,9 @@ code, pre, .editor, .run-out { font-variant-ligatures: none; }
 .toasts { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 70; display: flex; flex-direction: column; gap: 8px; align-items: center; }
 .toast { padding: 9px 15px; border-radius: 10px; background: #2c313a; color: #d7dae0; border: 1px solid #3e4451; font: 13.5px var(--sans); }
 .run-out pre .pass { color: #98c379; } .run-out pre .fail { color: #e06c75; } .run-out pre .dim { color: #7f848e; }
+/* the drag handle above the output panel (js/splitter.js) */
+.split-h { flex: none; height: 5px; margin: -2px 0; position: relative; z-index: 5; cursor: row-resize; background: transparent; touch-action: none; }
+.split-h::after { content: ""; position: absolute; left: 0; right: 0; top: 2px; height: 1px; background: transparent; transition: background .1s; }
+.split-h:hover::after, body.resizing-h .split-h::after { height: 3px; top: 1px; background: #528bff; }
+body.resizing { user-select: none; } body.resizing-h { cursor: row-resize; } body.resizing-v { cursor: col-resize; }
+body.resizing iframe, body.resizing .cm-editor { pointer-events: none; }

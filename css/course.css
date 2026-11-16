@@ -104,3 +104,14 @@ html.light .tile b { color: #1c1f23; } html.light .tile small, html.light .tile 
 html.light .tile.done { border-color: #7fbf83; background: linear-gradient(160deg, #e3f3e3, #fff 70%); box-shadow: 0 0 0 1px #7fbf83 inset; }
 html.light .tile.done .code, html.light .tile.done .st { color: #2f7d32; }
 .top .theme { background: none; border: 0; padding: 0; font: inherit; color: #9da5b4; cursor: pointer; } .top .theme:hover { color: #d7dae0; }
+/* the drag handle between the course and the code (js/splitter.js) */
+.app { grid-template-columns: var(--course-w, minmax(380px, 46%)) 5px 1fr; }
+.app > .lesson { border-right: 0; }
+.app > .lesson { grid-area: 2 / 1; } .app > .bench { grid-area: 2 / 3; }
+body.home .app > .lesson, body.read .app > .lesson { grid-column: 1 / -1; }
+.split-v { grid-area: 2 / 2; cursor: col-resize; background: #111317; position: relative; touch-action: none; }
+.split-v::after { content: ""; position: absolute; top: 0; bottom: 0; left: 1px; width: 3px; background: transparent; transition: background .1s; }
+.split-v:hover::after, body.resizing-v .split-v::after { background: #528bff; }
+html.light .split-v { background: #dcdad2; }
+body.home .split-v, body.read .split-v { display: none; }
+@media (max-width: 900px) { .split-v, .split-h { display: none; } }

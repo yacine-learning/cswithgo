@@ -2,6 +2,7 @@
 import { Editor } from './editor.js';
 import { toolchain } from './toolchain.js';
 import { run, stop } from './runner.js';
+import { splitOutput } from './splitter.js';
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -66,4 +67,5 @@ $('#format').addEventListener('click', () => editor.format());
 $('#edStatus').addEventListener('click', (e) => { if (e.target.closest('#edProblems')) editor.nextProblem(); });
 $('#problems').addEventListener('click', (e) => { const a = e.target.closest('a[data-l]'); if (a) editor.goto(+a.dataset.l, +a.dataset.c); });
 edStatus();
+splitOutput($('.vsc'), $('.run-out'));
 toolchain.load().then(() => { editor.toolchainReady(); edStatus(); });

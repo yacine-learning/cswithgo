@@ -3,6 +3,7 @@
 import { Editor } from './editor.js';
 import { toolchain } from './toolchain.js';
 import { run, stop } from './runner.js';
+import { splitColumns, splitOutput } from './splitter.js';
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -166,6 +167,9 @@ $('#format').addEventListener('click', () => editor.format());
 $('#reset').addEventListener('click', async () => { if (!ex || !confirm('Replace your code with the starting code of this exercise?')) return; delete S.code[exId(ex)]; save(); editor.value = await text(`${lesson.n}/${ex.id}.go`); });
 $('#edStatus').addEventListener('click', (e) => { if (e.target.closest('#edProblems')) editor.nextProblem(); });
 $('#problems').addEventListener('click', (e) => { const a = e.target.closest('a[data-l]'); if (a) editor.goto(+a.dataset.l, +a.dataset.c); });
+splitColumns($('.app'), $('#lesson'), $('.bench'));
+splitOutput($('.bench'), $('.run-out'));
+
 // light or dark course pages; the editor panel is always dark
 const themeBtn = $('#theme');
 const showTheme = () => { themeBtn.textContent = document.documentElement.classList.contains('light') ? 'Dark theme' : 'Light theme'; };
